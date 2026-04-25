@@ -45,7 +45,7 @@ export function SlotSwapSheet(props: Props) {
           width: 40,
           height: 4,
           borderRadius: 2,
-          backgroundColor: scheme === 'light' ? '#D0D0D0' : '#555',
+          backgroundColor: Borders.hairline[scheme],
           alignSelf: 'center',
           marginBottom: 16,
         }}
@@ -73,7 +73,7 @@ export function SlotSwapSheet(props: Props) {
               style={({ pressed }) => ({
                 flexDirection: 'row',
                 alignItems: 'center',
-                backgroundColor: scheme === 'light' ? '#F5F5F5' : '#2A2A2A',
+                backgroundColor: c.background,
                 borderRadius: Radii.md,
                 padding: 14,
                 marginBottom: 10,
@@ -100,7 +100,7 @@ export function SlotSwapSheet(props: Props) {
               key={i}
               onPress={() => (props as MealSwapProps).onSelect(meal)}
               style={({ pressed }) => ({
-                backgroundColor: scheme === 'light' ? '#F5F5F5' : '#2A2A2A',
+                backgroundColor: c.background,
                 borderRadius: Radii.md,
                 padding: 14,
                 marginBottom: 10,

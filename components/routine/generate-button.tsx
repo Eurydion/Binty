@@ -8,25 +8,38 @@ interface Props {
   onGenerate: () => void;
   isGenerating: boolean;
   error?: string | null;
+  hasRoutine?: boolean;
 }
 
-export function GenerateButton({ onGenerate, isGenerating, error }: Props) {
+export function GenerateButton({ onGenerate, isGenerating, error, hasRoutine }: Props) {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
+
+  const iconName = hasRoutine ? "refresh" : "sparkles-outline";
+  const buttonIcon = hasRoutine ? "refresh" : "sparkles";
+  const title = hasRoutine ? "Routine generated" : "No routine yet";
+  const subtitle = hasRoutine
+    ? "Tap below to regenerate with latest health data."
+    : "Generate a personalized routine based on your health data and goals.";
+  const buttonLabel = isGenerating
+    ? "Generating\u2026"
+    : hasRoutine
+      ? "Regenerate Routine"
+      : "Generate Routine";
 
   return (
     <View style={{ alignItems: 'center', paddingTop: 64, paddingBottom: 32 }}>
       <Ionicons
-        name="sparkles-outline"
+        name={iconName}
         size={48}
         color={Palette.kangkong}
         style={{ marginBottom: 16 }}
       />
       <Text style={{ fontSize: 18, fontWeight: '700', color: c.text, marginBottom: 8 }}>
-        No routine yet
+        {title}
       </Text>
       <Text style={{ fontSize: 14, color: c.iconMuted, textAlign: 'center', marginBottom: 24, paddingHorizontal: 32 }}>
-        Generate a personalized routine based on your health data and goals.
+        {subtitle}
       </Text>
 
       <Pressable
@@ -40,20 +53,21 @@ export function GenerateButton({ onGenerate, isGenerating, error }: Props) {
           paddingVertical: 14,
           borderRadius: Radii.pill,
           opacity: pressed ? 0.85 : 1,
+          minHeight: 44,
           gap: 10,
         })}>
         {isGenerating ? (
-          <ActivityIndicator size="small" color="#FFFFFF" />
+          <ActivityIndicator size="small" color={Palette.cloud} />
         ) : (
-          <Ionicons name="sparkles" size={20} color="#FFFFFF" />
+          <Ionicons name={buttonIcon} size={20} color={Palette.cloud} />
         )}
-        <Text style={{ fontSize: 16, fontWeight: '600', color: '#FFFFFF' }}>
-          {isGenerating ? 'Generating…' : 'Generate Routine'}
+        <Text style={{ fontSize: 16, fontWeight: '600', color: Palette.cloud }}>
+          {buttonLabel}
         </Text>
       </Pressable>
 
       {error && (
-        <Text style={{ fontSize: 12, color: '#D32F2F', marginTop: 12, textAlign: 'center', paddingHorizontal: 24 }}>
+        <Text style={{ fontSize: 12, color: Palette.kamote, marginTop: 12, textAlign: 'center', paddingHorizontal: 24 }}>
           {error}
         </Text>
       )}

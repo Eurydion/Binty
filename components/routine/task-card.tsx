@@ -11,6 +11,9 @@ interface Props {
   completed: boolean;
   isMeal?: boolean;
   isExpanded?: boolean;
+  readOnly?: boolean;
+  icon?: keyof typeof Ionicons.glyphMap;
+  iconColor?: string;
   onToggle: () => void;
   onLongPress?: () => void;
   onPress?: () => void;
@@ -23,6 +26,9 @@ export function TaskCard({
   completed,
   isMeal,
   isExpanded,
+  readOnly,
+  icon,
+  iconColor,
   onToggle,
   onLongPress,
   onPress,
@@ -32,6 +38,7 @@ export function TaskCard({
   const c = Colors[scheme];
 
   function handlePress() {
+    if (readOnly) return;
     if (onPress) {
       onPress();
     } else {
@@ -40,6 +47,7 @@ export function TaskCard({
   }
 
   function handleToggle() {
+    if (readOnly) return;
     if (process.env.EXPO_OS === 'ios') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
@@ -47,6 +55,7 @@ export function TaskCard({
   }
 
   function handleLongPress() {
+    if (readOnly) return;
     if (process.env.EXPO_OS === 'ios') {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     }
@@ -81,7 +90,7 @@ export function TaskCard({
             width: 32,
             height: 32,
             borderRadius: 9999,
-            backgroundColor: completed ? Palette.kangkong : (scheme === 'light' ? '#E8E8E8' : '#3A3A3A'),
+            backgroundColor: completed ? Palette.kangkong : c.background,
             alignItems: 'center',
             justifyContent: 'center',
             marginRight: 14,
@@ -89,9 +98,18 @@ export function TaskCard({
           <Ionicons
             name={completed ? 'checkmark' : 'remove'}
             size={18}
-            color={completed ? '#FFFFFF' : c.iconMuted}
+            color={completed ? Palette.cloud : c.iconMuted}
           />
         </Pressable>
+
+        {icon && (
+          <Ionicons
+            name={icon}
+            size={18}
+            color={completed ? c.iconMuted : (iconColor ?? Palette.kangkong)}
+            style={{ marginRight: 8 }}
+          />
+        )}
 
         <View style={{ flex: 1 }}>
           <Text
