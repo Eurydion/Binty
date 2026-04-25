@@ -59,7 +59,10 @@ export function useAchievementWatcher() {
     return streak;
   }, [history]);
 
-  const lastNight = useMemo(() => generateMockNight(), []);
+  const lastNight = useMemo(
+    () => (connection !== 'disconnected' ? generateMockNight() : null),
+    [connection],
+  );
 
   // Snapshot reads from the latest store state to avoid stale closures.
   const evalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -69,7 +72,7 @@ export function useAchievementWatcher() {
       const stressNow = snapshot.latest.stressLevel;
       const recoveryScore = Math.round(
         0.6 * (100 - stressNow) +
-          0.4 * (lastNight.summary.qualityScore),
+          0.4 * (lastNight?.summary.qualityScore ?? 0),
       );
       const goalMl = profile.dailyWaterGoalMl || 2000;
       const ids = evaluate({

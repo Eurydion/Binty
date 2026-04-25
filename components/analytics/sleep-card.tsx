@@ -8,20 +8,21 @@ import { PressableScale } from '@/components/ui/pressable-scale';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
 import { generateMockNight } from '@/features/sleep/generator';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useHealthStore } from '@/store/use-health-store';
 
 export function SleepCard() {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
   const router = useRouter();
-  const night = useMemo(() => generateMockNight(), []);
-  const { summary } = night;
-  const hours = Math.floor(summary.durationMinutes / 60);
-  const mins = summary.durationMinutes % 60;
+  const connection = useHealthStore((s) => s.connection);
+  const hasData = connection !== 'disconnected';
+  const night = useMemo(() => (hasData ? generateMockNight() : null), [hasData]);
 
   return (
     <View style={{ paddingHorizontal: 24 }}>
       <PressableScale
-        onPress={() => router.push('/sleep-detail')}
+        onPress={() => (hasData ? router.push('/sleep-detail') : undefined)}
+        disabled={!hasData}
         style={{
           backgroundColor: c.surface,
           borderRadius: Radii.lg,
@@ -37,32 +38,57 @@ export function SleepCard() {
               LAST NIGHT&apos;S SLEEP
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={16} color={c.iconMuted} />
+          {hasData ? (
+            <Ionicons name="chevron-forward" size={16} color={c.iconMuted} />
+          ) : null}
         </View>
 
-        <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 8 }}>
-          <Text style={{ fontSize: 30, fontWeight: '700', color: c.text }}>
-            {hours}
-            <Text style={{ fontSize: 14, fontWeight: '500', color: c.iconMuted }}>h</Text> {mins}
-            <Text style={{ fontSize: 14, fontWeight: '500', color: c.iconMuted }}>m</Text>
-          </Text>
-          <View
-            style={{
-              backgroundColor: Palette.silverBlue + '33',
-              paddingHorizontal: 10,
-              paddingVertical: 4,
-              borderRadius: Radii.pill,
-            }}
-          >
-            <Text style={{ fontSize: 11, fontWeight: '700', color: Palette.silverBlue }}>
-              {summary.quality.toUpperCase()} · {summary.qualityScore}
+        {night ? (
+          <>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'flex-end',
+                justifyContent: 'space-between',
+                marginTop: 8,
+              }}
+            >
+              <Text style={{ fontSize: 30, fontWeight: '700', color: c.text }}>
+                {Math.floor(night.summary.durationMinutes / 60)}
+                <Text style={{ fontSize: 14, fontWeight: '500', color: c.iconMuted }}>h</Text>{' '}
+                {night.summary.durationMinutes % 60}
+                <Text style={{ fontSize: 14, fontWeight: '500', color: c.iconMuted }}>m</Text>
+              </Text>
+              <View
+                style={{
+                  backgroundColor: Palette.silverBlue + '33',
+                  paddingHorizontal: 10,
+                  paddingVertical: 4,
+                  borderRadius: Radii.pill,
+                }}
+              >
+                <Text style={{ fontSize: 11, fontWeight: '700', color: Palette.silverBlue }}>
+                  {night.summary.quality.toUpperCase()} · {night.summary.qualityScore}
+                </Text>
+              </View>
+            </View>
+
+            <View style={{ marginTop: 14 }}>
+              <SleepTimeline night={night} height={48} showAxis />
+            </View>
+          </>
+        ) : (
+          <View style={{ paddingVertical: 18, alignItems: 'center' }}>
+            <Text style={{ fontSize: 30, fontWeight: '700', color: c.text }}>
+              0
+              <Text style={{ fontSize: 14, fontWeight: '500', color: c.iconMuted }}>h</Text> 0
+              <Text style={{ fontSize: 14, fontWeight: '500', color: c.iconMuted }}>m</Text>
+            </Text>
+            <Text style={{ fontSize: 12, color: c.iconMuted, marginTop: 6 }}>
+              Connect smartwatch to log sleep
             </Text>
           </View>
-        </View>
-
-        <View style={{ marginTop: 14 }}>
-          <SleepTimeline night={night} height={48} showAxis />
-        </View>
+        )}
       </PressableScale>
     </View>
   );

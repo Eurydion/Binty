@@ -1,11 +1,12 @@
-import { Stack } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { Stack, useRouter } from 'expo-router';
 import { useMemo } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { SleepRing } from '@/components/analytics/sleep-ring';
 import { SleepTimeline } from '@/components/analytics/sleep-timeline';
-import { Borders, Colors, Radii, Spacing } from '@/constants/theme';
+import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
 import { generateMockNight } from '@/features/sleep/generator';
 import {
   STAGE_COLORS,
@@ -15,13 +16,62 @@ import {
   type SleepStage,
 } from '@/features/sleep/types';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useHealthStore } from '@/store/use-health-store';
 
 export default function SleepDetailScreen() {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
-  const night = useMemo(() => generateMockNight(), []);
-  const { summary } = night;
+  const router = useRouter();
+  const connection = useHealthStore((s) => s.connection);
+  const hasData = connection !== 'disconnected';
+  const night = useMemo(() => (hasData ? generateMockNight() : null), [hasData]);
 
+  if (!night) {
+    return (
+      <>
+        <Stack.Screen options={{ title: 'Sleep' }} />
+        <SafeAreaView style={{ flex: 1, backgroundColor: c.background }} edges={['top']}>
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+            <Ionicons name="moon-outline" size={48} color={c.iconMuted} />
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: '700',
+                color: c.text,
+                marginTop: 12,
+              }}
+            >
+              No sleep data yet
+            </Text>
+            <Text
+              style={{
+                fontSize: 13,
+                color: c.iconMuted,
+                marginTop: 6,
+                textAlign: 'center',
+                maxWidth: 260,
+              }}
+            >
+              Connect your smartwatch from the Analytics tab to start tracking sleep stages.
+            </Text>
+            <Text
+              onPress={() => router.back()}
+              style={{
+                marginTop: 18,
+                color: Palette.kangkong,
+                fontWeight: '700',
+                fontSize: 13,
+              }}
+            >
+              Go back
+            </Text>
+          </View>
+        </SafeAreaView>
+      </>
+    );
+  }
+
+  const { summary } = night;
   const totals: Record<SleepStage, number> = {
     awake: summary.awake,
     light: summary.light,

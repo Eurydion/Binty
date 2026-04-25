@@ -28,10 +28,10 @@ let _tickIndex = 0;
 let _connection: ConnectionState = 'disconnected';
 let _scenario: Scenario = 'resting';
 
-let _hr = 72;
-let _hrv = 50;
-let _stress = 25;
-let _spo2 = 98;
+let _hr = 0;
+let _hrv = 0;
+let _stress = 0;
+let _spo2 = 0;
 let _steps = 0;
 
 let _history: HistorySample[] = [];
@@ -68,6 +68,16 @@ function generateSleep(): SleepData {
 }
 
 function buildReading(): HealthReading {
+  if (_connection === 'disconnected') {
+    return {
+      timestamp: Date.now(),
+      heartRate: 0,
+      hrv: 0,
+      steps: 0,
+      spo2: 0,
+      stressLevel: 0,
+    };
+  }
   return {
     timestamp: Date.now(),
     heartRate: Math.round(_hr),
@@ -82,8 +92,11 @@ function buildSnapshot(): HealthSnapshot {
   const reading = buildReading();
   return {
     latest: reading,
-    sleep: generateSleep(),
-    detectedState: deriveState(reading.heartRate, reading.hrv, reading.stressLevel),
+    sleep: _connection === 'disconnected' ? null : generateSleep(),
+    detectedState:
+      _connection === 'disconnected'
+        ? 'calm'
+        : deriveState(reading.heartRate, reading.hrv, reading.stressLevel),
     source: 'simulated',
   };
 }
@@ -152,16 +165,25 @@ function clearTimer() {
 }
 
 export function connect() {
+  // Initialize simulator at the current scenario's target so the first
+  // sample is realistic (avoids reusing values from a previous session).
+  const preset = SCENARIOS[_scenario];
+  _hr = preset.hr.target;
+  _hrv = preset.hrv.target;
+  _stress = preset.stress.target;
+  _spo2 = preset.spo2.target;
+  _steps = 0;
+  _tickIndex = 0;
+  _history = [];
+
   _connection = 'connected';
-  if (_history.length === 0) {
-    _history.push({
-      ts: Date.now(),
-      bpm: Math.round(_hr),
-      stress: Math.round(_stress),
-      steps: Math.round(_steps),
-      hrv: Math.round(_hrv),
-    });
-  }
+  _history.push({
+    ts: Date.now(),
+    bpm: Math.round(_hr),
+    stress: Math.round(_stress),
+    steps: Math.round(_steps),
+    hrv: Math.round(_hrv),
+  });
   ensureInterval();
   broadcast();
 }
@@ -185,6 +207,11 @@ export function disconnect() {
   clearTimer();
   _tickIndex = 0;
   _history = [];
+  _hr = 0;
+  _hrv = 0;
+  _stress = 0;
+  _spo2 = 0;
+  _steps = 0;
   broadcast();
 }
 
