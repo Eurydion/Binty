@@ -2,9 +2,12 @@ export type WellnessGoal = 'stress-reduction' | 'weight-loss' | 'muscle-gain' | 
 
 export type IntensityPreference = 'light' | 'moderate' | 'intense';
 
+export type Gender = 'male' | 'female';
+
 export interface UserProfile {
   id: string;
   name: string;
+  gender?: Gender;
   weightKg?: number;
   heightCm?: number;
   age?: number;

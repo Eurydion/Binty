@@ -1,20 +1,29 @@
 import type { HealthSnapshot } from '@/types/health';
 import type { DailyRoutine } from '@/types/routine';
 import type { UserProfile } from '@/types/user';
+import { generateRoutineWithAI } from './ai-generator';
 
 /**
- * Generates a daily routine based on user profile and current health snapshot.
- * Returns a structured DailyRoutine with morning/afternoon/evening blocks.
+ * Generates a daily routine using the AI service.
+ * Falls back to an empty routine if the AI is not configured.
  */
-export function generateRoutine(user: UserProfile, health: HealthSnapshot): DailyRoutine {
-  const date = new Date().toISOString().split('T')[0];
-  const now = Date.now();
+export async function generateRoutine(
+  user: UserProfile,
+  health: HealthSnapshot,
+  date?: string,
+): Promise<DailyRoutine> {
+  const targetDate = date ?? new Date().toISOString().split('T')[0];
 
-  // Placeholder — full rule-based generation to be implemented
+  const hasAI = !!process.env.EXPO_PUBLIC_AI_API_KEY;
+  if (hasAI) {
+    return generateRoutineWithAI(user, health, targetDate);
+  }
+
+  // Fallback: empty routine when AI is not configured
   return {
-    date,
+    date: targetDate,
     blocks: [],
-    generatedAt: now,
+    generatedAt: Date.now(),
     adaptedAt: null,
   };
 }

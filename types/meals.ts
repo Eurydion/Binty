@@ -14,9 +14,10 @@ export interface Meal {
   nameTagalog?: string;
   category: 'breakfast' | 'lunch' | 'dinner' | 'snack';
   ingredients: Ingredient[];
-  estimatedCostPhp?: number;   // calculated from ingredients
+  recipe?: string;               // cooking instructions
+  estimatedCostPhp?: number;     // calculated from ingredients
   calories?: number;
-  tags: string[];              // e.g. ["high-protein", "calming", "light"]
+  tags: string[];                // e.g. ["high-protein", "calming", "light"]
   prepMinutes: number;
 }
 
