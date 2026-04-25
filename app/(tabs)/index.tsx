@@ -1,10 +1,10 @@
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { HeartBpmCard } from '@/components/cards/heart-bpm-card';
 import { TodaysPlanCard } from '@/components/cards/todays-plan-card';
 import { WaterIntakeCard } from '@/components/cards/water-intake-card';
 import { BintyInsight } from '@/components/home/binty-insight';
+import { HeartPulseCard } from '@/components/home/heart-pulse-card';
 import { ScreenHeader } from '@/components/ui/screen-header';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -15,7 +15,7 @@ import { useUserStore } from '@/store/use-user-store';
 export default function HomeScreen() {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
-  const snapshot = useSmartwatch();
+  const { snapshot } = useSmartwatch();
   const profile = useUserStore((s) => s.profile);
   const { waterLoggedMl } = useRoutineStore();
 
@@ -37,10 +37,9 @@ export default function HomeScreen() {
             alignItems: 'stretch',
             gap: 12,
             paddingHorizontal: 24,
-            height: 160, // ← add this
           }}
         >
-          <HeartBpmCard bpm={snapshot.latest.heartRate} />
+          <HeartPulseCard bpm={snapshot.latest.heartRate} />
           <WaterIntakeCard
             loggedMl={waterLoggedMl}
             goalMl={profile.dailyWaterGoalMl}

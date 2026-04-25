@@ -1,19 +1,54 @@
-import { adjustBpm, getSnapshot, setManualBpm } from '@/features/smartwatch/simulator';
-import type { HealthSnapshot } from '@/types/health';
 import { create } from 'zustand';
+
+import {
+  connect as simConnect,
+  disconnect as simDisconnect,
+  getState as simGetState,
+  pause as simPause,
+  resume as simResume,
+  setScenario as simSetScenario,
+  subscribe as simSubscribe,
+  type ConnectionState,
+  type HistorySample,
+  type SimulatorState,
+} from '@/features/smartwatch/simulator';
+import type { Scenario } from '@/features/simulation/scenarios';
+import type { HealthSnapshot } from '@/types/health';
 
 interface HealthState {
   snapshot: HealthSnapshot;
-  refresh: () => void;
+  connection: ConnectionState;
+  scenario: Scenario;
+  history: HistorySample[];
   setSnapshot: (snapshot: HealthSnapshot) => void;
-  setBpm: (bpm: number) => void;
-  adjustBpm: (delta: number) => void;
+  connect: () => void;
+  pause: () => void;
+  resume: () => void;
+  disconnect: () => void;
+  setScenario: (scenario: Scenario) => void;
 }
 
+const initial = simGetState();
+
 export const useHealthStore = create<HealthState>((set) => ({
-  snapshot: getSnapshot(),
-  refresh: () => set({ snapshot: getSnapshot() }),
+  snapshot: initial.snapshot,
+  connection: initial.connection,
+  scenario: initial.scenario,
+  history: initial.history,
   setSnapshot: (snapshot) => set({ snapshot }),
-  setBpm: (bpm) => set({ snapshot: setManualBpm(bpm) }),
-  adjustBpm: (delta) => set({ snapshot: adjustBpm(delta) }),
+  connect: () => simConnect(),
+  pause: () => simPause(),
+  resume: () => simResume(),
+  disconnect: () => simDisconnect(),
+  setScenario: (scenario) => simSetScenario(scenario),
 }));
+
+// Bridge simulator → store (single subscription, lives for app lifetime)
+simSubscribe((state: SimulatorState) => {
+  useHealthStore.setState({
+    snapshot: state.snapshot,
+    connection: state.connection,
+    scenario: state.scenario,
+    history: state.history,
+  });
+});

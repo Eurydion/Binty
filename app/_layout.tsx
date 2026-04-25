@@ -16,9 +16,12 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="heart-rate" options={{ title: 'Heart Rate' }} />
         <Stack.Screen name="modals/intervention" options={{ presentation: 'modal', title: 'Alert' }} />
         <Stack.Screen name="modals/log-meal" options={{ presentation: 'modal', title: 'Log Meal' }} />
         <Stack.Screen name="modals/log-water" options={{ presentation: 'modal', title: 'Log Water' }} />
+        <Stack.Screen name="modals/insights" options={{ presentation: 'modal', title: 'Insights' }} />
+        <Stack.Screen name="modals/scenario-picker" options={{ presentation: 'modal', title: 'Trigger Simulation' }} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
