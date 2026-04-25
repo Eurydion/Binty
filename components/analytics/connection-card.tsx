@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Text, View } from 'react-native';
 
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { useHealthStore } from '@/store/use-health-store';
 
 export function ConnectionCard() {

@@ -2,8 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useCallback, useMemo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Colors, Palette, Radii, Spacing } from '@/constants/theme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 
 const DAY_LABELS = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 

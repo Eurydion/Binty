@@ -1,7 +1,7 @@
 import { Pressable, ScrollView, Text, View } from 'react-native';
 
 import { Colors, Palette, Radii } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 
 export type RoutineCategory = 'All' | 'Fitness' | 'Consumption' | 'Work' | 'Mindfulness';
 

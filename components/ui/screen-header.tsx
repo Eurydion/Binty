@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Text, View } from 'react-native';
 
 import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 
 interface Props {
   title: string;

@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
 import { Borders, Colors, Palette } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { useRoutineStore } from '@/store/use-routine-store';
 import type { RoutineSlot } from '@/types/routine';
 

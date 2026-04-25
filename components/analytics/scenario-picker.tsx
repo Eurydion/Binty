@@ -3,8 +3,8 @@ import { useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
 import { Borders, Colors, Palette, Radii } from '@/constants/theme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { SCENARIOS } from '@/features/simulation/scenarios';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useHealthStore } from '@/store/use-health-store';
 
 export function ScenarioPicker() {

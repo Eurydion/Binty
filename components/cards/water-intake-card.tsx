@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, Easing, Pressable, Text, View } from 'react-native';
 
 import { Borders, Colors, Palette } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 
 import { FloatingBubble } from '../effects/FloatingBubble';
 

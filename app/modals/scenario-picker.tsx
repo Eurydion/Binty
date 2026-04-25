@@ -4,8 +4,8 @@ import { Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { SCENARIO_LIST, type Scenario } from '@/features/simulation/scenarios';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useHealthStore } from '@/store/use-health-store';
 
 const MOOD_COLOR: Record<Scenario, string> = {

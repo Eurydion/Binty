@@ -6,8 +6,8 @@ import { Text, View } from 'react-native';
 import { SleepTimeline } from '@/components/analytics/sleep-timeline';
 import { PressableScale } from '@/components/ui/pressable-scale';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { generateMockNight } from '@/features/sleep/generator';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useHealthStore } from '@/store/use-health-store';
 
 export function SleepCard() {

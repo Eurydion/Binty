@@ -8,7 +8,7 @@ import { StatusPill } from '@/components/heart/status-pill';
 import { bpmStatus, trendFromHistory } from '@/components/heart/status-utils';
 import { PressableScale } from '@/components/ui/pressable-scale';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { useHealthStore } from '@/store/use-health-store';
 
 interface Props {

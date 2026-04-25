@@ -9,7 +9,7 @@ import { NoiseOverlay } from '@/components/effects/noise-overlay';
 import { Borders, Colors, Radii, Spacing } from '@/constants/theme';
 import { ACHIEVEMENTS, TOTAL_POINTS } from '@/features/achievements/catalog';
 import { RANKS, rankFor } from '@/features/achievements/ranks';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { useAchievementsStore } from '@/store/use-achievements-store';
 
 export default function AchievementsScreen() {
@@ -25,7 +25,7 @@ export default function AchievementsScreen() {
   return (
     <>
       <Stack.Screen options={{ title: 'Achievements' }} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: c.background }} edges={['top']}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: c.background }} >
         <ScrollView contentContainerStyle={{ paddingVertical: 24, gap: 20 }}>
           {/* Hero — rank */}
           <View style={{ paddingHorizontal: 24 }}>

@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
 
 import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { useHabitsStore } from '@/store/use-habits-store';
 
 /** Compact flame chip rendering the user's current overall habit streak. */

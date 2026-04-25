@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 import { MascotPortrait } from '@/components/home/mascot-portrait';
 import { Borders, Colors, Palette } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import type { EmotionalState } from '@/types/health';
 
 type IoniconName = React.ComponentProps<typeof Ionicons>['name'];

@@ -3,7 +3,7 @@ import * as Haptics from 'expo-haptics';
 import { Pressable, Text, View } from 'react-native';
 
 import { Borders, Colors, Palette, Radii } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 
 interface Props {
   title: string;

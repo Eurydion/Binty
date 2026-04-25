@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 import { Colors, Radii } from '@/constants/theme';
 import type { Achievement } from '@/features/achievements/types';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 
 interface Props {
   achievement: Achievement;

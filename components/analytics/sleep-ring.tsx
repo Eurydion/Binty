@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 import Svg, { Circle, G } from 'react-native-svg';
 
 import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import {
   STAGE_COLORS,
   STAGE_LABELS,
@@ -9,7 +10,6 @@ import {
   type SleepNight,
   type SleepStage,
 } from '@/features/sleep/types';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
 interface Props {
   night: SleepNight;
