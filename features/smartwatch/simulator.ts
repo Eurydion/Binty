@@ -3,8 +3,14 @@ import type { EmotionalState, HealthReading, HealthSnapshot, SleepData } from '@
 let _interval: ReturnType<typeof setInterval> | null = null;
 let _listeners: ((snapshot: HealthSnapshot) => void)[] = [];
 
-function randomBetween(min: number, max: number): number {
-  return Math.round(Math.random() * (max - min) + min);
+const DEFAULT_BPM = 72;
+let _currentBpm = DEFAULT_BPM;
+let _currentHrv = 50;
+let _currentSpo2 = 98;
+let _currentSteps = 0;
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, value));
 }
 
 function deriveState(hr: number, hrv: number, stress: number): EmotionalState {
@@ -15,23 +21,24 @@ function deriveState(hr: number, hrv: number, stress: number): EmotionalState {
   return 'calm';
 }
 
-export function generateReading(): HealthReading {
-  const heartRate = randomBetween(58, 115);
-  const hrv = randomBetween(10, 80);
-  const stressLevel = Math.round(Math.max(0, Math.min(100, (100 - hrv) * 0.7 + (heartRate - 60) * 0.3)));
+function computeStress(hr: number, hrv: number): number {
+  return Math.round(clamp((100 - hrv) * 0.7 + (hr - 60) * 0.3, 0, 100));
+}
 
+export function generateReading(): HealthReading {
+  const stressLevel = computeStress(_currentBpm, _currentHrv);
   return {
     timestamp: Date.now(),
-    heartRate,
-    hrv,
-    steps: randomBetween(0, 15000),
-    spo2: randomBetween(94, 100),
+    heartRate: _currentBpm,
+    hrv: _currentHrv,
+    steps: _currentSteps,
+    spo2: _currentSpo2,
     stressLevel,
   };
 }
 
 export function generateSleep(): SleepData {
-  const duration = randomBetween(240, 540);
+  const duration = 420;
   return {
     date: new Date().toISOString().split('T')[0],
     durationMinutes: duration,
@@ -52,13 +59,30 @@ export function getSnapshot(): HealthSnapshot {
   };
 }
 
-export function startSimulator(onUpdate: (snapshot: HealthSnapshot) => void, intervalMs = 30000): void {
-  _listeners.push(onUpdate);
-  if (_interval) return;
-  _interval = setInterval(() => {
-    const snapshot = getSnapshot();
-    _listeners.forEach((cb) => cb(snapshot));
-  }, intervalMs);
+export function getCurrentBpm(): number {
+  return _currentBpm;
+}
+
+function broadcast(): HealthSnapshot {
+  const snapshot = getSnapshot();
+  _listeners.forEach((cb) => cb(snapshot));
+  return snapshot;
+}
+
+export function setManualBpm(bpm: number): HealthSnapshot {
+  _currentBpm = clamp(Math.round(bpm), 30, 220);
+  return broadcast();
+}
+
+export function adjustBpm(delta: number): HealthSnapshot {
+  return setManualBpm(_currentBpm + delta);
+}
+
+export function startSimulator(onUpdate: (snapshot: HealthSnapshot) => void, _intervalMs = 30000): void {
+  if (!_listeners.includes(onUpdate)) {
+    _listeners.push(onUpdate);
+  }
+  onUpdate(getSnapshot());
 }
 
 export function stopSimulator(): void {

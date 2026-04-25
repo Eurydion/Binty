@@ -10,10 +10,9 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
       }}>
-      <Tabs.Screen name="routine" options={{ title: 'Routine' }} />
       <Tabs.Screen name="index" options={{ title: 'Home' }} />
+      <Tabs.Screen name="routine" options={{ title: 'Routine' }} />
       <Tabs.Screen name="analytics" options={{ title: 'Analytics' }} />
-      <Tabs.Screen name="explore" options={{ href: null }} />
     </Tabs>
   );
 }
