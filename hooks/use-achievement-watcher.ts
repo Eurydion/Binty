@@ -4,6 +4,7 @@ import { evaluate } from '@/features/achievements/engine';
 import { generateMockNight } from '@/features/sleep/generator';
 import { SCENARIOS } from '@/features/simulation/scenarios';
 import { useAchievementsStore } from '@/store/use-achievements-store';
+import { useHabitsStore } from '@/store/use-habits-store';
 import { useHealthStore } from '@/store/use-health-store';
 import { useRoutineStore } from '@/store/use-routine-store';
 import { useUserStore } from '@/store/use-user-store';
@@ -69,6 +70,11 @@ export function useAchievementWatcher() {
   useEffect(() => {
     const tick = () => {
       const ach = useAchievementsStore.getState();
+      const habitsState = useHabitsStore.getState();
+      const habitStreakDays = habitsState.habits.reduce(
+        (max, h) => Math.max(max, habitsState.currentStreak(h.id)),
+        habitsState.overallStreak(),
+      );
       const stressNow = snapshot.latest.stressLevel;
       const recoveryScore = Math.round(
         0.6 * (100 - stressNow) +
@@ -88,6 +94,7 @@ export function useAchievementWatcher() {
         sawPanicSpike: ach.sawPanicSpike,
         usedBreathIntervention: ach.usedBreathIntervention,
         lastNight,
+        habitStreakDays,
         alreadyUnlocked: new Set(
           Object.values(ach.byId)
             .filter((a) => a.unlockedAt != null)

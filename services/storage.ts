@@ -34,4 +34,7 @@ export const STORAGE_KEYS = {
   ROUTINE: 'binty:routine',
   MEAL_LOGS: 'binty:meal-logs',
   WATER_LOG: 'binty:water-log',
+  ACHIEVEMENTS: 'binty:achievements',
+  SAVED_TIPS: 'binty:saved-tips',
+  HABITS: 'binty:habits',
 } as const;

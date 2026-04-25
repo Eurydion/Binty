@@ -1,5 +1,6 @@
 import { generateRoutine } from '@/features/wellness-engine/generator';
 import { generateRoutineWithAI } from '@/features/wellness-engine/ai-generator';
+import { formatDate } from '@/lib/date';
 import { save, load, remove, getAllKeys, ROUTINE_PREFIX, STORAGE_KEYS } from '@/services/storage';
 import type { HealthSnapshot } from '@/types/health';
 import type { MealLog, Meal } from '@/types/meals';
@@ -12,10 +13,6 @@ const MAX_CACHED_DAYS = 14;
 
 function routineKeyForDate(date: string): string {
   return ROUTINE_PREFIX + date;
-}
-
-function formatDate(d: Date): string {
-  return d.toISOString().split('T')[0];
 }
 
 async function cleanupOldRoutines(keepDates: Set<string>): Promise<void> {

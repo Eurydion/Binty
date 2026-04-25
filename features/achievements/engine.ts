@@ -13,6 +13,8 @@ export interface EvalSnapshot {
   sawPanicSpike: boolean;
   usedBreathIntervention: boolean;
   lastNight: SleepNight | null;
+  /** Best current habit streak across all habits. */
+  habitStreakDays: number;
   alreadyUnlocked: Set<string>;
 }
 
@@ -38,6 +40,12 @@ export function evaluate(s: EvalSnapshot): string[] {
   try_('steady-pulse', s.steadyBpmStreakSec >= 60);
   try_('daily-sip', s.waterLogsToday >= 3);
   try_('mindful-pause', s.usedBreathIntervention);
+
+  try_('streak-3', s.habitStreakDays >= 3);
+  try_('streak-7', s.habitStreakDays >= 7);
+  try_('streak-14', s.habitStreakDays >= 14);
+  try_('streak-30', s.habitStreakDays >= 30);
+  try_('streak-100', s.habitStreakDays >= 100);
 
   return unlocks;
 }

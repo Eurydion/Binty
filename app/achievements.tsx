@@ -7,7 +7,7 @@ import { AchievementBadge } from '@/components/achievements/badge';
 import { DotPattern } from '@/components/effects/dot-pattern';
 import { NoiseOverlay } from '@/components/effects/noise-overlay';
 import { Borders, Colors, Radii, Spacing } from '@/constants/theme';
-import { ACHIEVEMENTS } from '@/features/achievements/catalog';
+import { ACHIEVEMENTS, TOTAL_POINTS } from '@/features/achievements/catalog';
 import { RANKS, rankFor } from '@/features/achievements/ranks';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAchievementsStore } from '@/store/use-achievements-store';
@@ -16,9 +16,11 @@ export default function AchievementsScreen() {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
   const byId = useAchievementsStore((s) => s.byId);
+  const totalPointsFn = useAchievementsStore((s) => s.totalPoints);
   const total = ACHIEVEMENTS.length;
   const unlocked = Object.values(byId).filter((a) => a.unlockedAt != null).length;
-  const rp = rankFor(unlocked);
+  const points = totalPointsFn();
+  const rp = rankFor(points);
 
   return (
     <>
@@ -74,7 +76,7 @@ export default function AchievementsScreen() {
                     {rp.current.label}
                   </Text>
                   <Text style={{ fontSize: 12, color: '#FFFFFFCC', marginTop: 2 }}>
-                    {unlocked} / {total} unlocked
+                    {points} / {TOTAL_POINTS} pts · {unlocked}/{total} unlocked
                   </Text>
                 </View>
               </View>
@@ -140,7 +142,7 @@ export default function AchievementsScreen() {
               }}
             >
               {RANKS.map((r) => {
-                const reached = unlocked >= r.minUnlocked;
+                const reached = points >= r.minPoints;
                 const isCurrent = rp.current.id === r.id;
                 return (
                   <View key={r.id} style={{ alignItems: 'center', flex: 1 }}>

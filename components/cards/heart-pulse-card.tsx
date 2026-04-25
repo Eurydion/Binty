@@ -55,8 +55,9 @@ export function HeartPulseCard({ bpm, variant = 'compact' }: Props) {
         </View>
         <Text style={{ fontSize: 64, fontWeight: '700', color: c.text, marginTop: 12 }}>{bpm}</Text>
         <Text style={{ fontSize: 14, color: c.iconMuted, marginTop: -4, marginBottom: 8 }}>BPM</Text>
-        <StatusPill label={status.label} color={status.color} size="md" />
-      </View>
+        <View style={{ alignItems: 'center' }}>
+          <StatusPill label={status.label} color={status.color} size="md" />
+        </View>      </View>
     );
   }
 
@@ -79,13 +80,27 @@ export function HeartPulseCard({ bpm, variant = 'compact' }: Props) {
           justifyContent: 'space-between',
         }}
       >
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-            <PulseIcon bpm={bpm} active={active} size={20} color={status.color} />
-            <Text style={{ fontSize: 11, fontWeight: '700', color: c.iconMuted, letterSpacing: 0.4 }}>
-              HEART RATE
-            </Text>
-          </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center', // 🔥 center everything
+            gap: 3,
+          }}
+        >
+          <PulseIcon bpm={bpm} active={active} size={20} color={status.color} />
+
+          <Text
+            style={{
+              fontSize: 11,
+              fontWeight: '700',
+              color: c.iconMuted,
+              letterSpacing: 0.4,
+            }}
+          >
+            HEART RATE
+          </Text>
+
           <Ionicons name="chevron-forward" size={16} color={c.iconMuted} />
         </View>
 

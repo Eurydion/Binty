@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { LineChart } from '@/components/charts/line-chart';
 import { HeartPulseCard } from '@/components/cards/heart-pulse-card';
+import { LineChart } from '@/components/charts/line-chart';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
 import { SCENARIOS } from '@/features/simulation/scenarios';
 import { useColorScheme } from '@/hooks/use-color-scheme';

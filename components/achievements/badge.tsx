@@ -11,19 +11,13 @@ interface Props {
   size?: number;
 }
 
-const TIER_RING: Record<Achievement['tier'], string> = {
-  bronze: '#C28868',
-  silver: '#A8B3C2',
-  gold: '#E0B84A',
-};
-
 export function AchievementBadge({ achievement, unlocked, size = 84 }: Props) {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
-  const ring = TIER_RING[achievement.tier];
   const inner = size - 10;
   const fill = unlocked ? '#FFFFFF' : c.iconMuted;
   const innerBg = unlocked ? achievement.color : c.surface;
+  const ring = achievement.color;
 
   return (
     <View style={{ alignItems: 'center', gap: 6 }}>
@@ -94,7 +88,7 @@ export function AchievementBadge({ achievement, unlocked, size = 84 }: Props) {
         <Text
           style={{ fontSize: 9, fontWeight: '700', color: ring, letterSpacing: 0.4 }}
         >
-          {achievement.tier.toUpperCase()}
+          +{achievement.points} PTS
         </Text>
       </View>
     </View>

@@ -5,7 +5,6 @@ import { ConnectionCard } from '@/components/analytics/connection-card';
 import { HeartRateChartCard } from '@/components/analytics/heart-rate-chart-card';
 import { KeyMetricsStrip, pctDelta, trendOf } from '@/components/analytics/key-metrics-strip';
 import { LearnMoreCard } from '@/components/analytics/learn-more-card';
-import { QuoteCard } from '@/components/analytics/quote-card';
 import { ScenarioPicker } from '@/components/analytics/scenario-picker';
 import { SleepCard } from '@/components/analytics/sleep-card';
 import { ScreenHeader } from '@/components/ui/screen-header';
@@ -40,10 +39,7 @@ export default function AnalyticsScreen() {
       >
         <ScreenHeader title="Analytics" />
 
-        {/* 1. Daily quote */}
-        <QuoteCard />
-
-        {/* 2. Connection */}
+        {/* 1. Connection */}
         <ConnectionCard />
 
         {/* 3. Scenario picker (when connected/paused) */}

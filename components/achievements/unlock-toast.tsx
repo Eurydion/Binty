@@ -8,6 +8,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import { MilestoneBurst } from '@/components/achievements/milestone-burst';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
 import { ACHIEVEMENTS_BY_ID } from '@/features/achievements/catalog';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -47,10 +48,30 @@ export function UnlockToast({ achievementId, onDone }: Props) {
 
   if (!a) return null;
 
+  const isMilestone = achievementId.startsWith('streak-');
+
   return (
-    <Animated.View
-      pointerEvents="none"
-      style={[
+    <>
+      {isMilestone ? (
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            {
+              position: 'absolute',
+              top: 12,
+              left: 0,
+              right: 0,
+              alignItems: 'center',
+            },
+            wrapStyle,
+          ]}
+        >
+          <MilestoneBurst color={a.color} />
+        </Animated.View>
+      ) : null}
+      <Animated.View
+        pointerEvents="none"
+        style={[
         {
           position: 'absolute',
           top: 56,
@@ -104,5 +125,6 @@ export function UnlockToast({ achievementId, onDone }: Props) {
         </Text>
       </View>
     </Animated.View>
+    </>
   );
 }

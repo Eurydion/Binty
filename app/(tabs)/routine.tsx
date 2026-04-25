@@ -14,6 +14,7 @@ import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
 import { enrichMealWithPrices, calculateMealCost } from '@/features/meals/ingredient-calculator';
 import { fetchMarketPrices } from '@/features/meals/market-api';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { formatDate } from '@/lib/date';
 import { useHealthStore } from '@/store/use-health-store';
 import { useMarketStore } from '@/store/use-market-store';
 import { useRoutineStore } from '@/store/use-routine-store';
@@ -33,7 +34,7 @@ type SwapSheet =
   | { visible: true; slotId: string; kind: 'meal'; currentTitle: string; alternatives: Meal[] }
   | { visible: false };
 
-const MEAL_ICON: Record<string, string> = {
+const MEAL_ICON: Record<string, keyof typeof Ionicons.glyphMap> = {
   breakfast: 'restaurant-outline',
   lunch: 'restaurant-outline',
   dinner: 'restaurant-outline',
@@ -44,14 +45,6 @@ const MONTH_NAMES = [
   'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
-
-function isSameDay(a: Date, b: Date): boolean {
-  return (
-    a.getFullYear() === b.getFullYear() &&
-    a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate()
-  );
-}
 
 export default function RoutineScreen() {
   const scheme = useColorScheme() ?? 'light';
@@ -97,16 +90,14 @@ export default function RoutineScreen() {
   const routineDateSet = useMemo(() => new Set(Object.keys(routineCache)), [routineCache]);
   const streakDates = useMemo(() => {
     if (routineDateSet.size === 0) return new Set<string>();
-    const fmt = (d: Date) =>
-      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    const todayKey = fmt(today);
+    const todayKey = formatDate(today);
     const dates = new Set<string>();
     const d = new Date(today);
     if (!routineDateSet.has(todayKey)) {
       d.setDate(d.getDate() - 1);
     }
     while (true) {
-      const key = fmt(d);
+      const key = formatDate(d);
       if (routineDateSet.has(key)) {
         dates.add(key);
         d.setDate(d.getDate() - 1);

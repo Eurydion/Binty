@@ -1,6 +1,12 @@
 import { Palette } from '@/constants/theme';
 import type { Achievement } from './types';
 
+/**
+ * Point values:
+ *   small  10 — quick / first-time actions
+ *   medium 25 — sustained behaviour or threshold reached
+ *   large  50 — rare / hard-won milestones
+ */
 export const ACHIEVEMENTS: Achievement[] = [
   {
     id: 'first-connect',
@@ -8,7 +14,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Pair your smartwatch for the first time.',
     icon: 'watch',
     color: Palette.teal,
-    tier: 'bronze',
+    points: 10,
   },
   {
     id: 'hydrated',
@@ -16,7 +22,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Hit your daily water goal.',
     icon: 'water',
     color: Palette.silverBlue,
-    tier: 'silver',
+    points: 25,
   },
   {
     id: 'calm-mind',
@@ -24,7 +30,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Stay below stress level 25 for a full minute.',
     icon: 'leaf',
     color: Palette.kangkong,
-    tier: 'silver',
+    points: 25,
   },
   {
     id: 'heartbeat-explorer',
@@ -32,7 +38,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Try every smartwatch scenario.',
     icon: 'compass',
     color: Palette.kamote,
-    tier: 'gold',
+    points: 50,
   },
   {
     id: 'deep-diver',
@@ -40,7 +46,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Log a "good" night of sleep.',
     icon: 'moon',
     color: Palette.silverBlue,
-    tier: 'silver',
+    points: 25,
   },
   {
     id: 'recovery-master',
@@ -48,7 +54,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Reach a recovery score of 85 or higher.',
     icon: 'sparkles',
     color: Palette.kangkong,
-    tier: 'gold',
+    points: 50,
   },
   {
     id: 'step-counter',
@@ -56,7 +62,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Walk 1,000 steps in a session.',
     icon: 'walk',
     color: Palette.teal,
-    tier: 'bronze',
+    points: 10,
   },
   {
     id: 'storm-rider',
@@ -64,7 +70,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Survive a Panic Spike scenario.',
     icon: 'flash',
     color: '#D97757',
-    tier: 'gold',
+    points: 50,
   },
   {
     id: 'restful-night',
@@ -72,7 +78,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Get at least 90 minutes of deep sleep.',
     icon: 'bed',
     color: Palette.kangkong,
-    tier: 'silver',
+    points: 25,
   },
   {
     id: 'steady-pulse',
@@ -80,7 +86,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Keep BPM between 60 and 80 for one minute.',
     icon: 'heart',
     color: Palette.kangkong,
-    tier: 'bronze',
+    points: 10,
   },
   {
     id: 'daily-sip',
@@ -88,7 +94,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Log water three times in a single day.',
     icon: 'cafe',
     color: Palette.silverBlue,
-    tier: 'bronze',
+    points: 10,
   },
   {
     id: 'mindful-pause',
@@ -96,7 +102,47 @@ export const ACHIEVEMENTS: Achievement[] = [
     description: 'Use a breath intervention.',
     icon: 'pulse',
     color: Palette.teal,
-    tier: 'bronze',
+    points: 10,
+  },
+  {
+    id: 'streak-3',
+    title: 'Three-Day Spark',
+    description: 'Keep a habit alive for 3 days in a row.',
+    icon: 'flame',
+    color: '#D97757',
+    points: 10,
+  },
+  {
+    id: 'streak-7',
+    title: 'Weekly Rhythm',
+    description: '7-day habit streak — momentum is real.',
+    icon: 'flame',
+    color: '#D97757',
+    points: 25,
+  },
+  {
+    id: 'streak-14',
+    title: 'Fortnight Strong',
+    description: 'Two-week habit streak.',
+    icon: 'flame',
+    color: '#E1AD01',
+    points: 25,
+  },
+  {
+    id: 'streak-30',
+    title: 'Monthly Anchor',
+    description: '30-day streak — this is who you are now.',
+    icon: 'flame',
+    color: '#E1AD01',
+    points: 50,
+  },
+  {
+    id: 'streak-100',
+    title: 'Century Club',
+    description: '100 consecutive days. Legend.',
+    icon: 'trophy',
+    color: '#7B68EE',
+    points: 50,
   },
 ];
 
@@ -107,3 +153,6 @@ export const ACHIEVEMENTS_BY_ID: Record<string, Achievement> = ACHIEVEMENTS.redu
   },
   {} as Record<string, Achievement>,
 );
+
+/** Total points obtainable across all achievements. */
+export const TOTAL_POINTS: number = ACHIEVEMENTS.reduce((sum, a) => sum + a.points, 0);
