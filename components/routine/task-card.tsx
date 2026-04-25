@@ -1,0 +1,137 @@
+import { Ionicons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
+import { Pressable, Text, View } from 'react-native';
+
+import { Borders, Colors, Palette, Radii } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  completed: boolean;
+  isMeal?: boolean;
+  isExpanded?: boolean;
+  onToggle: () => void;
+  onLongPress?: () => void;
+  onPress?: () => void;
+  children?: React.ReactNode;
+}
+
+export function TaskCard({
+  title,
+  subtitle,
+  completed,
+  isMeal,
+  isExpanded,
+  onToggle,
+  onLongPress,
+  onPress,
+  children,
+}: Props) {
+  const scheme = useColorScheme() ?? 'light';
+  const c = Colors[scheme];
+
+  function handlePress() {
+    if (onPress) {
+      onPress();
+    } else {
+      handleToggle();
+    }
+  }
+
+  function handleToggle() {
+    if (process.env.EXPO_OS === 'ios') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
+    onToggle();
+  }
+
+  function handleLongPress() {
+    if (process.env.EXPO_OS === 'ios') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    }
+    onLongPress?.();
+  }
+
+  return (
+    <View style={{ marginBottom: 10 }}>
+      <Pressable
+        onPress={handlePress}
+        onLongPress={handleLongPress}
+        delayLongPress={400}
+        accessibilityRole="checkbox"
+        accessibilityState={{ checked: completed }}
+        accessibilityLabel={title}
+        style={({ pressed }) => ({
+          flexDirection: 'row',
+          alignItems: 'center',
+          backgroundColor: c.surface,
+          borderRadius: Radii.pill,
+          paddingHorizontal: 16,
+          paddingVertical: 16,
+          borderWidth: 1,
+          borderColor: Borders.hairline[scheme],
+          opacity: pressed ? 0.9 : 1,
+          transform: [{ scale: pressed ? 0.98 : 1 }],
+        })}>
+        <Pressable
+          onPress={handleToggle}
+          hitSlop={8}
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: 9999,
+            backgroundColor: completed ? Palette.kangkong : (scheme === 'light' ? '#E8E8E8' : '#3A3A3A'),
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginRight: 14,
+          }}>
+          <Ionicons
+            name={completed ? 'checkmark' : 'remove'}
+            size={18}
+            color={completed ? '#FFFFFF' : c.iconMuted}
+          />
+        </Pressable>
+
+        <View style={{ flex: 1 }}>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: '500',
+              color: completed ? c.iconMuted : c.text,
+              textDecorationLine: completed ? 'line-through' : 'none',
+            }}
+            numberOfLines={1}>
+            {title}
+          </Text>
+          {subtitle && (
+            <Text style={{ fontSize: 12, color: c.iconMuted, marginTop: 2 }} numberOfLines={1}>
+              {subtitle}
+            </Text>
+          )}
+        </View>
+
+        {isMeal && (
+          <Ionicons
+            name={isExpanded ? 'chevron-up' : 'chevron-down'}
+            size={18}
+            color={c.iconMuted}
+            style={{ marginLeft: 8 }}
+          />
+        )}
+
+        {onLongPress && !isMeal && (
+          <Ionicons
+            name="swap-horizontal-outline"
+            size={16}
+            color={c.iconMuted}
+            style={{ marginLeft: 8 }}
+          />
+        )}
+      </Pressable>
+
+      {/* Expandable content (meal detail) */}
+      {isExpanded && children}
+    </View>
+  );
+}
