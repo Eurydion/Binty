@@ -1,6 +1,5 @@
-import type { HealthSnapshot } from '@/types/health';
+import type { EmotionalState, HealthSnapshot } from '@/types/health';
 import type { MealLog } from '@/types/meals';
-import type { EmotionalState } from '@/types/health';
 
 export interface AnalysisResult {
   stressScore: number;       // 0–100

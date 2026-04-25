@@ -1,5 +1,5 @@
-import { View, Text } from 'react-native';
 import type { RoutineBlock as RoutineBlockType } from '@/types/routine';
+import { Text, View } from 'react-native';
 
 interface Props {
   block: RoutineBlockType;

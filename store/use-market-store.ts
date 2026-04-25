@@ -1,5 +1,5 @@
-import { create } from 'zustand';
 import type { MarketPrice } from '@/types/meals';
+import { create } from 'zustand';
 
 interface MarketState {
   prices: MarketPrice[];

@@ -1,6 +1,6 @@
-import { View, Text, TouchableOpacity } from 'react-native';
-import type { MealSlot as MealSlotType } from '@/types/routine';
 import type { Meal } from '@/types/meals';
+import type { MealSlot as MealSlotType } from '@/types/routine';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 interface Props {
   slot: MealSlotType;

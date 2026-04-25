@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import type { HealthSnapshot } from '@/types/health';
 import { getSnapshot } from '@/features/smartwatch/simulator';
+import type { HealthSnapshot } from '@/types/health';
+import { create } from 'zustand';
 
 interface HealthState {
   snapshot: HealthSnapshot;

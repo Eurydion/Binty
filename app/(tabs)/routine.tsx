@@ -1,10 +1,10 @@
-import { ScrollView, View, Text } from 'react-native';
-import { useRoutineStore } from '@/store/use-routine-store';
-import { RoutineBlock } from '@/components/routine/routine-block';
 import { ActivitySlot } from '@/components/routine/activity-slot';
 import { MealSlot } from '@/components/routine/meal-slot';
+import { RoutineBlock } from '@/components/routine/routine-block';
 import { useMealSuggestions } from '@/hooks/use-meal-suggestions';
+import { useRoutineStore } from '@/store/use-routine-store';
 import type { ActivitySlot as ActivitySlotType, MealSlot as MealSlotType } from '@/types/routine';
+import { ScrollView, Text, View } from 'react-native';
 
 export default function RoutineScreen() {
   const { routine, completeSlot } = useRoutineStore();

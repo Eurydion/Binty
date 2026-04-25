@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
-import { useMarketStore } from '@/store/use-market-store';
+import { enrichMealWithPrices } from '@/features/meals/ingredient-calculator';
 import { fetchMarketPrices } from '@/features/meals/market-api';
 import { suggestMeals } from '@/features/meals/planner';
-import { enrichMealWithPrices } from '@/features/meals/ingredient-calculator';
 import { useHealthStore } from '@/store/use-health-store';
+import { useMarketStore } from '@/store/use-market-store';
 import { useUserStore } from '@/store/use-user-store';
 import type { Meal } from '@/types/meals';
+import { useEffect } from 'react';
 
 export function useMealSuggestions(mealType: Meal['category'], count = 3): Meal[] {
   const { prices, setPrices, setLoading, setError } = useMarketStore();

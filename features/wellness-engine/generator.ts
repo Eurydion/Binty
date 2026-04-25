@@ -1,6 +1,6 @@
 import type { HealthSnapshot } from '@/types/health';
-import type { UserProfile } from '@/types/user';
 import type { DailyRoutine } from '@/types/routine';
+import type { UserProfile } from '@/types/user';
 
 /**
  * Generates a daily routine based on user profile and current health snapshot.

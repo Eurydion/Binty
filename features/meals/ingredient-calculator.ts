@@ -1,5 +1,4 @@
-import type { Meal } from '@/types/meals';
-import type { MarketPrice } from '@/types/meals';
+import type { MarketPrice, Meal } from '@/types/meals';
 
 /**
  * Calculates estimated total cost of a meal using current market prices.

@@ -1,5 +1,5 @@
-import type { Meal } from '@/types/meals';
 import type { HealthSnapshot } from '@/types/health';
+import type { Meal } from '@/types/meals';
 import type { UserProfile } from '@/types/user';
 import { FILIPINO_MEALS } from './recipes';
 

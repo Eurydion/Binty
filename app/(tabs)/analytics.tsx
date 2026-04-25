@@ -1,5 +1,5 @@
-import { ScrollView, View, Text } from 'react-native';
 import { useSmartwatch } from '@/hooks/use-smartwatch';
+import { ScrollView, Text, View } from 'react-native';
 
 export default function AnalyticsScreen() {
   const snapshot = useSmartwatch();

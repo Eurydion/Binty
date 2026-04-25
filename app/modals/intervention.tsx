@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import { useRouter } from 'expo-router';
-import { useInterventions } from '@/hooks/use-interventions';
 import { MitigationSteps } from '@/components/alerts/intervention-banner';
+import { useInterventions } from '@/hooks/use-interventions';
+import { useRouter } from 'expo-router';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 export default function InterventionModal() {
   const router = useRouter();

@@ -1,5 +1,5 @@
-import { create } from 'zustand';
 import type { UserProfile } from '@/types/user';
+import { create } from 'zustand';
 
 const DEFAULT_PROFILE: UserProfile = {
   id: 'local-user',

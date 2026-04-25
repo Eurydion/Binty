@@ -1,6 +1,6 @@
-import { View, Text, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
 import { useRoutineStore } from '@/store/use-routine-store';
+import { useRouter } from 'expo-router';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 const QUICK_AMOUNTS = [150, 250, 350, 500];
 

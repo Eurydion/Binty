@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity } from 'react-native';
 import type { Intervention } from '@/features/wellness-engine/interventions';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 interface Props {
   intervention: Intervention;

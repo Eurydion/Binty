@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import type { DailyRoutine, MealSlot } from '@/types/routine';
 import type { MealLog } from '@/types/meals';
+import type { DailyRoutine } from '@/types/routine';
+import { create } from 'zustand';
 
 interface RoutineState {
   routine: DailyRoutine | null;

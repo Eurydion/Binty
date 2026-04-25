@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity } from 'react-native';
 import type { Meal } from '@/types/meals';
+import { Text, TouchableOpacity } from 'react-native';
 
 interface Props {
   meal: Meal | null;

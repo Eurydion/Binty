@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity } from 'react-native';
 import type { ActivitySlot as ActivitySlotType } from '@/types/routine';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 interface Props {
   slot: ActivitySlotType;

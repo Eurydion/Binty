@@ -1,4 +1,4 @@
-import type { HealthReading, SleepData, EmotionalState, HealthSnapshot } from '@/types/health';
+import type { EmotionalState, HealthReading, HealthSnapshot, SleepData } from '@/types/health';
 
 let _interval: ReturnType<typeof setInterval> | null = null;
 let _listeners: ((snapshot: HealthSnapshot) => void)[] = [];

@@ -1,6 +1,6 @@
-import { useState, useCallback } from 'react';
-import { useWellnessEngine } from './use-wellness-engine';
 import type { Intervention } from '@/features/wellness-engine/interventions';
+import { useCallback, useState } from 'react';
+import { useWellnessEngine } from './use-wellness-engine';
 
 export function useInterventions(): {
   current: Intervention | null;

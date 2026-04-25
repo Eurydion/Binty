@@ -1,8 +1,8 @@
-import { View, Text, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
-import { useRoutineStore } from '@/store/use-routine-store';
 import { FILIPINO_MEALS } from '@/features/meals/recipes';
+import { useRoutineStore } from '@/store/use-routine-store';
 import type { MealLog } from '@/types/meals';
+import { useRouter } from 'expo-router';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 export default function LogMealModal() {
   const router = useRouter();

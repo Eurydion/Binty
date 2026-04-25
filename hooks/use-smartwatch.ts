@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useHealthStore } from '@/store/use-health-store';
 import { startSimulator, stopSimulator } from '@/features/smartwatch/simulator';
+import { useHealthStore } from '@/store/use-health-store';
 import type { HealthSnapshot } from '@/types/health';
+import { useEffect } from 'react';
 
 /**
  * Starts the health data source (simulated by default).

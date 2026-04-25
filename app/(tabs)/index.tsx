@@ -1,13 +1,13 @@
-import { ScrollView, View, Text } from 'react-native';
+import { InterventionBanner } from '@/components/alerts/intervention-banner';
+import { MealSuggestionCard } from '@/components/cards/meal-suggestion-card';
+import { WaterIntakeCard } from '@/components/cards/water-intake-card';
+import { useInterventions } from '@/hooks/use-interventions';
+import { useMealSuggestions } from '@/hooks/use-meal-suggestions';
 import { useSmartwatch } from '@/hooks/use-smartwatch';
 import { useRoutineStore } from '@/store/use-routine-store';
 import { useUserStore } from '@/store/use-user-store';
-import { useInterventions } from '@/hooks/use-interventions';
-import { InterventionBanner } from '@/components/alerts/intervention-banner';
-import { WaterIntakeCard } from '@/components/cards/water-intake-card';
-import { MealSuggestionCard } from '@/components/cards/meal-suggestion-card';
 import { useRouter } from 'expo-router';
-import { useMealSuggestions } from '@/hooks/use-meal-suggestions';
+import { ScrollView, Text, View } from 'react-native';
 
 export default function HomeScreen() {
   const snapshot = useSmartwatch();

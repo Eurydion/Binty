@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
+import { adaptRoutine } from '@/features/wellness-engine/adapter';
+import { analyze } from '@/features/wellness-engine/analyzer';
+import { generateRoutine } from '@/features/wellness-engine/generator';
+import type { Intervention } from '@/features/wellness-engine/interventions';
+import { buildInterventions } from '@/features/wellness-engine/interventions';
 import { useHealthStore } from '@/store/use-health-store';
 import { useRoutineStore } from '@/store/use-routine-store';
 import { useUserStore } from '@/store/use-user-store';
-import { analyze } from '@/features/wellness-engine/analyzer';
-import { generateRoutine } from '@/features/wellness-engine/generator';
-import { adaptRoutine } from '@/features/wellness-engine/adapter';
-import { buildInterventions } from '@/features/wellness-engine/interventions';
-import type { Intervention } from '@/features/wellness-engine/interventions';
+import { useEffect } from 'react';
 
 export function useWellnessEngine(): { interventions: Intervention[] } {
   const snapshot = useHealthStore((s) => s.snapshot);
