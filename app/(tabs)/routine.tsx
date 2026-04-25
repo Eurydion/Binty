@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Modal, Pressable, ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { AnimatedBottomSheet } from '@/components/routine/animated-bottom-sheet';
 import type { RoutineCategory } from '@/components/routine/category-chips';
 import { CategoryChips } from '@/components/routine/category-chips';
 import { MealDetail } from '@/components/routine/meal-detail';
@@ -438,42 +439,30 @@ export default function RoutineScreen() {
       </ScrollView>
 
       {/* Swap sheet modal — only available for today */}
-      <Modal
+      <AnimatedBottomSheet
         visible={swapSheet.visible}
-        transparent
-        animationType="slide"
-        onRequestClose={handleSwapClose}
+        onClose={handleSwapClose}
+        anchor="bottom"
       >
-        <Pressable
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(0,0,0,0.4)',
-            justifyContent: 'flex-end',
-          }}
-          onPress={handleSwapClose}
-        >
-          <Pressable onPress={() => {}}>
-            {swapSheet.visible && swapSheet.kind === 'activity' && (
-              <SlotSwapSheet
-                kind="activity"
-                currentTitle={swapSheet.currentTitle}
-                alternatives={swapSheet.alternatives}
-                onSelect={(alt) => handleSwapSelect(alt)}
-                onClose={handleSwapClose}
-              />
-            )}
-            {swapSheet.visible && swapSheet.kind === 'meal' && (
-              <SlotSwapSheet
-                kind="meal"
-                currentTitle={swapSheet.currentTitle}
-                alternatives={swapSheet.alternatives}
-                onSelect={(meal) => handleSwapSelect(meal)}
-                onClose={handleSwapClose}
-              />
-            )}
-          </Pressable>
-        </Pressable>
-      </Modal>
+        {swapSheet.visible && swapSheet.kind === 'activity' && (
+          <SlotSwapSheet
+            kind="activity"
+            currentTitle={swapSheet.currentTitle}
+            alternatives={swapSheet.alternatives}
+            onSelect={(alt) => handleSwapSelect(alt)}
+            onClose={handleSwapClose}
+          />
+        )}
+        {swapSheet.visible && swapSheet.kind === 'meal' && (
+          <SlotSwapSheet
+            kind="meal"
+            currentTitle={swapSheet.currentTitle}
+            alternatives={swapSheet.alternatives}
+            onSelect={(meal) => handleSwapSelect(meal)}
+            onClose={handleSwapClose}
+          />
+        )}
+      </AnimatedBottomSheet>
 
       {/* Calendar picker modal */}
       <Modal

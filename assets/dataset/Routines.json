@@ -1,0 +1,1128 @@
+{
+  "categories": [
+    {
+      "id": "breathing",
+      "title": "Breathing Exercises",
+      "intensity": 0,
+      "exercises": [
+        {
+          "id": "box-breathing",
+          "title": "Box Breathing",
+          "duration_minutes": 4,
+          "summary": "Equal-count breathing to calm your nervous system.",
+          "steps": [
+            "Sit tall, relax shoulders.",
+            "Inhale through nose, 4 sec.",
+            "Hold breath, 4 sec.",
+            "Exhale through mouth, 4 sec.",
+            "Hold empty, 4 sec. Repeat."
+          ]
+        },
+        {
+          "id": "4-7-8",
+          "title": "4-7-8 Breathing",
+          "duration_minutes": 3,
+          "summary": "Powerful technique to fall asleep faster.",
+          "steps": [
+            "Lie down, tongue behind front teeth.",
+            "Exhale fully through mouth.",
+            "Inhale through nose, 4 sec.",
+            "Hold breath, 7 sec.",
+            "Exhale through mouth, 8 sec."
+          ]
+        },
+        {
+          "id": "physiological-sigh",
+          "title": "Physiological Sigh",
+          "duration_minutes": 2,
+          "summary": "Fastest way to lower stress in seconds.",
+          "steps": [
+            "Inhale deeply through nose.",
+            "Take a second short inhale on top.",
+            "Long slow exhale through mouth.",
+            "Repeat 3–6 times."
+          ]
+        },
+        {
+          "id": "coherent-breathing",
+          "title": "Coherent Breathing",
+          "duration_minutes": 8,
+          "summary": "Slow 5-5 breathing to balance your system.",
+          "steps": [
+            "Sit tall, hand on belly.",
+            "Inhale through nose, 5 sec.",
+            "Exhale through nose, 5 sec.",
+            "Keep smooth, no pauses.",
+            "Continue for 5–10 minutes."
+          ]
+        },
+        {
+          "id": "alternate-nostril",
+          "title": "Alternate-Nostril Breathing",
+          "duration_minutes": 5,
+          "summary": "Switching nostrils to clear the mind.",
+          "steps": [
+            "Close right nostril, inhale left 4 sec.",
+            "Switch: exhale right 4 sec.",
+            "Inhale right 4 sec.",
+            "Switch: exhale left 4 sec.",
+            "Repeat 10 cycles."
+          ]
+        },
+        {
+          "id": "diaphragmatic",
+          "title": "Belly Breathing",
+          "duration_minutes": 8,
+          "summary": "Deep belly breathing to lower baseline stress.",
+          "steps": [
+            "Lie down, hand on belly.",
+            "Inhale through nose — belly rises.",
+            "Pause briefly at top.",
+            "Exhale through pursed lips — belly falls.",
+            "Continue 5–10 minutes."
+          ]
+        },
+        {
+          "id": "pursed-lip",
+          "title": "Pursed-Lip Breathing",
+          "duration_minutes": 3,
+          "summary": "Slows breathing when you feel breathless.",
+          "steps": [
+            "Sit, relax shoulders.",
+            "Inhale through nose, 2 sec.",
+            "Pucker lips like blowing a candle.",
+            "Exhale slowly, 4 sec.",
+            "Repeat for 2–5 minutes."
+          ]
+        },
+        {
+          "id": "lions-breath",
+          "title": "Lion's Breath",
+          "duration_minutes": 2,
+          "summary": "Release jaw tension with a forceful exhale.",
+          "steps": [
+            "Sit on heels, hands on knees.",
+            "Inhale deeply through nose.",
+            "Open mouth, stick tongue out.",
+            "Exhale loudly with 'haaa'.",
+            "Repeat 4–6 times."
+          ]
+        },
+        {
+          "id": "wim-hof",
+          "title": "Wim Hof Breathing",
+          "duration_minutes": 12,
+          "summary": "Energizing breathwork rounds with breath holds.",
+          "steps": [
+            "Sit or lie on a soft surface.",
+            "30 fast deep breaths.",
+            "Exhale and hold as long as comfortable.",
+            "Inhale fully, hold 15 sec.",
+            "Repeat 3 rounds."
+          ]
+        },
+        {
+          "id": "three-part-breath",
+          "title": "Three-Part Breath",
+          "duration_minutes": 5,
+          "summary": "Fill belly, ribs, chest — then reverse.",
+          "steps": [
+            "Sit or lie comfortably.",
+            "Inhale: belly → ribs → chest.",
+            "Exhale: chest → ribs → belly.",
+            "Keep one continuous breath.",
+            "Repeat 10 rounds."
+          ]
+        },
+        {
+          "id": "sitali-cooling",
+          "title": "Sitali Cooling Breath",
+          "duration_minutes": 4,
+          "summary": "Tongue-curl breath that cools and calms heat.",
+          "steps": [
+            "Sit comfortably, jaw relaxed.",
+            "Curl the tongue into a tube (or purse lips).",
+            "Inhale slowly through the curled tongue, 4 sec.",
+            "Close mouth, exhale through nose, 6 sec.",
+            "Repeat for 3–5 minutes."
+          ]
+        },
+        {
+          "id": "bhastrika",
+          "title": "Bhastrika (Bellows Breath)",
+          "duration_minutes": 4,
+          "summary": "Quick energizing pumps when you feel sluggish.",
+          "steps": [
+            "Sit upright, hands on knees.",
+            "Forceful inhale + exhale through nose (1 sec each).",
+            "Do 20 rounds at moderate pace.",
+            "Pause 30 sec, breathe normally.",
+            "Repeat for 2–3 sets."
+          ]
+        },
+        {
+          "id": "resonant-5-5",
+          "title": "Resonant 5.5 Breathing",
+          "duration_minutes": 6,
+          "summary": "Paced breathing tuned to maximize HRV.",
+          "steps": [
+            "Sit relaxed, soft gaze or eyes closed.",
+            "Inhale through nose, 5.5 sec.",
+            "Exhale through nose, 5.5 sec.",
+            "Continue smoothly without holds.",
+            "Aim for 5–10 minutes."
+          ]
+        },
+        {
+          "id": "humming-bee",
+          "title": "Bhramari (Humming Bee)",
+          "duration_minutes": 4,
+          "summary": "Gentle hum on each exhale to settle the mind.",
+          "steps": [
+            "Sit upright, lips closed but jaw soft.",
+            "Inhale slowly through the nose.",
+            "Exhale humming a low 'mmm' sound.",
+            "Feel the vibration in your face and chest.",
+            "Repeat 8–12 rounds."
+          ]
+        },
+        {
+          "id": "ocean-breath",
+          "title": "Ujjayi (Ocean Breath)",
+          "duration_minutes": 6,
+          "summary": "Soft throat constriction for steady, focused breath.",
+          "steps": [
+            "Sit tall, mouth gently closed.",
+            "Slightly constrict the back of the throat.",
+            "Inhale through nose with a soft ocean-like sound.",
+            "Exhale the same way, equal length.",
+            "Continue for 5–8 minutes."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stationary",
+      "title": "Stationary Exercises",
+      "intensity": 1,
+      "exercises": [
+        {
+          "id": "body-scan",
+          "title": "Body Scan",
+          "duration_minutes": 12,
+          "summary": "Guided attention through every body part.",
+          "steps": [
+            "Lie down, eyes closed.",
+            "Bring focus to top of head.",
+            "Slowly move attention down to toes.",
+            "Notice each region without changing it.",
+            "End with 3 full breaths."
+          ]
+        },
+        {
+          "id": "pmr",
+          "title": "Progressive Muscle Relaxation",
+          "duration_minutes": 10,
+          "summary": "Tense and release each muscle group.",
+          "steps": [
+            "Lie down comfortably.",
+            "Tense each muscle 5 sec.",
+            "Release for 10 sec.",
+            "Move feet → calves → thighs → up to face.",
+            "Rest 1–2 min after."
+          ]
+        },
+        {
+          "id": "safe-place",
+          "title": "Safe-Place Visualization",
+          "duration_minutes": 8,
+          "summary": "Imagine your calm, safe place in detail.",
+          "steps": [
+            "Close eyes, take 3 breaths.",
+            "Picture a place you feel safe.",
+            "Add what you see, hear, smell, feel.",
+            "Stay there breathing slowly.",
+            "Open eyes when ready."
+          ]
+        },
+        {
+          "id": "metta",
+          "title": "Loving-Kindness Meditation",
+          "duration_minutes": 10,
+          "summary": "Send kind wishes to yourself and others.",
+          "steps": [
+            "Sit comfortably, eyes closed.",
+            "Repeat: 'May I be happy and safe.' (2 min)",
+            "Send the same to a loved one.",
+            "Then a neutral person.",
+            "Finally, all beings."
+          ]
+        },
+        {
+          "id": "three-line-journal",
+          "title": "Three-Line Journal",
+          "duration_minutes": 4,
+          "summary": "Three quick lines to clear your head.",
+          "steps": [
+            "Open notebook or app.",
+            "Line 1: One thing on my mind.",
+            "Line 2: One thing I'm grateful for.",
+            "Line 3: One small next step.",
+            "Close and breathe."
+          ]
+        },
+        {
+          "id": "vipassana-sitting",
+          "title": "Mindful Sitting",
+          "duration_minutes": 10,
+          "summary": "Simple breath-focused meditation.",
+          "steps": [
+            "Set a timer.",
+            "Sit upright, close eyes.",
+            "Focus on breath at the nostrils.",
+            "When mind wanders, return gently.",
+            "Continue until timer ends."
+          ]
+        },
+        {
+          "id": "cognitive-defusion",
+          "title": "Cognitive Defusion",
+          "duration_minutes": 5,
+          "summary": "Create distance from anxious thoughts.",
+          "steps": [
+            "Notice an anxious thought.",
+            "Restate: 'I'm having the thought that ___'.",
+            "Restate: 'I notice I'm having the thought that ___'.",
+            "Try saying it in a silly voice.",
+            "Take one breath."
+          ]
+        },
+        {
+          "id": "worry-window",
+          "title": "Worry Window",
+          "duration_minutes": 17,
+          "summary": "Postpone worry to a scheduled 15-min slot.",
+          "steps": [
+            "Write down the worry.",
+            "Schedule a 15-min slot later today.",
+            "Tell yourself: 'I'll think about it then'.",
+            "At the slot, sit and worry intentionally.",
+            "Stop when 15 min are up."
+          ]
+        },
+        {
+          "id": "gratitude-list",
+          "title": "Gratitude List",
+          "duration_minutes": 4,
+          "summary": "Five specific things you're grateful for.",
+          "steps": [
+            "Write today's date.",
+            "List 5 specific things you're grateful for.",
+            "Add a short 'why' for each.",
+            "Re-read once.",
+            "Take a slow breath."
+          ]
+        },
+        {
+          "id": "mountain-imagery",
+          "title": "Mountain Visualization",
+          "duration_minutes": 8,
+          "summary": "Picture yourself as a steady mountain.",
+          "steps": [
+            "Sit feet flat, close eyes.",
+            "Picture a tall, stable mountain.",
+            "Imagine you ARE that mountain.",
+            "Watch seasons pass: storms, sun, snow.",
+            "You remain solid through all."
+          ]
+        },
+        {
+          "id": "5-4-3-2-1",
+          "title": "5-4-3-2-1 Grounding",
+          "duration_minutes": 3,
+          "summary": "Use your senses to anchor in the present.",
+          "steps": [
+            "Name 5 things you see.",
+            "4 things you can touch.",
+            "3 things you hear.",
+            "2 things you smell.",
+            "1 thing you taste."
+          ]
+        },
+        {
+          "id": "cognitive-shuffle",
+          "title": "Cognitive Shuffle",
+          "duration_minutes": 8,
+          "summary": "Trick your brain to drift toward sleep.",
+          "steps": [
+            "Lie in bed in your sleep position.",
+            "Pick a neutral letter (e.g., 'C').",
+            "Picture random objects starting with it.",
+            "Hold each for ~5 sec, then move on.",
+            "Switch letters when you run out."
+          ]
+        },
+        {
+          "id": "self-compassion-break",
+          "title": "Self-Compassion Break",
+          "duration_minutes": 5,
+          "summary": "Three short phrases to soften self-criticism.",
+          "steps": [
+            "Place a hand over your heart.",
+            "Say: 'This is a moment of difficulty.'",
+            "Say: 'Difficulty is part of being human.'",
+            "Say: 'May I be kind to myself right now.'",
+            "Take 3 slow breaths."
+          ]
+        },
+        {
+          "id": "reframe-and-plan",
+          "title": "Reframe & Plan",
+          "duration_minutes": 7,
+          "summary": "Turn one stuck thought into a smaller next step.",
+          "steps": [
+            "Write down the worry in one sentence.",
+            "Ask: 'What's the evidence for and against?'",
+            "Reframe it as a kinder, more accurate version.",
+            "Pick the smallest possible next step.",
+            "Write the step on a sticky note."
+          ]
+        },
+        {
+          "id": "color-breathing",
+          "title": "Color Breathing",
+          "duration_minutes": 6,
+          "summary": "Breathe in calming color, exhale a tense one.",
+          "steps": [
+            "Sit or lie down, eyes closed.",
+            "Pick a calming color (e.g., soft blue).",
+            "Inhale and imagine that color filling you.",
+            "Pick a 'tension' color (e.g., dull grey).",
+            "Exhale and watch it leave your body."
+          ]
+        },
+        {
+          "id": "two-minute-reset",
+          "title": "Two-Minute Body Reset",
+          "duration_minutes": 2,
+          "summary": "Ultra-short reset between meetings or tasks.",
+          "steps": [
+            "Stand or sit still.",
+            "Unclench jaw, drop shoulders.",
+            "Take 6 slow nasal breaths.",
+            "Notice your feet on the ground.",
+            "Choose one word for the next task."
+          ]
+        },
+        {
+          "id": "sleep-wind-down",
+          "title": "Sleep Wind-Down",
+          "duration_minutes": 12,
+          "summary": "Quiet routine to signal your body it's bedtime.",
+          "steps": [
+            "Dim lights to soft warm glow.",
+            "Sit in bed and stretch neck for 1 min.",
+            "Slow 4-7-8 breathing for 4 rounds.",
+            "Write one line about today.",
+            "Lights off, lie still and breathe slowly."
+          ]
+        },
+        {
+          "id": "anxiety-spike-protocol",
+          "title": "Anxiety Spike Protocol",
+          "duration_minutes": 6,
+          "summary": "Stack three quick tools when anxiety surges.",
+          "steps": [
+            "30 sec cold water on wrists or face.",
+            "3 physiological sighs.",
+            "Name 5 things you can see.",
+            "Say: 'I am safe in this moment.'",
+            "Take one slow walk around the room."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "light_movement",
+      "title": "Light Movement",
+      "intensity": 2,
+      "exercises": [
+        {
+          "id": "mindful-slow-walk",
+          "title": "Mindful Slow Walk",
+          "duration_minutes": 10,
+          "summary": "Walk at half-speed, anchored to your breath.",
+          "steps": [
+            "Stand still, take 3 breaths.",
+            "Walk at half normal pace.",
+            "Inhale 3 steps, exhale 3 steps.",
+            "Notice 5 things you see.",
+            "End standing still, breathe."
+          ]
+        },
+        {
+          "id": "neck-shoulder-release",
+          "title": "Neck & Shoulder Release",
+          "duration_minutes": 4,
+          "summary": "Quick fix for desk and screen tension.",
+          "steps": [
+            "3 slow neck rolls each way.",
+            "5 shoulder rolls back, 5 forward.",
+            "Ear-to-shoulder stretch, 30 sec/side.",
+            "10 chin tucks."
+          ]
+        },
+        {
+          "id": "full-body-stretch",
+          "title": "Full-Body Stretch",
+          "duration_minutes": 10,
+          "summary": "Gentle stretches from head to toe.",
+          "steps": [
+            "Forward fold, 30 sec.",
+            "Cat-cow, 1 min.",
+            "Child's pose, 1 min.",
+            "Hamstring stretch, 30 sec/leg.",
+            "Spinal twist, 30 sec/side."
+          ]
+        },
+        {
+          "id": "tai-chi-cloud-hands",
+          "title": "Tai Chi Cloud Hands",
+          "duration_minutes": 8,
+          "summary": "Slow, flowing weight-shifting movement.",
+          "steps": [
+            "Stand feet shoulder-width, knees soft.",
+            "Shift weight side to side.",
+            "Trace slow circles with hands.",
+            "Move continuously, breathe through nose.",
+            "Continue 5–10 minutes."
+          ]
+        },
+        {
+          "id": "qi-gong-tree",
+          "title": "Tree Posture (Qi-Gong)",
+          "duration_minutes": 5,
+          "summary": "Stand still 'hugging a tree' to ground yourself.",
+          "steps": [
+            "Stand feet shoulder-width, knees soft.",
+            "Imagine roots from your feet.",
+            "Arms in front, hugging a tree shape.",
+            "Soften shoulders, breathe slowly.",
+            "Hold 3–8 minutes."
+          ]
+        },
+        {
+          "id": "mindful-tidying",
+          "title": "Mindful Tidying",
+          "duration_minutes": 10,
+          "summary": "Tidy one small area for 10 minutes.",
+          "steps": [
+            "Set a 10-min timer.",
+            "Pick one small area.",
+            "Move slowly, one item at a time.",
+            "Decide: keep, move, or discard.",
+            "Stop when timer ends."
+          ]
+        },
+        {
+          "id": "foam-roll",
+          "title": "Foam Roll Self-Massage",
+          "duration_minutes": 8,
+          "summary": "Roll out tight muscles to release tension.",
+          "steps": [
+            "Calves: 30–60 sec/leg.",
+            "Hamstrings: 30–60 sec/leg.",
+            "Glutes: 30–60 sec/side.",
+            "Upper back: 60 sec.",
+            "Feet (tennis ball): 30 sec/foot."
+          ]
+        },
+        {
+          "id": "wall-stretches",
+          "title": "Wall Stretches",
+          "duration_minutes": 6,
+          "summary": "Gentle stretches using a wall for support.",
+          "steps": [
+            "Wall chest stretch, 30 sec/side.",
+            "Wall calf stretch, 30 sec/side.",
+            "Wall sit, 30 sec.",
+            "Wall figure-4 stretch, 1 min/side."
+          ]
+        },
+        {
+          "id": "eye-yoga",
+          "title": "Eye Yoga",
+          "duration_minutes": 3,
+          "summary": "Quick eye exercises to relieve screen fatigue.",
+          "steps": [
+            "Look up/down, 10 reps.",
+            "Look left/right, 10 reps.",
+            "Diagonals, 10 reps each.",
+            "Slow circles, 5 each direction.",
+            "Palm over closed eyes, 30 sec."
+          ]
+        },
+        {
+          "id": "slow-sun-salutation",
+          "title": "Slow Sun Salutation",
+          "duration_minutes": 6,
+          "summary": "Beginner-friendly yoga flow.",
+          "steps": [
+            "Mountain → reach overhead → fold.",
+            "Half lift → step back to plank.",
+            "Lower → cobra → down dog.",
+            "Step forward → fold → mountain.",
+            "Repeat 3 rounds."
+          ]
+        },
+        {
+          "id": "desk-reset-stretch",
+          "title": "Desk Reset Stretch",
+          "duration_minutes": 5,
+          "summary": "Counter-stretches for screen and chair tension.",
+          "steps": [
+            "Stand and reach overhead, 30 sec.",
+            "Open chest with hands behind back, 30 sec.",
+            "Standing forward fold, 30 sec.",
+            "Hip-flexor lunge, 30 sec/side.",
+            "Wrist circles, 10 each direction."
+          ]
+        },
+        {
+          "id": "hip-opener-series",
+          "title": "Hip Opener Series",
+          "duration_minutes": 8,
+          "summary": "Release tight hips from sitting all day.",
+          "steps": [
+            "Low lunge, 45 sec/side.",
+            "Pigeon pose, 1 min/side.",
+            "Butterfly stretch, 1 min.",
+            "Happy baby, 1 min.",
+            "Supine spinal twist, 30 sec/side."
+          ]
+        },
+        {
+          "id": "walking-meditation",
+          "title": "Walking Meditation",
+          "duration_minutes": 12,
+          "summary": "Slow indoor lap focused on every step.",
+          "steps": [
+            "Pick a 5–10 step path.",
+            "Walk at half-pace, hands clasped.",
+            "Notice heel → ball → toe of each step.",
+            "Pause and turn at each end.",
+            "Continue 10 minutes."
+          ]
+        },
+        {
+          "id": "spinal-mobility",
+          "title": "Spinal Mobility Flow",
+          "duration_minutes": 6,
+          "summary": "Wake up the spine in every direction.",
+          "steps": [
+            "Cat-cow on hands and knees, 1 min.",
+            "Thread the needle, 30 sec/side.",
+            "Seated side bends, 30 sec/side.",
+            "Seated spinal twist, 30 sec/side.",
+            "Child's pose, 1 min."
+          ]
+        },
+        {
+          "id": "mobility-flow-10",
+          "title": "10-Minute Mobility Flow",
+          "duration_minutes": 10,
+          "summary": "All-in-one joint warm-up for a desk day.",
+          "steps": [
+            "Ankle circles + calf raises, 1 min.",
+            "World's greatest stretch, 1 min/side.",
+            "Down dog → cobra, 5 rounds.",
+            "T-spine rotations, 1 min/side.",
+            "Shoulder pass-throughs with towel, 1 min."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "medium_movement",
+      "title": "Medium Movement / Cardio",
+      "intensity": 3,
+      "exercises": [
+        {
+          "id": "brisk-walk",
+          "title": "Brisk Walk",
+          "duration_minutes": 25,
+          "summary": "Walk fast enough to talk but not sing.",
+          "steps": [
+            "Walk easy 3 min to warm up.",
+            "Increase pace, talk-but-not-sing effort.",
+            "Maintain 15–25 min, posture tall.",
+            "Cool down 2–3 min easy.",
+            "Stretch low back, 30 sec."
+          ]
+        },
+        {
+          "id": "light-jog",
+          "title": "Light Jog",
+          "duration_minutes": 20,
+          "summary": "Easy conversational jog with walk recovery.",
+          "steps": [
+            "Walk 3 min, dynamic stretches.",
+            "Jog at conversational pace.",
+            "Continue 10–18 min.",
+            "Walk 3 min cool down.",
+            "Stretch quads, hamstrings, calves."
+          ]
+        },
+        {
+          "id": "sun-salutation-flow",
+          "title": "Sun Salutation Flow",
+          "duration_minutes": 18,
+          "summary": "Yoga flow at one breath per pose.",
+          "steps": [
+            "Start in mountain pose.",
+            "5–8 rounds of Sun Salutation A.",
+            "Add Sun Salutation B for variety.",
+            "Child's pose, 1 min.",
+            "Savasana, 2 min."
+          ]
+        },
+        {
+          "id": "bodyweight-circuit",
+          "title": "Bodyweight Circuit",
+          "duration_minutes": 18,
+          "summary": "Strength + cardio with no equipment.",
+          "steps": [
+            "Warm up 3 min.",
+            "Squats × 15.",
+            "Push-ups × 10.",
+            "Reverse lunges × 10/leg.",
+            "Plank 30 sec + glute bridges × 15. (3 rounds)"
+          ]
+        },
+        {
+          "id": "stationary-cycling",
+          "title": "Stationary Cycling",
+          "duration_minutes": 25,
+          "summary": "Steady cycling at moderate effort.",
+          "steps": [
+            "Adjust seat — slight knee bend at bottom.",
+            "Warm up 3 min easy.",
+            "20 min steady at 5–6/10 effort.",
+            "Cool down 3 min light.",
+            "Stretch quads and hip flexors."
+          ]
+        },
+        {
+          "id": "dance-workout",
+          "title": "Dance Workout",
+          "duration_minutes": 20,
+          "summary": "Upbeat playlist, free movement.",
+          "steps": [
+            "Queue 4–6 upbeat songs.",
+            "Warm up first song.",
+            "Move freely middle songs.",
+            "Cool down on final song.",
+            "Stretch 1 min."
+          ]
+        },
+        {
+          "id": "swimming-easy",
+          "title": "Easy Swim Laps",
+          "duration_minutes": 25,
+          "summary": "Relaxed laps mixing strokes.",
+          "steps": [
+            "Warm up 2 lengths easy freestyle.",
+            "2 freestyle / 1 breaststroke, ~20 min.",
+            "Rest 30 sec every 4 lengths.",
+            "Cool down 2 lengths easy.",
+            "Stretch shoulders after."
+          ]
+        },
+        {
+          "id": "hiking",
+          "title": "Hiking",
+          "duration_minutes": 45,
+          "summary": "Trail walking with mild elevation.",
+          "steps": [
+            "Choose trail with mild elevation.",
+            "Tell someone your plan.",
+            "Steady conversational pace.",
+            "Pause every 15–20 min for water.",
+            "Stretch calves, hamstrings, hip flexors."
+          ]
+        },
+        {
+          "id": "jump-rope",
+          "title": "Jump Rope",
+          "duration_minutes": 12,
+          "summary": "Quick, effective interval cardio.",
+          "steps": [
+            "Warm up 1 min light jumping.",
+            "30 sec on / 15 sec rest × 10 rounds.",
+            "Land soft on balls of feet.",
+            "Cool down 1 min walking.",
+            "Stretch calves and shoulders."
+          ]
+        },
+        {
+          "id": "vinyasa-flow",
+          "title": "Vinyasa Flow",
+          "duration_minutes": 25,
+          "summary": "Yoga flow with warriors and triangle.",
+          "steps": [
+            "Warm up: 3 sun salutations.",
+            "Warrior 1 → 2 → reverse → triangle (each side).",
+            "Repeat flow 2–3 rounds.",
+            "Seated stretches 1 min each.",
+            "Savasana 3 min."
+          ]
+        },
+        {
+          "id": "stair-climbing",
+          "title": "Stair Climbing",
+          "duration_minutes": 15,
+          "summary": "Climb up, walk down — repeat.",
+          "steps": [
+            "Warm up 2 min walking.",
+            "Climb steady 5 min.",
+            "Walk down to recover.",
+            "Repeat 2–4 cycles.",
+            "Stretch calves and quads."
+          ]
+        },
+        {
+          "id": "rowing",
+          "title": "Rowing Machine",
+          "duration_minutes": 20,
+          "summary": "Steady rowing for full-body cardio.",
+          "steps": [
+            "Strap feet, damper 4–6.",
+            "Warm up 3 min easy.",
+            "12–20 min at 24–28 strokes/min.",
+            "Cool down 2 min easy.",
+            "Stretch low back and hamstrings."
+          ]
+        },
+        {
+          "id": "tabata-bodyweight",
+          "title": "Tabata Bodyweight",
+          "duration_minutes": 16,
+          "summary": "20s on / 10s off intervals across 4 moves.",
+          "steps": [
+            "Warm up 3 min: jog in place + arm circles.",
+            "Round 1 (4 min): squats — 20s on / 10s off × 8.",
+            "Round 2 (4 min): push-ups same pattern.",
+            "Round 3 (4 min): mountain climbers same pattern.",
+            "Cool down 2 min walking + stretch."
+          ]
+        },
+        {
+          "id": "shadow-boxing",
+          "title": "Shadow Boxing",
+          "duration_minutes": 15,
+          "summary": "Punch combos in the air for cardio + stress relief.",
+          "steps": [
+            "Warm up 2 min: shoulder rolls, light bouncing.",
+            "Stance: hands up, chin tucked, feet split.",
+            "3 min jab-cross combos × 3 rounds.",
+            "30 sec rest between rounds.",
+            "Cool down: arm + back stretches, 2 min."
+          ]
+        },
+        {
+          "id": "kettlebell-flow",
+          "title": "Kettlebell Cardio Flow",
+          "duration_minutes": 18,
+          "summary": "Light KB circuit for breath and rhythm.",
+          "steps": [
+            "Warm up 3 min: marches + hinges.",
+            "10 KB swings + 10 goblet squats + 10 KB rows (each side).",
+            "Repeat circuit 4 rounds, 60 sec rest.",
+            "Cool down 2 min easy walking.",
+            "Stretch hamstrings and forearms."
+          ]
+        },
+        {
+          "id": "elliptical-steady",
+          "title": "Elliptical Steady State",
+          "duration_minutes": 30,
+          "summary": "Low-impact steady cardio at conversational pace.",
+          "steps": [
+            "Warm up 3 min easy resistance.",
+            "Steady at 5–6/10 effort for 22 min.",
+            "Light pole pull engages upper body.",
+            "Cool down 3 min easy.",
+            "Stretch quads and calves."
+          ]
+        },
+        {
+          "id": "incline-walk",
+          "title": "Incline Treadmill Walk",
+          "duration_minutes": 25,
+          "summary": "Brisk walk on an incline — easy on joints.",
+          "steps": [
+            "Warm up 3 min flat at easy pace.",
+            "Set incline 6–10%, brisk walk pace.",
+            "Hold posture tall, no hand-railing.",
+            "Walk 18 min, cool down 3 min flat.",
+            "Stretch calves and hip flexors."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "heavy_weightlifting",
+      "title": "Heavy Movement / Weight Lifting",
+      "intensity": 4,
+      "exercises": [
+        {
+          "id": "back-squat",
+          "title": "Barbell Back Squat",
+          "sets_reps": "4 × 5–8",
+          "summary": "Heavy squat for full-body strength.",
+          "steps": [
+            "Bar across upper back, feet shoulder-width.",
+            "Brace core, big breath in.",
+            "Sit hips back and down to parallel.",
+            "Drive through heels to stand.",
+            "Rest 2–3 min, repeat."
+          ]
+        },
+        {
+          "id": "deadlift",
+          "title": "Conventional Deadlift",
+          "sets_reps": "3 × 5",
+          "summary": "Lift the bar from the floor with strong hinge.",
+          "steps": [
+            "Bar over mid-foot, grip outside shins.",
+            "Drop hips, lift chest, pull slack.",
+            "Push the floor away, bar close to body.",
+            "Stand tall, squeeze glutes.",
+            "Lower with control, reset."
+          ]
+        },
+        {
+          "id": "bench-press",
+          "title": "Bench Press",
+          "sets_reps": "4 × 6–10",
+          "summary": "Press the bar from chest to overhead.",
+          "steps": [
+            "Lie flat, eyes under the bar.",
+            "Shoulder blades pinched back and down.",
+            "Lower bar to mid-chest, elbows ~45°.",
+            "Press up over shoulders.",
+            "Re-rack with control."
+          ]
+        },
+        {
+          "id": "overhead-press",
+          "title": "Overhead Press",
+          "sets_reps": "4 × 6–8",
+          "summary": "Press the bar from shoulders overhead.",
+          "steps": [
+            "Bar at shoulders, grip just outside.",
+            "Brace core, squeeze glutes.",
+            "Press straight up, head moves through.",
+            "Lock out fully overhead.",
+            "Lower with control."
+          ]
+        },
+        {
+          "id": "pull-ups",
+          "title": "Pull-Ups",
+          "sets_reps": "4 × max",
+          "summary": "Pull yourself up to the bar.",
+          "steps": [
+            "Hang, hands shoulder-width.",
+            "Pull shoulder blades down and back.",
+            "Drive elbows toward ribs, chin over bar.",
+            "Lower with control.",
+            "Use band assist if needed."
+          ]
+        },
+        {
+          "id": "rdl",
+          "title": "Romanian Deadlift",
+          "sets_reps": "3 × 8–10",
+          "summary": "Hip hinge to target hamstrings and glutes.",
+          "steps": [
+            "Stand tall, bar in front of thighs.",
+            "Knees soft, keep that bend.",
+            "Hinge hips back, bar slides down legs.",
+            "Stop at strong hamstring stretch.",
+            "Squeeze glutes to stand."
+          ]
+        },
+        {
+          "id": "barbell-row",
+          "title": "Bent-Over Row",
+          "sets_reps": "4 × 8",
+          "summary": "Row the bar to your lower ribs.",
+          "steps": [
+            "Hinge to ~45°, back flat.",
+            "Grip bar just outside knees.",
+            "Pull bar to lower ribs.",
+            "Squeeze shoulder blades.",
+            "Lower to full stretch."
+          ]
+        },
+        {
+          "id": "goblet-squat",
+          "title": "Goblet Squat",
+          "sets_reps": "3 × 10–12",
+          "summary": "Beginner-friendly squat with a weight at chest.",
+          "steps": [
+            "Hold dumbbell at chest.",
+            "Feet slightly wider than shoulders.",
+            "Sit hips down between feet.",
+            "Drive through whole foot to stand.",
+            "Rest 60–90 sec."
+          ]
+        },
+        {
+          "id": "db-lunges",
+          "title": "Dumbbell Lunges",
+          "sets_reps": "3 × 10/leg",
+          "summary": "Single-leg strength with dumbbells.",
+          "steps": [
+            "Dumbbell in each hand at sides.",
+            "Step right foot forward.",
+            "Lower until both knees ~90°.",
+            "Push through front heel to stand.",
+            "Alternate legs."
+          ]
+        },
+        {
+          "id": "kb-swing",
+          "title": "Kettlebell Swing",
+          "sets_reps": "5 × 15–20",
+          "summary": "Explosive hip-hinge swing.",
+          "steps": [
+            "Hinge, grab kettlebell with both hands.",
+            "Hike it back between legs.",
+            "Snap hips to swing it to chest height.",
+            "Let it fall back, hinge again.",
+            "Continue with forceful breath."
+          ]
+        },
+        {
+          "id": "farmers-carry",
+          "title": "Farmer's Carry",
+          "sets_reps": "4 × 30–40m",
+          "summary": "Walk holding heavy dumbbells.",
+          "steps": [
+            "Pick up a heavy DB in each hand.",
+            "Stand tall, core braced.",
+            "Walk slow and steady, 30–40 m.",
+            "Set down with control.",
+            "Rest 60–90 sec."
+          ]
+        },
+        {
+          "id": "ppl-week",
+          "title": "Push / Pull / Legs Plan",
+          "frequency": "3–6 days/week",
+          "summary": "Structured weekly program for full-body strength.",
+          "steps": [
+            "Push day: bench, OHP, incline DB, raises, triceps.",
+            "Pull day: deadlift, pull-ups, rows, face pulls, curls.",
+            "Leg day: squat, RDL, lunges, calves, plank.",
+            "Warm up before every session.",
+            "Track weights and reps."
+          ]
+        },
+        {
+          "id": "front-squat",
+          "title": "Front Squat",
+          "sets_reps": "4 × 5–8",
+          "summary": "Front-loaded squat that hammers quads and core.",
+          "steps": [
+            "Bar across front delts, elbows high.",
+            "Brace core, take a big breath.",
+            "Sit straight down, knees track toes.",
+            "Drive up through whole foot.",
+            "Rest 2–3 min, repeat."
+          ]
+        },
+        {
+          "id": "incline-bench",
+          "title": "Incline Bench Press",
+          "sets_reps": "4 × 6–10",
+          "summary": "Targets upper chest and front shoulders.",
+          "steps": [
+            "Bench at 30–45°, feet planted.",
+            "Pinch shoulder blades back and down.",
+            "Lower bar to upper chest, elbows ~45°.",
+            "Press up over shoulders.",
+            "Re-rack with control."
+          ]
+        },
+        {
+          "id": "bulgarian-split-squat",
+          "title": "Bulgarian Split Squat",
+          "sets_reps": "3 × 8–10/leg",
+          "summary": "Single-leg squat with rear foot elevated.",
+          "steps": [
+            "Rear foot on bench, front foot 2–3 ft ahead.",
+            "Hold dumbbells at sides.",
+            "Lower until front thigh is parallel.",
+            "Drive through front heel to stand.",
+            "Switch legs, rest 90 sec."
+          ]
+        },
+        {
+          "id": "hip-thrust",
+          "title": "Barbell Hip Thrust",
+          "sets_reps": "3 × 8–12",
+          "summary": "Heavy glute lift from a bench-supported bridge.",
+          "steps": [
+            "Upper back on bench, bar across hips (use pad).",
+            "Feet flat, knees bent ~90° at top.",
+            "Drive hips up, squeeze glutes hard.",
+            "Pause 1 sec at top.",
+            "Lower with control, repeat."
+          ]
+        },
+        {
+          "id": "lat-pulldown",
+          "title": "Lat Pulldown",
+          "sets_reps": "4 × 8–12",
+          "summary": "Vertical pull for lats and upper back.",
+          "steps": [
+            "Sit, thighs locked under pad.",
+            "Grip bar slightly wider than shoulders.",
+            "Pull elbows down to ribs, chest up.",
+            "Squeeze lats at the bottom.",
+            "Control the bar back up."
+          ]
+        },
+        {
+          "id": "db-shoulder-press",
+          "title": "Seated Dumbbell Shoulder Press",
+          "sets_reps": "4 × 8–10",
+          "summary": "Strict overhead press without lower-back strain.",
+          "steps": [
+            "Sit upright on bench with back support.",
+            "Dumbbells at shoulder height, palms forward.",
+            "Press straight up until arms lock out.",
+            "Lower under control to start.",
+            "Rest 90 sec."
+          ]
+        },
+        {
+          "id": "upper-lower-split",
+          "title": "Upper / Lower Split Plan",
+          "frequency": "4 days/week",
+          "summary": "Alternating upper and lower body sessions.",
+          "steps": [
+            "Day 1 Upper: bench, row, OHP, pull-up, curls.",
+            "Day 2 Lower: squat, RDL, lunges, calves.",
+            "Day 3 rest or light cardio.",
+            "Day 4 Upper, Day 5 Lower (vary rep ranges).",
+            "Track progress weekly."
+          ]
+        }
+      ]
+    }
+  ]
+}

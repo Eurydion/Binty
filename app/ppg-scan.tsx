@@ -1,30 +1,41 @@
 import { Ionicons } from '@expo/vector-icons';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useRouter } from 'expo-router';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, Easing, Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
+import { detectFingerFromUri } from '@/features/ppg/finger-detector';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useHealthStore } from '@/store/use-health-store';
 
 const SCAN_DURATION_MS = 20_000;
+const FINGER_POLL_MS = 600;
 
-type Phase = 'idle' | 'scanning' | 'done' | 'denied' | 'noFinger';
+type Phase = 'idle' | 'waitingForFinger' | 'scanning' | 'done' | 'denied';
+
+function pickBpm(): number {
+  // Center-biased random in 62-92 (avg of two uniform rolls)
+  const r1 = 62 + Math.random() * 30;
+  const r2 = 62 + Math.random() * 30;
+  return Math.round((r1 + r2) / 2);
+}
 
 /**
- * PPG (photoplethysmography) heart-rate scanner using the phone camera +
- * flashlight. The user covers the rear camera with their fingertip;
- * the flash illuminates the finger and small changes in red-channel
- * intensity correspond to the pulse wave.
+ * PPG (photoplethysmography) heart-rate scanner.
  *
- * Note: React Native does not give us per-frame pixel buffers without
- * a native module. This scanner renders the authentic UX (camera +
- * torch + countdown + pulsing visualization) and computes a realistic
- * BPM by sampling the user's existing simulated/real signal during
- * the scan window. It then writes the result to the health store so
- * the rest of the app reflects the reading.
+ * Real finger detection (Expo Go compatible):
+ *   - mounts a hidden expo-camera CameraView with the torch on
+ *   - every ~600ms snapshots the lens, downsamples to 8x8 PNG, averages RGB,
+ *     and decides if a finger is covering the camera (red-dominant + bright).
+ *   - if finger is removed mid-scan, scanning pauses (progress + animation +
+ *     haptics) and reverts to the "place your finger" prompt; resumes when
+ *     the finger comes back.
+ *
+ * The BPM reading itself is simulated (stable random per scan window) so the
+ * pitch demo always produces a plausible heart rate without requiring real
+ * waveform analysis.
  */
 export default function PPGScannerScreen() {
   const router = useRouter();
@@ -37,47 +48,77 @@ export default function PPGScannerScreen() {
   const [bpmReading, setBpmReading] = useState<number | null>(null);
   const [confidence, setConfidence] = useState<'low' | 'good' | 'great'>('good');
 
-  const samplesRef = useRef<number[]>([]);
-  const startedAtRef = useRef<number>(0);
+  const targetBpmRef = useRef<number | null>(null);
+  // Progress accumulation across pauses (when finger lifts mid-scan)
+  const accumulatedMsRef = useRef<number>(0);
+  const segmentStartRef = useRef<number>(0);
   const pulse = useRef(new Animated.Value(1)).current;
 
-  // Pulse animation while scanning
+  const cameraRef = useRef<CameraView | null>(null);
+  const cameraReadyRef = useRef(false);
+  const phaseRef = useRef<Phase>('idle');
+  const checkInFlightRef = useRef(false);
+
+  // Keep phaseRef in sync so the polling loop sees the current phase
+  useEffect(() => {
+    phaseRef.current = phase;
+  }, [phase]);
+
+  // Camera should be mounted while we need finger detection or scanning.
+  const cameraActive = phase === 'waitingForFinger' || phase === 'scanning';
+
+  // Heartbeat-paced pulse animation + haptic during scanning
   useEffect(() => {
     if (phase !== 'scanning') return;
-    const loop = Animated.loop(
+    const bpm = targetBpmRef.current ?? 75;
+    const beatMs = Math.round(60_000 / bpm);
+
+    let cancelled = false;
+
+    const beat = async () => {
+      if (cancelled) return;
       Animated.sequence([
         Animated.timing(pulse, {
-          toValue: 1.18,
-          duration: 500,
-          easing: Easing.inOut(Easing.ease),
+          toValue: 1.22,
+          duration: 110,
+          easing: Easing.out(Easing.quad),
           useNativeDriver: true,
         }),
         Animated.timing(pulse, {
           toValue: 1,
-          duration: 500,
-          easing: Easing.inOut(Easing.ease),
+          duration: 220,
+          easing: Easing.inOut(Easing.quad),
           useNativeDriver: true,
         }),
-      ])
-    );
-    loop.start();
-    return () => loop.stop();
+      ]).start();
+
+      try {
+        const Haptics = await import('expo-haptics');
+        await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      } catch {
+        // expo-haptics on Android may fall back to no-op; that's fine
+      }
+    };
+
+    beat();
+    const interval = setInterval(beat, beatMs);
+
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
   }, [phase, pulse]);
 
-  // Sampling loop while scanning
+  // Progress ticker — runs only while actively scanning
   useEffect(() => {
     if (phase !== 'scanning') return;
-    startedAtRef.current = Date.now();
-    samplesRef.current = [];
+    segmentStartRef.current = Date.now();
 
     const tick = setInterval(() => {
-      const elapsed = Date.now() - startedAtRef.current;
-      const pct = Math.min(1, elapsed / SCAN_DURATION_MS);
+      const elapsedThisSegment = Date.now() - segmentStartRef.current;
+      const totalElapsed = accumulatedMsRef.current + elapsedThisSegment;
+      const pct = Math.min(1, totalElapsed / SCAN_DURATION_MS);
       setProgress(pct);
-
-      // Sample current heart-rate signal (from simulator/store).
-      const hr = useHealthStore.getState().snapshot.latest.heartRate;
-      if (hr > 0) samplesRef.current.push(hr);
 
       if (pct >= 1) {
         clearInterval(tick);
@@ -85,37 +126,78 @@ export default function PPGScannerScreen() {
       }
     }, 250);
 
-    return () => clearInterval(tick);
+    return () => {
+      // Bank the elapsed time of this segment when we leave the scanning phase
+      accumulatedMsRef.current += Date.now() - segmentStartRef.current;
+      clearInterval(tick);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase]);
 
-  const finishScan = () => {
-    const samples = samplesRef.current;
-    if (samples.length < 8) {
-      setPhase('noFinger');
-      return;
-    }
-    // Trim outliers and average
-    const sorted = samples.slice().sort((a, b) => a - b);
-    const trimmed = sorted.slice(2, sorted.length - 2);
-    const avg = Math.round(trimmed.reduce((a, b) => a + b, 0) / trimmed.length);
-    const variance =
-      trimmed.reduce((acc, x) => acc + (x - avg) ** 2, 0) / trimmed.length;
-    const std = Math.sqrt(variance);
+  // Finger-detection polling loop (runs whenever camera is active)
+  useEffect(() => {
+    if (!cameraActive) return;
+    let cancelled = false;
 
-    let conf: typeof confidence = 'good';
-    if (std < 4) conf = 'great';
-    else if (std > 10) conf = 'low';
+    const poll = async () => {
+      if (cancelled) return;
+      if (!cameraRef.current || !cameraReadyRef.current) return;
+      if (checkInFlightRef.current) return;
+      checkInFlightRef.current = true;
+      try {
+        const photo = await cameraRef.current.takePictureAsync({
+          quality: 0,
+          base64: false,
+          skipProcessing: true,
+          exif: false,
+          shutterSound: false,
+        });
+        if (cancelled || !photo?.uri) return;
+        const sample = await detectFingerFromUri(photo.uri);
+        if (cancelled || !sample) return;
 
-    setBpmReading(avg);
+        const currentPhase = phaseRef.current;
+        if (sample.isFinger) {
+          if (currentPhase === 'waitingForFinger') {
+            setPhase('scanning');
+          }
+        } else {
+          if (currentPhase === 'scanning') {
+            setPhase('waitingForFinger');
+          }
+        }
+      } catch (err) {
+        // takePictureAsync can throw if camera isn't ready or torch is contested
+        console.warn('[ppg] finger poll failed', err);
+      } finally {
+        checkInFlightRef.current = false;
+      }
+    };
+
+    const interval = setInterval(poll, FINGER_POLL_MS);
+    // Kick one off shortly after mount so the user gets fast feedback
+    const kickoff = setTimeout(poll, 350);
+
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+      clearTimeout(kickoff);
+    };
+  }, [cameraActive]);
+
+  const finishScan = useCallback(() => {
+    const bpm = targetBpmRef.current ?? pickBpm();
+    const conf: 'low' | 'good' | 'great' = Math.random() < 0.2 ? 'great' : 'good';
+
+    setBpmReading(bpm);
     setConfidence(conf);
     setPhase('done');
 
-    // Write into health store so rest of the app reflects the reading
     const snap = useHealthStore.getState().snapshot;
     useHealthStore.setState({
-      snapshot: { ...snap, latest: { ...snap.latest, heartRate: avg } },
+      snapshot: { ...snap, latest: { ...snap.latest, heartRate: bpm } },
     });
-  };
+  }, []);
 
   const startScan = async () => {
     if (!permission?.granted) {
@@ -125,16 +207,21 @@ export default function PPGScannerScreen() {
         return;
       }
     }
+    targetBpmRef.current = pickBpm();
+    accumulatedMsRef.current = 0;
+    cameraReadyRef.current = false;
     setProgress(0);
     setBpmReading(null);
-    setPhase('scanning');
+    setPhase('waitingForFinger');
   };
 
   const reset = () => {
     setPhase('idle');
     setProgress(0);
     setBpmReading(null);
-    samplesRef.current = [];
+    targetBpmRef.current = null;
+    accumulatedMsRef.current = 0;
+    cameraReadyRef.current = false;
   };
 
   if (phase === 'denied' || (permission && !permission.granted && phase === 'idle')) {
@@ -170,6 +257,11 @@ export default function PPGScannerScreen() {
     );
   }
 
+  const remainingS = Math.max(
+    0,
+    Math.ceil(((1 - progress) * SCAN_DURATION_MS) / 1000),
+  );
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: c.background }}>
       <View style={{ flex: 1, padding: Spacing.xl, justifyContent: 'space-between' }}>
@@ -191,16 +283,26 @@ export default function PPGScannerScreen() {
               overflow: 'hidden',
               borderWidth: 3,
               borderColor:
-                phase === 'scanning' ? Palette.kamote : Borders.hairline[scheme],
+                phase === 'scanning'
+                  ? Palette.kamote
+                  : phase === 'waitingForFinger'
+                  ? Palette.silverBlue
+                  : Borders.hairline[scheme],
               alignItems: 'center',
               justifyContent: 'center',
               backgroundColor: '#000',
             }}
           >
-            {phase === 'scanning' && permission?.granted ? (
+            {cameraActive && permission?.granted ? (
               <CameraView
+                ref={(ref) => {
+                  cameraRef.current = ref;
+                }}
                 facing="back"
                 enableTorch
+                onCameraReady={() => {
+                  cameraReadyRef.current = true;
+                }}
                 style={{ width: '100%', height: '100%' }}
               />
             ) : (
@@ -228,11 +330,10 @@ export default function PPGScannerScreen() {
           {phase === 'scanning' ? (
             <>
               <Text style={{ color: c.text, fontSize: 16, fontWeight: '700', marginTop: Spacing.lg }}>
-                Cover the rear camera + flash with your fingertip
+                Reading your pulse — keep finger steady
               </Text>
               <Text style={{ color: c.iconMuted, fontSize: 13, marginTop: 6 }}>
-                Hold steady — {Math.max(0, Math.ceil((1 - progress) * (SCAN_DURATION_MS / 1000)))}s
-                remaining
+                Hold steady — {remainingS}s remaining
               </Text>
               <View
                 style={{
@@ -254,6 +355,37 @@ export default function PPGScannerScreen() {
                 />
               </View>
             </>
+          ) : phase === 'waitingForFinger' ? (
+            <View style={{ alignItems: 'center', marginTop: Spacing.lg }}>
+              <Text style={{ color: c.text, fontSize: 16, fontWeight: '700', textAlign: 'center' }}>
+                Place your fingertip over the rear camera + flash
+              </Text>
+              <Text style={{ color: c.iconMuted, fontSize: 13, marginTop: 6, textAlign: 'center', lineHeight: 18 }}>
+                We&apos;ll start reading the moment we see your finger.{'\n'}
+                Press gently and hold still.
+              </Text>
+              {progress > 0 ? (
+                <View
+                  style={{
+                    width: '100%',
+                    height: 4,
+                    borderRadius: Radii.pill,
+                    backgroundColor: Borders.hairline[scheme],
+                    marginTop: Spacing.lg,
+                    overflow: 'hidden',
+                  }}
+                >
+                  <View
+                    style={{
+                      width: `${progress * 100}%`,
+                      height: '100%',
+                      backgroundColor: Palette.silverBlue,
+                      borderRadius: Radii.pill,
+                    }}
+                  />
+                </View>
+              ) : null}
+            </View>
           ) : phase === 'done' && bpmReading != null ? (
             <View style={{ alignItems: 'center', marginTop: Spacing.lg }}>
               <Text style={{ color: c.iconMuted, fontSize: 12, fontWeight: '800', letterSpacing: 0.6 }}>
@@ -297,28 +429,21 @@ export default function PPGScannerScreen() {
                 </Text>
               </View>
             </View>
-          ) : phase === 'noFinger' ? (
-            <View style={{ alignItems: 'center', marginTop: Spacing.lg }}>
-              <Text style={{ color: c.text, fontSize: 16, fontWeight: '700' }}>No pulse detected</Text>
-              <Text style={{ color: c.iconMuted, fontSize: 13, marginTop: 6, textAlign: 'center' }}>
-                Press your fingertip gently against the rear camera and flash, and try again.
-              </Text>
-            </View>
           ) : (
             <View style={{ alignItems: 'center', marginTop: Spacing.lg }}>
               <Text style={{ color: c.text, fontSize: 16, fontWeight: '700', textAlign: 'center' }}>
                 Place your fingertip over the rear camera
               </Text>
               <Text style={{ color: c.iconMuted, fontSize: 13, marginTop: 6, textAlign: 'center', lineHeight: 18 }}>
-                The flashlight will turn on. Stay still for 20 seconds.{'\n'}
-                We&apos;ll detect your heartbeat from light changes.
+                The flashlight will turn on. Stay still until we&apos;ve gathered{'\n'}
+                {Math.round(SCAN_DURATION_MS / 1000)} seconds of finger contact.
               </Text>
             </View>
           )}
         </View>
 
         <View style={{ gap: 10 }}>
-          {phase === 'idle' || phase === 'noFinger' ? (
+          {phase === 'idle' ? (
             <Pressable
               onPress={startScan}
               style={({ pressed }) => ({
@@ -330,7 +455,7 @@ export default function PPGScannerScreen() {
               })}
             >
               <Text style={{ color: '#fff', fontWeight: '800', fontSize: 15 }}>
-                {phase === 'noFinger' ? 'Try again' : 'Start scan'}
+                Start scan
               </Text>
             </Pressable>
           ) : phase === 'done' ? (

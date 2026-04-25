@@ -1,0 +1,231 @@
+{
+  "category_label": "Insights",
+  "categories": {
+    "water": {
+      "title": "Hydration",
+      "facts": [
+        {
+          "id": "water-1",
+          "text": "Your body is about 60% water, and even mild dehydration can reduce focus, mood, and energy. Sipping water throughout the day helps keep your brain and body running smoothly."
+        },
+        {
+          "id": "water-2",
+          "text": "Water helps regulate body temperature, cushion joints, and flush out waste through the kidneys. Drinking enough each day supports nearly every system in your body."
+        },
+        {
+          "id": "water-3",
+          "text": "By the time you feel thirsty, you may already be slightly dehydrated. Building a habit of regular sips, especially around meals and workouts, keeps hydration steady."
+        },
+        {
+          "id": "water-4",
+          "text": "Pale-yellow urine is one of the simplest signs you're well hydrated. Darker shades usually mean it's time for a glass of water."
+        },
+        {
+          "id": "water-5",
+          "text": "Hot drinks, soups, and water-rich foods like fruit and vegetables all count toward your daily fluid intake — hydration doesn't have to come only from a bottle."
+        },
+        {
+          "id": "water-6",
+          "text": "Caffeinated drinks like coffee and tea hydrate you too, but they have a mild diuretic effect, so balancing them with plain water across the day works best."
+        }
+      ]
+    },
+    "steps": {
+      "title": "Daily Movement",
+      "facts": [
+        {
+          "id": "steps-1",
+          "text": "Adding more steps to your routine improves heart health, circulation, and mood, even without a formal workout. Short walks after meals can also help steady blood sugar."
+        },
+        {
+          "id": "steps-2",
+          "text": "Long periods of sitting are linked to higher health risks, even if you exercise later. Standing up and walking for a few minutes every hour helps offset that impact."
+        },
+        {
+          "id": "steps-3",
+          "text": "You don't need to hit a perfect step goal to benefit. Studies show meaningful health gains start with small, consistent increases in daily movement."
+        },
+        {
+          "id": "steps-4",
+          "text": "A brisk 10-minute walk can lift your mood and lower stress hormones almost immediately. It's one of the cheapest, fastest mental-health tools available."
+        },
+        {
+          "id": "steps-5",
+          "text": "Walking outdoors in daylight does double duty: it counts toward your steps and helps anchor your circadian rhythm so you sleep better at night."
+        },
+        {
+          "id": "steps-6",
+          "text": "Climbing stairs instead of taking the lift is a tiny, free strength workout. A few flights a day adds up to noticeable cardio gains over weeks."
+        }
+      ]
+    },
+    "heart_rate": {
+      "title": "Heart Rate",
+      "facts": [
+        {
+          "id": "heart-1",
+          "text": "Your heart rate is one of the clearest signals of how your body is doing in real time. Checking it regularly helps you notice trends in fitness, stress, and recovery."
+        },
+        {
+          "id": "heart-2",
+          "text": "A lower resting heart rate often reflects a stronger, more efficient heart. Tracking it over weeks can show how your cardiovascular fitness is improving."
+        },
+        {
+          "id": "heart-3",
+          "text": "Sudden spikes or unusual changes in heart rate can be early hints of stress, illness, or overtraining. Monitoring it from time to time helps you catch issues early and adjust."
+        },
+        {
+          "id": "heart-4",
+          "text": "Heart-rate variability (HRV) — the tiny gaps between beats — is one of the best signals of nervous-system balance. Higher HRV usually means better recovery."
+        },
+        {
+          "id": "heart-5",
+          "text": "A morning heart rate that's noticeably higher than your usual baseline can be an early sign you're under-recovered, getting sick, or sleep-deprived."
+        }
+      ]
+    },
+    "sleep": {
+      "title": "Sleep",
+      "facts": [
+        {
+          "id": "sleep-1",
+          "text": "Most adults perform best on 7–9 hours of sleep. Even one short night can measurably reduce focus, mood, and decision-making the next day."
+        },
+        {
+          "id": "sleep-2",
+          "text": "Going to bed and waking up at roughly the same time every day — yes, even on weekends — is one of the strongest predictors of good sleep quality."
+        },
+        {
+          "id": "sleep-3",
+          "text": "Bright morning light within an hour of waking helps anchor your body clock, making it easier to fall asleep that night."
+        },
+        {
+          "id": "sleep-4",
+          "text": "Caffeine has a half-life of around 5–6 hours, so an afternoon coffee can still be active in your system at bedtime. Cutting it off by early afternoon often improves sleep."
+        },
+        {
+          "id": "sleep-5",
+          "text": "Cool, dark, and quiet rooms help your body drop into deeper sleep. A bedroom around 18–20°C (65–68°F) is the sweet spot for most people."
+        },
+        {
+          "id": "sleep-6",
+          "text": "Deep sleep is when your body repairs muscle and consolidates memory. Skipping sleep is essentially skipping recovery from yesterday's workout — and prep for tomorrow."
+        }
+      ]
+    },
+    "stress": {
+      "title": "Stress & Mood",
+      "facts": [
+        {
+          "id": "stress-1",
+          "text": "A few slow exhales is one of the fastest ways to calm your nervous system. Long exhales activate the vagus nerve and signal your body it's safe."
+        },
+        {
+          "id": "stress-2",
+          "text": "Short bursts of stress are normal and even useful — it's chronic, unrelenting stress that wears the body down. Building tiny daily recovery breaks helps balance the load."
+        },
+        {
+          "id": "stress-3",
+          "text": "Naming an emotion in words ('I feel anxious') has been shown to dial down its intensity in the brain. Labeling is a simple but powerful regulation tool."
+        },
+        {
+          "id": "stress-4",
+          "text": "Time in nature — even a 20-minute walk in a park — has been linked to lower stress hormones and improved mood compared to staying indoors."
+        },
+        {
+          "id": "stress-5",
+          "text": "Social connection is a regulator. A quick chat with someone you trust can lower cortisol and steady your heart rate more reliably than scrolling alone."
+        }
+      ]
+    },
+    "nutrition": {
+      "title": "Nutrition",
+      "facts": [
+        {
+          "id": "nutrition-1",
+          "text": "Eating protein with each meal helps stabilize energy, control hunger, and protect muscle as you age. Most adults benefit from spreading it across the day rather than one big serving."
+        },
+        {
+          "id": "nutrition-2",
+          "text": "Whole fruits, vegetables, and whole grains contain fiber that feeds your gut microbes — a hidden lever for mood, immunity, and digestion."
+        },
+        {
+          "id": "nutrition-3",
+          "text": "Eating slowly gives your gut about 15–20 minutes to signal fullness to the brain. Slowing down at meals often means eating less without feeling deprived."
+        },
+        {
+          "id": "nutrition-4",
+          "text": "Heavily processed foods are engineered to be eaten quickly and in large amounts. Building meals around minimally processed ingredients tends to satisfy you with fewer calories."
+        },
+        {
+          "id": "nutrition-5",
+          "text": "Skipping meals often leads to bigger ones later and energy crashes in between. A predictable rhythm of eating helps stabilize mood and focus."
+        }
+      ]
+    },
+    "mental_wellbeing": {
+      "title": "Mental Wellbeing",
+      "facts": [
+        {
+          "id": "mind-1",
+          "text": "Writing down three things you're grateful for at the end of the day has been shown to improve mood and sleep within a few weeks of consistent practice."
+        },
+        {
+          "id": "mind-2",
+          "text": "Even five minutes of mindful breathing or meditation can lower stress markers. The benefit comes more from regularity than from long sessions."
+        },
+        {
+          "id": "mind-3",
+          "text": "Your brain treats screen time before bed as daylight, delaying melatonin release. A small 'no-screen' wind-down window often improves both sleep and morning mood."
+        },
+        {
+          "id": "mind-4",
+          "text": "Asking for help when you're struggling is a strength, not a weakness. Sharing what's on your mind often reduces the weight of it."
+        },
+        {
+          "id": "mind-5",
+          "text": "Doing something creative — drawing, writing, cooking, music — engages the brain in a way that quiets rumination and supports emotional balance."
+        }
+      ]
+    },
+    "recovery": {
+      "title": "Recovery",
+      "facts": [
+        {
+          "id": "recovery-1",
+          "text": "Muscles get stronger between workouts, not during them. Rest days, sleep, and food are when the actual adaptation happens."
+        },
+        {
+          "id": "recovery-2",
+          "text": "Active recovery — easy walks, light stretching, gentle mobility — usually beats total rest for soreness, because it boosts circulation without taxing the body."
+        },
+        {
+          "id": "recovery-3",
+          "text": "Hydration and protein in the hours after exercise help the body repair tissue and replenish energy stores faster."
+        },
+        {
+          "id": "recovery-4",
+          "text": "Tracking how you feel — energy, mood, motivation — is often a better recovery signal than tracking soreness alone."
+        }
+      ]
+    },
+    "sunlight": {
+      "title": "Sunlight & Circadian Rhythm",
+      "facts": [
+        {
+          "id": "sun-1",
+          "text": "Getting natural light into your eyes within the first hour of waking helps set your body clock for better mood, focus, and sleep."
+        },
+        {
+          "id": "sun-2",
+          "text": "Even on cloudy days, outdoor light is many times brighter than indoor light. A short walk outside still gives you a meaningful circadian signal."
+        },
+        {
+          "id": "sun-3",
+          "text": "Dim, warm light in the evening tells your body that nighttime is approaching. Reducing bright overhead light an hour before bed supports natural melatonin release."
+        }
+      ]
+    }
+  }
+}
+

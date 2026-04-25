@@ -1,9 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useEffect } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
+import { stopUrgentAlert } from '@/features/alerts/play-alert';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useCheckInStore } from '@/store/use-check-in-store';
 
@@ -50,6 +52,15 @@ export default function CheckInModal() {
   const trigger = useCheckInStore((s) => s.active);
   const dismiss = useCheckInStore((s) => s.dismiss);
 
+  // Safety net: if the modal is unmounted by any path
+  // (Android back button, OS gesture), make sure the alarm dies.
+  // MUST stay above any early return so hook order is stable.
+  useEffect(() => {
+    return () => {
+      stopUrgentAlert();
+    };
+  }, []);
+
   if (!trigger) {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: c.background, alignItems: 'center', justifyContent: 'center' }}>
@@ -65,12 +76,15 @@ export default function CheckInModal() {
   const accent = trigger.kind === 'anxiety-spike' ? Palette.teal : Palette.kamote;
 
   const handleBreathing = () => {
+    stopUrgentAlert();
     router.replace('/modals/breathing');
   };
   const handleGrounding = () => {
+    stopUrgentAlert();
     router.replace('/modals/grounding');
   };
   const handleOk = () => {
+    stopUrgentAlert();
     dismiss();
     router.back();
   };

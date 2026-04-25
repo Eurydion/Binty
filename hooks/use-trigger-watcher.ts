@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 
+import { startUrgentAlert } from '@/features/alerts/play-alert';
 import { detectTrigger, isUrgent } from '@/features/wellness-engine/triggers';
 import { useCheckInStore } from '@/store/use-check-in-store';
 import { useHealthStore } from '@/store/use-health-store';
@@ -31,7 +32,11 @@ export function useTriggerWatcher() {
 
     if (isUrgent(trigger) && trigger) {
       const fired = maybeTrigger(trigger);
-      if (fired) lastFiredRef.current = now;
+      if (fired) {
+        lastFiredRef.current = now;
+        // Start looping alarm + vibration; stops when user taps a check-in action
+        void startUrgentAlert();
+      }
     }
   }, [snapshot, waterLoggedMl, goalMl, maybeTrigger]);
 }
