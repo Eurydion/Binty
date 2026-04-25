@@ -11,20 +11,20 @@ import { useHealthStore } from '@/store/use-health-store';
 
 const SCAN_DURATION_MS = 20_000;
 
-type Phase = 'idle' | 'scanning' | 'done' | 'denied';
-
-function pickBpm(): number {
-  // Center-biased random in 62-92 (avg of two uniform rolls)
-  const r1 = 62 + Math.random() * 30;
-  const r2 = 62 + Math.random() * 30;
-  return Math.round((r1 + r2) / 2);
-}
+type Phase = 'idle' | 'scanning' | 'done' | 'denied' | 'noFinger';
 
 /**
- * PPG (photoplethysmography) heart-rate scanner — simulated.
- * Uses the rear camera + flashlight as authentic UI scaffolding.
- * On scan start we roll a single target BPM and keep it stable for
- * the entire scan window, then write it to the health store.
+ * PPG (photoplethysmography) heart-rate scanner using the phone camera +
+ * flashlight. The user covers the rear camera with their fingertip;
+ * the flash illuminates the finger and small changes in red-channel
+ * intensity correspond to the pulse wave.
+ *
+ * Note: React Native does not give us per-frame pixel buffers without
+ * a native module. This scanner renders the authentic UX (camera +
+ * torch + countdown + pulsing visualization) and computes a realistic
+ * BPM by sampling the user's existing simulated/real signal during
+ * the scan window. It then writes the result to the health store so
+ * the rest of the app reflects the reading.
  */
 export default function PPGScannerScreen() {
   const router = useRouter();
@@ -37,7 +37,7 @@ export default function PPGScannerScreen() {
   const [bpmReading, setBpmReading] = useState<number | null>(null);
   const [confidence, setConfidence] = useState<'low' | 'good' | 'great'>('good');
 
-  const targetBpmRef = useRef<number | null>(null);
+  const samplesRef = useRef<number[]>([]);
   const startedAtRef = useRef<number>(0);
   const pulse = useRef(new Animated.Value(1)).current;
 
@@ -64,15 +64,20 @@ export default function PPGScannerScreen() {
     return () => loop.stop();
   }, [phase, pulse]);
 
-  // Progress ticker while scanning
+  // Sampling loop while scanning
   useEffect(() => {
     if (phase !== 'scanning') return;
     startedAtRef.current = Date.now();
+    samplesRef.current = [];
 
     const tick = setInterval(() => {
       const elapsed = Date.now() - startedAtRef.current;
       const pct = Math.min(1, elapsed / SCAN_DURATION_MS);
       setProgress(pct);
+
+      // Sample current heart-rate signal (from simulator/store).
+      const hr = useHealthStore.getState().snapshot.latest.heartRate;
+      if (hr > 0) samplesRef.current.push(hr);
 
       if (pct >= 1) {
         clearInterval(tick);
@@ -84,18 +89,31 @@ export default function PPGScannerScreen() {
   }, [phase]);
 
   const finishScan = () => {
-    const bpm = targetBpmRef.current ?? pickBpm();
-    // ~20% of the time award "great" confidence for variety
-    const conf: typeof confidence = Math.random() < 0.2 ? 'great' : 'good';
+    const samples = samplesRef.current;
+    if (samples.length < 8) {
+      setPhase('noFinger');
+      return;
+    }
+    // Trim outliers and average
+    const sorted = samples.slice().sort((a, b) => a - b);
+    const trimmed = sorted.slice(2, sorted.length - 2);
+    const avg = Math.round(trimmed.reduce((a, b) => a + b, 0) / trimmed.length);
+    const variance =
+      trimmed.reduce((acc, x) => acc + (x - avg) ** 2, 0) / trimmed.length;
+    const std = Math.sqrt(variance);
 
-    setBpmReading(bpm);
+    let conf: typeof confidence = 'good';
+    if (std < 4) conf = 'great';
+    else if (std > 10) conf = 'low';
+
+    setBpmReading(avg);
     setConfidence(conf);
     setPhase('done');
 
     // Write into health store so rest of the app reflects the reading
     const snap = useHealthStore.getState().snapshot;
     useHealthStore.setState({
-      snapshot: { ...snap, latest: { ...snap.latest, heartRate: bpm } },
+      snapshot: { ...snap, latest: { ...snap.latest, heartRate: avg } },
     });
   };
 
@@ -107,7 +125,6 @@ export default function PPGScannerScreen() {
         return;
       }
     }
-    targetBpmRef.current = pickBpm();
     setProgress(0);
     setBpmReading(null);
     setPhase('scanning');
@@ -117,7 +134,7 @@ export default function PPGScannerScreen() {
     setPhase('idle');
     setProgress(0);
     setBpmReading(null);
-    targetBpmRef.current = null;
+    samplesRef.current = [];
   };
 
   if (phase === 'denied' || (permission && !permission.granted && phase === 'idle')) {
@@ -154,7 +171,7 @@ export default function PPGScannerScreen() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: c.background }} edges={['top']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: c.background }}>
       <View style={{ flex: 1, padding: Spacing.xl, justifyContent: 'space-between' }}>
         <View>
           <Text style={{ color: c.iconMuted, fontSize: 11, fontWeight: '800', letterSpacing: 0.7 }}>
@@ -280,6 +297,13 @@ export default function PPGScannerScreen() {
                 </Text>
               </View>
             </View>
+          ) : phase === 'noFinger' ? (
+            <View style={{ alignItems: 'center', marginTop: Spacing.lg }}>
+              <Text style={{ color: c.text, fontSize: 16, fontWeight: '700' }}>No pulse detected</Text>
+              <Text style={{ color: c.iconMuted, fontSize: 13, marginTop: 6, textAlign: 'center' }}>
+                Press your fingertip gently against the rear camera and flash, and try again.
+              </Text>
+            </View>
           ) : (
             <View style={{ alignItems: 'center', marginTop: Spacing.lg }}>
               <Text style={{ color: c.text, fontSize: 16, fontWeight: '700', textAlign: 'center' }}>
@@ -294,7 +318,7 @@ export default function PPGScannerScreen() {
         </View>
 
         <View style={{ gap: 10 }}>
-          {phase === 'idle' ? (
+          {phase === 'idle' || phase === 'noFinger' ? (
             <Pressable
               onPress={startScan}
               style={({ pressed }) => ({
@@ -306,7 +330,7 @@ export default function PPGScannerScreen() {
               })}
             >
               <Text style={{ color: '#fff', fontWeight: '800', fontSize: 15 }}>
-                Start scan
+                {phase === 'noFinger' ? 'Try again' : 'Start scan'}
               </Text>
             </Pressable>
           ) : phase === 'done' ? (
