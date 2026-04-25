@@ -34,7 +34,7 @@ export default function HeartRateScreen() {
   return (
     <>
       <Stack.Screen options={{ title: 'Heart Rate' }} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: c.background }} edges={['top']}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: c.background }}>
         <ScrollView contentContainerStyle={{ paddingVertical: 24, gap: 16 }}>
           {/* Hero pulse + scenario chip */}
           <View style={{ paddingHorizontal: 24 }}>

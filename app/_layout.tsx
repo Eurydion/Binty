@@ -7,6 +7,7 @@ import 'react-native-reanimated';
 import { UnlockOverlay } from '@/components/achievements/unlock-overlay';
 import { useAchievementWatcher } from '@/hooks/use-achievement-watcher';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { usePhonePedometer } from '@/hooks/use-phone-pedometer';
 import { useTriggerWatcher } from '@/hooks/use-trigger-watcher';
 import { useAchievementsStore } from '@/store/use-achievements-store';
 import { useCheckInStore } from '@/store/use-check-in-store';
@@ -34,6 +35,7 @@ export default function RootLayout() {
 
   useAchievementWatcher();
   useTriggerWatcher();
+  usePhonePedometer();
 
   useEffect(() => {
     hydrate();
@@ -78,6 +80,12 @@ export default function RootLayout() {
         <Stack.Screen name="modals/check-in" options={{ presentation: 'modal', headerShown: false, gestureEnabled: false }} />
         <Stack.Screen name="modals/breathing" options={{ presentation: 'modal', headerShown: false }} />
         <Stack.Screen name="modals/grounding" options={{ presentation: 'modal', headerShown: false }} />
+        <Stack.Screen name="modals/box-breathing" options={{ presentation: 'modal', headerShown: false }} />
+        <Stack.Screen name="modals/body-scan" options={{ presentation: 'modal', headerShown: false }} />
+        <Stack.Screen name="modals/gratitude" options={{ presentation: 'modal', headerShown: false }} />
+        <Stack.Screen name="modals/self-check-in" options={{ presentation: 'modal', headerShown: false }} />
+        <Stack.Screen name="wellness" options={{ title: 'Self-care toolkit' }} />
+        <Stack.Screen name="ppg-scan" options={{ title: 'Pulse scan' }} />
       </Stack>
       <UnlockOverlay />
       <StatusBar style="auto" />

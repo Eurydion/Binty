@@ -83,30 +83,29 @@ export function TaskCard({
           opacity: pressed ? 0.9 : 1,
           transform: [{ scale: pressed ? 0.98 : 1 }],
         })}>
-        <Pressable
-          onPress={handleToggle}
-          hitSlop={8}
-          style={{
-            width: 32,
-            height: 32,
-            borderRadius: 9999,
-            backgroundColor: completed ? Palette.kangkong : c.background,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginRight: 14,
-          }}>
-          <Ionicons
-            name={completed ? 'checkmark' : 'remove'}
-            size={18}
-            color={completed ? Palette.cloud : c.iconMuted}
-          />
-        </Pressable>
-
         {icon && (
           <Ionicons
             name={icon}
             size={18}
             color={completed ? c.iconMuted : (iconColor ?? Palette.kangkong)}
+            style={{ marginRight: 8 }}
+          />
+        )}
+
+        {isMeal && (
+          <Ionicons
+            name={isExpanded ? 'chevron-up' : 'chevron-down'}
+            size={18}
+            color={c.iconMuted}
+            style={{ marginRight: 8 }}
+          />
+        )}
+
+        {onLongPress && !isMeal && (
+          <Ionicons
+            name="swap-horizontal-outline"
+            size={16}
+            color={c.iconMuted}
             style={{ marginRight: 8 }}
           />
         )}
@@ -129,23 +128,24 @@ export function TaskCard({
           )}
         </View>
 
-        {isMeal && (
-          <Ionicons
-            name={isExpanded ? 'chevron-up' : 'chevron-down'}
-            size={18}
-            color={c.iconMuted}
-            style={{ marginLeft: 8 }}
-          />
-        )}
-
-        {onLongPress && !isMeal && (
-          <Ionicons
-            name="swap-horizontal-outline"
-            size={16}
-            color={c.iconMuted}
-            style={{ marginLeft: 8 }}
-          />
-        )}
+        <Pressable
+          onPress={handleToggle}
+          hitSlop={8}
+          style={{
+            width: 32,
+            height: 32,
+            borderRadius: 9999,
+            backgroundColor: completed ? Palette.kangkong : 'transparent',
+            borderWidth: completed ? 0 : 1.5,
+            borderColor: completed ? 'transparent' : Borders.hairline[scheme],
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginLeft: 12,
+          }}>
+          {completed ? (
+            <Ionicons name="checkmark" size={18} color={Palette.cloud} />
+          ) : null}
+        </Pressable>
       </Pressable>
 
       {/* Expandable content (meal detail) */}

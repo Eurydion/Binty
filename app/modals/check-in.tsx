@@ -76,7 +76,7 @@ export default function CheckInModal() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: c.background }} edges={['top']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: c.background }}>
       <View style={{ flex: 1, padding: Spacing.xl, justifyContent: 'space-between' }}>
         <View>
           <View

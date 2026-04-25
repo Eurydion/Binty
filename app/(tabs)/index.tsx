@@ -9,6 +9,7 @@ import { WaterIntakeCard } from '@/components/cards/water-intake-card';
 import { BintyInsight } from '@/components/home/binty-insight';
 import { DailyTipCard } from '@/components/home/daily-tip-card';
 import { HabitsStrip } from '@/components/home/habits-strip';
+import { HomeActions } from '@/components/home/home-actions';
 import { StreakChip } from '@/components/home/streak-chip';
 import { ScreenHeader } from '@/components/ui/screen-header';
 import { Colors, Palette } from '@/constants/theme';
@@ -29,7 +30,7 @@ export default function HomeScreen() {
   const hasUnseen = recentlyUnlocked.length > 0;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: c.background }} edges={['top']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: c.background }}>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingTop: 16, paddingBottom: 32 }}
@@ -97,6 +98,10 @@ export default function HomeScreen() {
             goalMl={profile.dailyWaterGoalMl}
           />
         </View>
+
+        <View style={{ height: 12 }} />
+
+        <HomeActions />
 
         <View style={{ height: 12 }} />
 

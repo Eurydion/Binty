@@ -30,7 +30,7 @@ export default function SleepDetailScreen() {
     return (
       <>
         <Stack.Screen options={{ title: 'Sleep' }} />
-        <SafeAreaView style={{ flex: 1, backgroundColor: c.background }} edges={['top']}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: c.background }}>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 24 }}>
             <Ionicons name="moon-outline" size={48} color={c.iconMuted} />
             <Text
@@ -82,7 +82,7 @@ export default function SleepDetailScreen() {
   return (
     <>
       <Stack.Screen options={{ title: 'Sleep' }} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: c.background }} edges={['top']}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: c.background }}>
         <ScrollView contentContainerStyle={{ paddingVertical: 24, gap: 16 }}>
           {/* Hero ring */}
           <View style={{ paddingHorizontal: 24 }}>

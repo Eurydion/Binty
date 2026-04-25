@@ -348,7 +348,7 @@ export default function RoutineScreen() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: c.background }} edges={['top']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: c.background }}>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{
