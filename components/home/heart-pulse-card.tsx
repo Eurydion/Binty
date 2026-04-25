@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import Animated, {
   cancelAnimation,
@@ -49,12 +49,17 @@ export function HeartPulseCard({ bpm }: Props) {
   const trend = trendFromHistory(bpmValues);
 
   const scale = useSharedValue(1);
+  const lastBpmRef = useRef(0);
   useEffect(() => {
     if (connection !== 'connected' || bpm <= 0) {
       cancelAnimation(scale);
       scale.value = 1;
+      lastBpmRef.current = 0;
       return;
     }
+    // skip restart on tiny jitter
+    if (Math.abs(bpm - lastBpmRef.current) < 2) return;
+    lastBpmRef.current = bpm;
     const period = Math.max(300, Math.round(60000 / bpm));
     cancelAnimation(scale);
     scale.value = withRepeat(
@@ -109,7 +114,15 @@ export function HeartPulseCard({ bpm }: Props) {
           </Text>
           {bpmValues.length > 1 ? (
             <View style={{ marginTop: 4 }}>
-              <Sparkline data={bpmValues} color={status.color} width={90} height={20} />
+              <Sparkline
+                data={bpmValues}
+                color={status.color}
+                width={90}
+                height={20}
+                yMin={40}
+                yMax={180}
+                windowSize={90}
+              />
             </View>
           ) : null}
         </View>

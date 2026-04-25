@@ -18,8 +18,8 @@ export interface SimulatorState {
   history: HistorySample[];
 }
 
-const HISTORY_LIMIT = 60;
-const TICK_MS = 5000;
+const HISTORY_LIMIT = 90;
+const TICK_MS = 1000;
 
 let _interval: ReturnType<typeof setInterval> | null = null;
 let _listeners: ((state: SimulatorState) => void)[] = [];
@@ -105,14 +105,15 @@ function broadcast() {
 function tick() {
   if (_connection !== 'connected') return;
   const preset = SCENARIOS[_scenario];
-  const alpha = 0.35;
+  const alpha = 0.10;
+  const jScale = 0.5;
 
   // lerp toward target + jitter
-  _hr = lerp(_hr, preset.hr.target, alpha) + rand(preset.hr.jitter);
-  _hrv = lerp(_hrv, preset.hrv.target, alpha) + rand(preset.hrv.jitter);
-  _stress = lerp(_stress, preset.stress.target, alpha) + rand(preset.stress.jitter);
-  _spo2 = lerp(_spo2, preset.spo2.target, alpha) + rand(preset.spo2.jitter);
-  _steps += preset.stepsPerTick;
+  _hr = lerp(_hr, preset.hr.target, alpha) + rand(preset.hr.jitter * jScale);
+  _hrv = lerp(_hrv, preset.hrv.target, alpha) + rand(preset.hrv.jitter * jScale);
+  _stress = lerp(_stress, preset.stress.target, alpha) + rand(preset.stress.jitter * jScale);
+  _spo2 = lerp(_spo2, preset.spo2.target, alpha) + rand(preset.spo2.jitter * jScale);
+  _steps += preset.stepsPerTick / 5; // stepsPerTick was authored for 5s tick
 
   // optional drift override
   if (preset.drift) {

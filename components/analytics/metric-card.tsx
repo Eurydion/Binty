@@ -14,6 +14,9 @@ interface Props {
   trendLabel?: string;
   data?: number[];
   color?: string;
+  yMin?: number;
+  yMax?: number;
+  windowSize?: number;
 }
 
 export function MetricCard({
@@ -25,6 +28,9 @@ export function MetricCard({
   trendLabel,
   data,
   color = Palette.kangkong,
+  yMin,
+  yMax,
+  windowSize,
 }: Props) {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
@@ -62,7 +68,15 @@ export function MetricCard({
         </Text>
         {data && data.length > 1 ? (
           <View style={{ marginTop: 4 }}>
-            <Sparkline data={data} color={color} width={80} height={20} />
+            <Sparkline
+              data={data}
+              color={color}
+              width={80}
+              height={20}
+              yMin={yMin}
+              yMax={yMax}
+              windowSize={windowSize}
+            />
           </View>
         ) : null}
       </View>

@@ -68,6 +68,9 @@ export default function AnalyticsScreen() {
             data={bpmSeries}
             trend={trend(bpmSeries)}
             color={Palette.kangkong}
+            yMin={40}
+            yMax={180}
+            windowSize={90}
           />
           <MetricCard
             icon="walk"
@@ -76,6 +79,7 @@ export default function AnalyticsScreen() {
             data={stepSeries}
             trend={trend(stepSeries)}
             color={Palette.teal}
+            windowSize={90}
           />
           <MetricCard
             icon="flash"
@@ -85,6 +89,9 @@ export default function AnalyticsScreen() {
             data={stressSeries}
             trend={trend(stressSeries)}
             color={stressColor}
+            yMin={0}
+            yMax={100}
+            windowSize={90}
           />
         </View>
 

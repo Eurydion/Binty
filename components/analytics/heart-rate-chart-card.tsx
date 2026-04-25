@@ -71,6 +71,9 @@ export function HeartRateChartCard() {
             height={140}
             color={Palette.kangkong}
             baseline={avg}
+            yMin={40}
+            yMax={180}
+            windowSize={90}
             showLabels
           />
         ) : (

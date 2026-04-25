@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import Animated, {
   cancelAnimation,
@@ -36,12 +36,16 @@ export default function HeartRateScreen() {
   const avg = data.length ? Math.round(data.reduce((a, b) => a + b, 0) / data.length) : bpm;
 
   const scale = useSharedValue(1);
+  const lastBpmRef = useRef(0);
   useEffect(() => {
     if (connection !== 'connected' || bpm <= 0) {
       cancelAnimation(scale);
       scale.value = 1;
+      lastBpmRef.current = 0;
       return;
     }
+    if (Math.abs(bpm - lastBpmRef.current) < 2) return;
+    lastBpmRef.current = bpm;
     const period = Math.max(300, Math.round(60000 / bpm));
     cancelAnimation(scale);
     scale.value = withRepeat(
@@ -117,6 +121,9 @@ export default function HeartRateScreen() {
                   height={220}
                   color={Palette.kangkong}
                   baseline={avg}
+                  yMin={40}
+                  yMax={180}
+                  windowSize={90}
                   showLabels
                 />
               ) : (

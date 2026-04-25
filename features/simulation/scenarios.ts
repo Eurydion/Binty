@@ -60,7 +60,8 @@ export const SCENARIOS: Record<Scenario, ScenarioPreset> = {
     spo2: { target: 95, jitter: 1 },
     stepsPerTick: 0,
     drift: ({ tickIndex }) => {
-      if (tickIndex < 2) return { hr: 145 };
+      // sharp spike for first ~10s, then steady at target
+      if (tickIndex < 10) return { hr: 145 };
       return {};
     },
   },
@@ -84,7 +85,9 @@ export const SCENARIOS: Record<Scenario, ScenarioPreset> = {
     spo2: { target: 96, jitter: 1 },
     stepsPerTick: 0,
     drift: ({ hr, tickIndex }) => {
-      const pattern = [0, 18, -12, 6, -8, 14][tickIndex % 6];
+      // change beat-pattern every ~5s for arrhythmia feel
+      const idx = Math.floor(tickIndex / 5) % 6;
+      const pattern = [0, 18, -12, 6, -8, 14][idx];
       return { hr: hr + pattern };
     },
   },
@@ -98,8 +101,9 @@ export const SCENARIOS: Record<Scenario, ScenarioPreset> = {
     spo2: { target: 98, jitter: 1 },
     stepsPerTick: 0,
     drift: ({ tickIndex }) => {
-      if (tickIndex < 4) return { hr: 140 - tickIndex * 6 };
-      if (tickIndex < 12) return { hr: 110 - (tickIndex - 4) * 3 };
+      // ~20s of high HR, then ~40s decay (≈3 min total recovery curve)
+      if (tickIndex < 20) return { hr: 140 - tickIndex * 1.2 };
+      if (tickIndex < 60) return { hr: 110 - (tickIndex - 20) * 0.6 };
       return {};
     },
   },
