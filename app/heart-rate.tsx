@@ -7,8 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeartPulseCard } from '@/components/cards/heart-pulse-card';
 import { LineChart } from '@/components/charts/line-chart';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { SCENARIOS } from '@/features/simulation/scenarios';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useHealthStore } from '@/store/use-health-store';
 
 export default function HeartRateScreen() {

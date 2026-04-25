@@ -37,4 +37,5 @@ export const STORAGE_KEYS = {
   ACHIEVEMENTS: 'binty:achievements',
   SAVED_TIPS: 'binty:saved-tips',
   HABITS: 'binty:habits',
+  MOOD: 'binty:mood', // deprecated
 } as const;

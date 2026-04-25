@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
 import { Colors, Palette, Radii } from '@/constants/theme';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { Ionicons } from '@expo/vector-icons';
 
 const DAY_LABELS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];

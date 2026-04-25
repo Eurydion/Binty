@@ -1,5 +1,5 @@
 import { MitigationSteps } from '@/components/alerts/intervention-banner';
-import { useInterventions } from '@/features/hooks/use-interventions';
+import { useInterventions } from '@/hooks/use-interventions';
 import { useRouter } from 'expo-router';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 

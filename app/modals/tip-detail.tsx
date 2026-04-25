@@ -6,9 +6,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { DotPattern } from '@/components/effects/dot-pattern';
 import { NoiseOverlay } from '@/components/effects/noise-overlay';
 import { Borders, Colors, Radii, Spacing } from '@/constants/theme';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { TIP_CATEGORY_META, TIPS_BY_ID } from '@/features/tips/catalog';
 import { getDailyTip } from '@/features/tips/select';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useTipsStore } from '@/store/use-tips-store';
 
 export default function TipDetailModal() {

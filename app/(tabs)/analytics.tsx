@@ -9,7 +9,7 @@ import { ScenarioPicker } from '@/components/analytics/scenario-picker';
 import { SleepCard } from '@/components/analytics/sleep-card';
 import { ScreenHeader } from '@/components/ui/screen-header';
 import { Colors, Palette } from '@/constants/theme';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useHealthStore } from '@/store/use-health-store';
 
 export default function AnalyticsScreen() {

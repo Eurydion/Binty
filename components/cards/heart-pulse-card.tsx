@@ -8,7 +8,7 @@ import { StatusPill } from '@/components/heart/status-pill';
 import { bpmStatus, trendFromHistory } from '@/components/heart/status-utils';
 import { PressableScale } from '@/components/ui/pressable-scale';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useHealthStore } from '@/store/use-health-store';
 
 interface Props {
@@ -57,7 +57,8 @@ export function HeartPulseCard({ bpm, variant = 'compact' }: Props) {
         <Text style={{ fontSize: 14, color: c.iconMuted, marginTop: -4, marginBottom: 8 }}>BPM</Text>
         <View style={{ alignItems: 'center' }}>
           <StatusPill label={status.label} color={status.color} size="md" />
-        </View>      </View>
+        </View>
+      </View>
     );
   }
 

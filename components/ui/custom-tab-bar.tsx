@@ -5,7 +5,7 @@ import { Pressable, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Borders, Colors, Palette } from '@/constants/theme';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 
 type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
 

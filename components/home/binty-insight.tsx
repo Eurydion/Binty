@@ -3,40 +3,19 @@ import { Text, View } from 'react-native';
 
 import { MascotPortrait } from '@/components/home/mascot-portrait';
 import { Borders, Colors, Palette } from '@/constants/theme';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
+import { pickInsight } from '@/features/wellness-engine/insight-messages';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useUserStore } from '@/store/use-user-store';
 import type { EmotionalState } from '@/types/health';
 
 type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
 
-const STATE_MAP: Record<
-  EmotionalState,
-  { icon: IoniconName; message: string; accent: string }
-> = {
-  calm: {
-    icon: 'happy-outline',
-    message: "You're calm today. Keep it going.",
-    accent: Palette.kangkong,
-  },
-  energized: {
-    icon: 'sunny-outline',
-    message: 'Strong energy! Make the most of it.',
-    accent: Palette.kamote,
-  },
-  anxious: {
-    icon: 'alert-circle-outline',
-    message: 'You seem a bit anxious. Take a breath.',
-    accent: Palette.teal,
-  },
-  stressed: {
-    icon: 'sad-outline',
-    message: 'You seem stressed. I adjusted your routine.',
-    accent: Palette.kamote,
-  },
-  sad: {
-    icon: 'rainy-outline',
-    message: 'Feeling low? Some gentle movement can help.',
-    accent: Palette.silverBlue,
-  },
+const STATE_META: Record<EmotionalState, { icon: IoniconName; accent: string; label: string }> = {
+  calm: { icon: 'happy-outline', accent: Palette.kangkong, label: 'Calm' },
+  energized: { icon: 'sunny-outline', accent: Palette.kamote, label: 'Energized' },
+  anxious: { icon: 'alert-circle-outline', accent: Palette.teal, label: 'Anxious' },
+  stressed: { icon: 'sad-outline', accent: Palette.kamote, label: 'Stressed' },
+  sad: { icon: 'rainy-outline', accent: Palette.silverBlue, label: 'Low' },
 };
 
 interface Props {
@@ -46,7 +25,9 @@ interface Props {
 export function BintyInsight({ state }: Props) {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
-  const meta = STATE_MAP[state];
+  const profile = useUserStore((s) => s.profile);
+  const meta = STATE_META[state];
+  const message = pickInsight(state, new Date().getHours(), profile.name);
 
   return (
     <View style={{ paddingHorizontal: 24 }}>
@@ -70,16 +51,18 @@ export function BintyInsight({ state }: Props) {
         />
 
         <View style={{ flex: 1, marginLeft: 18 }}>
-          <Text
-            style={{
-              color: c.iconMuted,
-              fontSize: 12,
-              fontWeight: '700',
-              letterSpacing: 0.6,
-            }}
-          >
-            BINTY INSIGHT
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <Text
+              style={{
+                color: c.iconMuted,
+                fontSize: 12,
+                fontWeight: '700',
+                letterSpacing: 0.6,
+              }}
+            >
+              BINTY · {meta.label.toUpperCase()}
+            </Text>
+          </View>
           <Text
             style={{
               color: c.text,
@@ -89,7 +72,7 @@ export function BintyInsight({ state }: Props) {
               lineHeight: 24,
             }}
           >
-            {meta.message}
+            {message}
           </Text>
         </View>
       </View>

@@ -6,8 +6,8 @@ import { Text, View } from 'react-native';
 import { LineChart } from '@/components/charts/line-chart';
 import { PressableScale } from '@/components/ui/pressable-scale';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { SCENARIOS } from '@/features/simulation/scenarios';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useHealthStore } from '@/store/use-health-store';
 
 export function HeartRateChartCard() {

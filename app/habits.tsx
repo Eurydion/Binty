@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Borders, Colors, Radii, Spacing } from '@/constants/theme';
 import { HABIT_PRESETS } from '@/features/habits/presets';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { MAX_ACTIVE_HABITS, useHabitsStore } from '@/store/use-habits-store';
 
 export default function HabitsScreen() {

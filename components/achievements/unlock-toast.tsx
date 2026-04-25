@@ -11,7 +11,7 @@ import Animated, {
 import { MilestoneBurst } from '@/components/achievements/milestone-burst';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
 import { ACHIEVEMENTS_BY_ID } from '@/features/achievements/catalog';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 
 interface Props {
   achievementId: string;

@@ -7,7 +7,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { SleepRing } from '@/components/analytics/sleep-ring';
 import { SleepTimeline } from '@/components/analytics/sleep-timeline';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
 import { generateMockNight } from '@/features/sleep/generator';
 import {
   STAGE_COLORS,
@@ -16,6 +15,7 @@ import {
   STAGE_ORDER,
   type SleepStage,
 } from '@/features/sleep/types';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useHealthStore } from '@/store/use-health-store';
 
 export default function SleepDetailScreen() {

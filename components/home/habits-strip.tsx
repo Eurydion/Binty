@@ -3,21 +3,102 @@ import { useRouter } from 'expo-router';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 
 import { Borders, Colors, Radii, Spacing } from '@/constants/theme';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
+import type { Habit } from '@/features/habits/types';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { formatDate } from '@/lib/date';
 import { useHabitsStore } from '@/store/use-habits-store';
+
+function HabitChip({ habit, today }: { habit: Habit; today: string }) {
+  const scheme = useColorScheme() ?? 'light';
+  const c = Colors[scheme];
+  const router = useRouter();
+  const count = useHabitsStore((s) => s.logs[habit.id]?.[today] ?? 0);
+  const increment = useHabitsStore((s) => s.increment);
+
+  const pct = Math.min(1, count / Math.max(1, habit.target));
+  const done = count >= habit.target;
+
+  return (
+    <Pressable
+      onPress={() => increment(habit.id, 1)}
+      onLongPress={() => router.push('/habits')}
+      style={({ pressed }) => ({
+        width: 132,
+        borderRadius: Radii.lg,
+        padding: Spacing.md,
+        borderWidth: 1,
+        borderColor: done ? habit.color : Borders.hairline[scheme],
+        backgroundColor: c.surface,
+        overflow: 'hidden',
+        opacity: pressed ? 0.85 : 1,
+        transform: [{ scale: pressed ? 0.98 : 1 }],
+      })}
+    >
+      <View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          left: 0,
+          bottom: 0,
+          height: 3,
+          width: `${pct * 100}%`,
+          backgroundColor: habit.color,
+        }}
+      />
+      <View
+        style={{
+          width: 32,
+          height: 32,
+          borderRadius: 9999,
+          backgroundColor: habit.color + '24',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: 8,
+        }}
+      >
+        <Ionicons name={habit.icon} size={16} color={habit.color} />
+      </View>
+      <Text
+        style={{ fontSize: 13, fontWeight: '700', color: c.text }}
+        numberOfLines={1}
+      >
+        {habit.title}
+      </Text>
+      <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4, marginTop: 2 }}>
+        <Text style={{ fontSize: 16, fontWeight: '800', color: habit.color }}>
+          {count}
+        </Text>
+        <Text style={{ fontSize: 11, color: c.iconMuted }}>
+          / {habit.target} {habit.unit}
+        </Text>
+      </View>
+      {done ? (
+        <View
+          style={{
+            position: 'absolute',
+            top: 8,
+            right: 8,
+            width: 18,
+            height: 18,
+            borderRadius: 9999,
+            backgroundColor: habit.color,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Ionicons name="checkmark" size={12} color="#fff" />
+        </View>
+      ) : null}
+    </Pressable>
+  );
+}
 
 export function HabitsStrip() {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
   const router = useRouter();
   const habits = useHabitsStore((s) => s.habits);
-  const logs = useHabitsStore((s) => s.logs);
-  const increment = useHabitsStore((s) => s.increment);
-  const countToday = useHabitsStore((s) => s.countToday);
-
-  // Touch logs so the component re-renders when counts change without exposing
-  // the helper to consumers (zustand selector returns a function reference).
-  void logs;
+  const today = formatDate(new Date());
 
   return (
     <View style={{ paddingHorizontal: 24 }}>
@@ -100,85 +181,9 @@ export function HabitsStrip() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ gap: 10, paddingRight: 4 }}
         >
-          {habits.map((h) => {
-            const count = countToday(h.id);
-            const pct = Math.min(1, count / Math.max(1, h.target));
-            const done = count >= h.target;
-            return (
-              <Pressable
-                key={h.id}
-                onPress={() => increment(h.id, 1)}
-                onLongPress={() => router.push('/habits')}
-                style={({ pressed }) => ({
-                  width: 132,
-                  borderRadius: Radii.lg,
-                  padding: Spacing.md,
-                  borderWidth: 1,
-                  borderColor: done ? h.color : Borders.hairline[scheme],
-                  backgroundColor: c.surface,
-                  overflow: 'hidden',
-                  opacity: pressed ? 0.85 : 1,
-                  transform: [{ scale: pressed ? 0.98 : 1 }],
-                })}
-              >
-                <View
-                  pointerEvents="none"
-                  style={{
-                    position: 'absolute',
-                    left: 0,
-                    bottom: 0,
-                    height: 3,
-                    width: `${pct * 100}%`,
-                    backgroundColor: h.color,
-                  }}
-                />
-                <View
-                  style={{
-                    width: 32,
-                    height: 32,
-                    borderRadius: 9999,
-                    backgroundColor: h.color + '24',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: 8,
-                  }}
-                >
-                  <Ionicons name={h.icon} size={16} color={h.color} />
-                </View>
-                <Text
-                  style={{ fontSize: 13, fontWeight: '700', color: c.text }}
-                  numberOfLines={1}
-                >
-                  {h.title}
-                </Text>
-                <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4, marginTop: 2 }}>
-                  <Text style={{ fontSize: 16, fontWeight: '800', color: h.color }}>
-                    {count}
-                  </Text>
-                  <Text style={{ fontSize: 11, color: c.iconMuted }}>
-                    / {h.target} {h.unit}
-                  </Text>
-                </View>
-                {done ? (
-                  <View
-                    style={{
-                      position: 'absolute',
-                      top: 8,
-                      right: 8,
-                      width: 18,
-                      height: 18,
-                      borderRadius: 9999,
-                      backgroundColor: h.color,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Ionicons name="checkmark" size={12} color="#fff" />
-                  </View>
-                ) : null}
-              </Pressable>
-            );
-          })}
+          {habits.map((h) => (
+            <HabitChip key={h.id} habit={h} today={today} />
+          ))}
         </ScrollView>
       )}
     </View>

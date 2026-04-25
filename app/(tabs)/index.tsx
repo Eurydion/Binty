@@ -12,7 +12,7 @@ import { HabitsStrip } from '@/components/home/habits-strip';
 import { StreakChip } from '@/components/home/streak-chip';
 import { ScreenHeader } from '@/components/ui/screen-header';
 import { Colors, Palette } from '@/constants/theme';
-import { useColorScheme } from '@/features/hooks/use-color-scheme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useAchievementsStore } from '@/store/use-achievements-store';
 import { useHealthStore } from '@/store/use-health-store';
 import { useRoutineStore } from '@/store/use-routine-store';
