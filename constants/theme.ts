@@ -40,6 +40,52 @@ export const Borders = {
   },
 } as const;
 
+/**
+ * Semantic surfaces. Use these instead of hand-rolling `c.surface`
+ * with custom backgrounds, especially for accent / elevated cards.
+ */
+export const Surfaces = {
+  light: {
+    primary: '#FFFFFF',
+    raised: '#FFFFFF',
+    sunken: '#F2F2EF',
+    accent: {
+      kangkong: '#EEF3E8',
+      teal: '#E5F0F0',
+      silverBlue: '#EAF1F8',
+      kamote: '#FAF1D9',
+      danger: '#FBEAE3',
+    },
+  },
+  dark: {
+    primary: '#1F1F1F',
+    raised: '#262626',
+    sunken: '#1A1A1A',
+    accent: {
+      kangkong: '#2C3826',
+      teal: '#1F3334',
+      silverBlue: '#1F2A36',
+      kamote: '#3A2F14',
+      danger: '#3A241B',
+    },
+  },
+} as const;
+
+/**
+ * Shared motion primitives so timing / spring choices stay consistent.
+ */
+export const Motion = {
+  timing: {
+    fast: 150,
+    base: 220,
+    slow: 360,
+  },
+  spring: {
+    soft: { damping: 18, stiffness: 160, mass: 0.8 },
+    bouncy: { damping: 10, stiffness: 180, mass: 0.6 },
+  },
+} as const;
+
 export const Colors = {
   light: {
     text: Palette.charcoal,

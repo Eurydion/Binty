@@ -2,6 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
 
+import { DotPattern } from '@/components/effects/dot-pattern';
+import { NoiseOverlay } from '@/components/effects/noise-overlay';
 import { Palette, Radii, Spacing } from '@/constants/theme';
 
 export function LearnMoreCard() {
@@ -16,8 +18,11 @@ export function LearnMoreCard() {
           padding: Spacing.lg,
           backgroundColor: Palette.kangkong,
           opacity: pressed ? 0.9 : 1,
+          overflow: 'hidden',
         })}
       >
+        <DotPattern color="#FFFFFF" opacity={0.18} spacing={18} radius={1.4} />
+        <NoiseOverlay opacity={0.06} />
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
           <View style={{ flexShrink: 1, paddingRight: 12 }}>
             <Text style={{ color: Palette.cloud, fontSize: 16, fontWeight: '700', marginBottom: 4 }}>

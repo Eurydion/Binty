@@ -1,8 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 
 import { LineChart } from '@/components/charts/line-chart';
+import { PressableScale } from '@/components/ui/pressable-scale';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
 import { SCENARIOS } from '@/features/simulation/scenarios';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -11,6 +13,7 @@ import { useHealthStore } from '@/store/use-health-store';
 export function HeartRateChartCard() {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
+  const router = useRouter();
   const history = useHealthStore((s) => s.history);
   const connection = useHealthStore((s) => s.connection);
   const scenario = useHealthStore((s) => s.scenario);
@@ -24,7 +27,8 @@ export function HeartRateChartCard() {
 
   return (
     <View style={{ paddingHorizontal: 24 }}>
-      <View
+      <PressableScale
+        onPress={() => router.push('/heart-rate')}
         style={{
           backgroundColor: c.surface,
           borderRadius: Radii.lg,
@@ -41,11 +45,14 @@ export function HeartRateChartCard() {
               HEART RATE TREND
             </Text>
           </View>
-          <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4 }}>
-            <Text style={{ fontSize: 22, fontWeight: '700', color: c.text }}>
-              {snapshot.latest.heartRate}
-            </Text>
-            <Text style={{ fontSize: 11, color: c.iconMuted }}>BPM</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4 }}>
+              <Text style={{ fontSize: 22, fontWeight: '700', color: c.text }}>
+                {snapshot.latest.heartRate}
+              </Text>
+              <Text style={{ fontSize: 11, color: c.iconMuted }}>BPM</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={16} color={c.iconMuted} />
           </View>
         </View>
 
@@ -94,7 +101,7 @@ export function HeartRateChartCard() {
             <Stat label="Max" value={max} c={c} />
           </View>
         ) : null}
-      </View>
+      </PressableScale>
     </View>
   );
 }

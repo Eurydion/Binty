@@ -1,6 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
 
+import { DiagonalLines } from '@/components/effects/diagonal-lines';
+import { NoiseOverlay } from '@/components/effects/noise-overlay';
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
 import { getDailyQuote } from '@/features/quotes/quotes';
 import { useColorScheme } from '@/hooks/use-color-scheme';
@@ -32,6 +34,8 @@ export function QuoteCard() {
             opacity: scheme === 'dark' ? 0.18 : 0.08,
           }}
         />
+        <DiagonalLines color={Palette.kangkong} opacity={0.14} spacing={16} />
+        <NoiseOverlay opacity={0.04} />
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 8 }}>
           <Ionicons name="sparkles" size={14} color={Palette.kangkong} />
           <Text
