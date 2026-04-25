@@ -65,7 +65,6 @@ export function HeartBpmCard({ bpm }: Props) {
     <View
       style={{
         flex: 1,
-        aspectRatio: 1,
         backgroundColor: c.surface,
         borderRadius: 24,
         padding: 16,

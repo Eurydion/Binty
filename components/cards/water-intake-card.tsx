@@ -82,7 +82,6 @@ export function WaterIntakeCard({ loggedMl, goalMl }: Props) {
       onPress={() => router.push('/modals/log-water')}
       style={({ pressed }) => ({
         flex: 1,
-        aspectRatio: 1,
         borderRadius: 24,
         overflow: 'hidden',
         backgroundColor: c.surface,

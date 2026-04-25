@@ -7,7 +7,6 @@ interface Props {
   duration: number;
   delay: number;
   opacity: number;
-  /** How far up (in px) the bubble travels before disappearing. */
   riseDistance?: number;
 }
 
@@ -22,21 +21,24 @@ export function FloatingBubble({
   const anim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // Use the JS driver so this animation stays in sync with the
-    // parent water layer (which animates `height` with the JS driver).
     const loop = Animated.loop(
-      Animated.sequence([
-        Animated.delay(delay),
-        Animated.timing(anim, {
-          toValue: 1,
-          duration,
-          easing: Easing.out(Easing.quad),
-          useNativeDriver: false,
-        }),
-      ]),
+      Animated.timing(anim, {
+        toValue: 1,
+        duration,
+        easing: Easing.out(Easing.quad),
+        useNativeDriver: true,
+      }),
     );
-    loop.start();
-    return () => loop.stop();
+
+    const timeout = setTimeout(() => {
+      anim.setValue(0);
+      loop.start();
+    }, delay);
+
+    return () => {
+      clearTimeout(timeout);
+      loop.stop();
+    };
   }, [anim, delay, duration]);
 
   const translateY = anim.interpolate({
@@ -45,7 +47,7 @@ export function FloatingBubble({
   });
 
   const fade = anim.interpolate({
-    inputRange: [0, 0.15, 0.85, 1],
+    inputRange: [0, 0.2, 0.8, 1],
     outputRange: [0, opacity, opacity, 0],
   });
 
@@ -55,11 +57,11 @@ export function FloatingBubble({
       style={{
         position: 'absolute',
         left,
-        bottom: 0,
+        bottom: 8,
         width: size,
         height: size,
         borderRadius: 9999,
-        backgroundColor: 'rgba(255,255,255,0.75)',
+        backgroundColor: 'rgba(255,255,255,0.9)',
         opacity: fade,
         transform: [{ translateY }],
       }}

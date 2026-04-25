@@ -1,65 +1,46 @@
-import { ActivitySlot } from '@/components/routine/activity-slot';
-import { MealSlot } from '@/components/routine/meal-slot';
-import { RoutineBlock } from '@/components/routine/routine-block';
-import { useMealSuggestions } from '@/hooks/use-meal-suggestions';
-import { useRoutineStore } from '@/store/use-routine-store';
-import type { ActivitySlot as ActivitySlotType, MealSlot as MealSlotType } from '@/types/routine';
 import { ScrollView, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { ScreenHeader } from '@/components/ui/screen-header';
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function RoutineScreen() {
-  const { routine, completeSlot } = useRoutineStore();
-  const breakfastSuggestions = useMealSuggestions('breakfast', 1);
-  const lunchSuggestions = useMealSuggestions('lunch', 1);
-  const dinnerSuggestions = useMealSuggestions('dinner', 1);
-
-  function getSuggestion(slot: MealSlotType) {
-    if (slot.mealType === 'breakfast') return breakfastSuggestions[0] ?? null;
-    if (slot.mealType === 'lunch') return lunchSuggestions[0] ?? null;
-    return dinnerSuggestions[0] ?? null;
-  }
-
-  if (!routine) {
-    return (
-      <View className="flex-1 items-center justify-center bg-gray-50">
-        <Text className="text-gray-400">Generating your routine...</Text>
-      </View>
-    );
-  }
+  const scheme = useColorScheme() ?? 'light';
+  const c = Colors[scheme];
 
   return (
-    <ScrollView className="flex-1 bg-gray-50" contentContainerClassName="px-5 pt-14 pb-8">
-      <Text className="text-2xl font-bold text-gray-900 mb-6">Today's Routine</Text>
-      {routine.blocks.map((block) => (
-        <RoutineBlock key={block.id} block={block}>
-          {block.slots.map((slot) => {
-            if (slot.type === 'meal') {
-              return (
-                <MealSlot
-                  key={slot.id}
-                  slot={slot as MealSlotType}
-                  suggestion={getSuggestion(slot as MealSlotType)}
-                  onLog={() => {/* TODO: open log-meal modal */}}
-                />
-              );
-            }
-            if (slot.type === 'activity' || slot.type === 'rest' || slot.type === 'custom') {
-              return (
-                <ActivitySlot
-                  key={slot.id}
-                  slot={slot as ActivitySlotType}
-                  onComplete={() => completeSlot(slot.id)}
-                />
-              );
-            }
-            return null;
-          })}
-        </RoutineBlock>
-      ))}
-      {routine.blocks.length === 0 && (
-        <Text className="text-gray-400 text-center mt-12">
-          Your routine will appear here once generated.
-        </Text>
-      )}
-    </ScrollView>
+    <SafeAreaView style={{ flex: 1, backgroundColor: c.background }} edges={['top']}>
+      <ScrollView
+        style={{ flex: 1 }}
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingTop: 16,
+          paddingBottom: 32,
+        }}
+      >
+        <ScreenHeader title="Routine" />
+
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingHorizontal: 24,
+            paddingVertical: 64,
+          }}
+        >
+          <Text
+            style={{
+              color: c.iconMuted,
+              fontSize: 14,
+              textAlign: 'center',
+            }}
+          >
+            No routine loaded yet.
+          </Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
