@@ -5,37 +5,74 @@
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+/**
+ * Binti palette — see design.md for usage rules.
+ */
+export const Palette = {
+  charcoal: '#2C2C2C',
+  kangkong: '#4F7942',
+  cloud: '#F9F9F9',
+  kamote: '#E1AD01',
+  teal: '#4A9B9B',
+  silverBlue: '#A7C7E7',
+} as const;
+
+export const Radii = {
+  sm: 8,
+  md: 16,
+  lg: 24,
+  pill: 9999,
+} as const;
+
+export const Spacing = {
+  xs: 4,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 24,
+  xxl: 32,
+} as const;
+
+export const Borders = {
+  hairline: {
+    light: 'rgba(44,44,44,0.08)',
+    dark: 'rgba(249,249,249,0.08)',
+  },
+} as const;
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    text: Palette.charcoal,
+    background: Palette.cloud,
+    surface: '#FFFFFF',
+    tint: Palette.kangkong,
+    icon: '#6B6B6B',
+    iconMuted: 'rgba(44,44,44,0.6)',
+    tabIconDefault: 'rgba(44,44,44,0.55)',
+    tabIconSelected: Palette.kangkong,
+    tabBarBackground: '#FFFFFF',
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    text: Palette.cloud,
+    background: Palette.charcoal,
+    surface: '#1F1F1F',
+    tint: Palette.kangkong,
+    icon: '#C9C9C9',
+    iconMuted: 'rgba(249,249,249,0.6)',
+    tabIconDefault: 'rgba(249,249,249,0.55)',
+    tabIconSelected: Palette.cloud,
+    tabBarBackground: '#1F1F1F',
   },
 };
 
+
+
+
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
     sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
     serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
     rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
     mono: 'ui-monospace',
   },
   default: {
