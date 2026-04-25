@@ -109,10 +109,11 @@ ${dayName}, ${date}
 - Each activity slot must include 2 alternatives the user can swap to
 
 ### Meals
-- ONLY Filipino dishes (e.g. Sinigang, Adobo, Tinola, Lugaw, Arroz Caldo, Bistek, Torta, Ginisang, Paksiw, Nilaga, Longsilog, Tapsilog, etc.)
-- Include: name, nameTagalog, full recipe (step-by-step cooking instructions), ingredient list with quantities and units, estimated calories, prep time, and tags
-- Each meal slot must include 2 alternative meals the user can swap to
-- Respect dietary preferences (e.g. no-pork → no pork dishes)
+- ONLY Filipino dishes (Sinigang, Adobo, Tinola, Lugaw, Arroz Caldo, Bistek, Torta, Ginisang, Paksiw, Nilaga, Longsilog, Tapsilog, etc.)
+- Include: name, nameTagalog, recipe (brief 3-5 step instructions), ingredients with quantities/units, calories, prepMinutes, tags
+- Each meal slot: 2 alternative meals
+- Respect dietary preferences (e.g. no-pork → skip pork dishes)
+- Keep recipes concise — numbered steps, max 5 steps each
 
 ### Hydration
 - Include 2–3 water intake reminders spread across the day
@@ -125,29 +126,9 @@ ${dayName}, ${date}
 - Morning starts at wake time, Evening block ends ~1h before sleep time
 
 ### JSON FORMAT — return ONLY this structure, no markdown:
-{
-  "blocks": [
-    {
-      "label": "Morning" | "Afternoon" | "Evening",
-      "slots": [
-        {
-          "type": "activity" | "meal" | "hydration" | "mindfulness" | "rest",
-          "time": "HH:mm",
-          "title": "string",
-          "category": "Fitness" | "Consumption" | "Work" | "Mindfulness",
-          "durationMinutes": number,
-          "intensity": "light" | "moderate" | "intense",
-          "description": "brief note",
-          "alternatives": [{ "title": "...", "durationMinutes": N, "intensity": "...", "description": "..." }],
-          "mealType": "breakfast" | "lunch" | "dinner" | "snack",
-          "meal": { "name": "...", "nameTagalog": "...", "category": "...", "recipe": "step-by-step...", "ingredients": [{ "name": "...", "unit": "...", "quantity": N }], "calories": N, "tags": [...], "prepMinutes": N },
-          "alternativeMeals": [same meal structure],
-          "targetMl": number
-        }
-      ]
-    }
-  ]
-}`;
+{"blocks":[{"label":"Morning|Afternoon|Evening","slots":[{"type":"activity|meal|hydration|mindfulness|rest","time":"HH:mm","title":"str","category":"Fitness|Consumption|Work|Mindfulness","durationMinutes":N,"intensity":"light|moderate|intense","description":"brief","alternatives":[{"title":"...","durationMinutes":N,"intensity":"...","description":"..."}],"mealType":"breakfast|lunch|dinner|snack","meal":{"name":"...","nameTagalog":"...","category":"...","recipe":"steps...","ingredients":[{"name":"...","unit":"...","quantity":N}],"calories":N,"tags":[...],"prepMinutes":N},"alternativeMeals":[same meal obj],"targetMl":N}]}]}
+
+Only include fields relevant to each slot type. Activity/mindfulness slots need title,category,durationMinutes,intensity,description,alternatives. Meal slots need mealType,meal,alternativeMeals. Hydration slots need targetMl.`;
 }
 
 /* ------------------------------------------------------------------ */
@@ -266,7 +247,7 @@ export async function generateRoutineWithAI(
       { role: 'user', content: `Generate my routine for ${date}. Return JSON only.` },
     ],
     temperature: 0.7,
-    maxTokens: 4096,
+    maxTokens: 16384,
   });
 
   return parseResponse(data, date);

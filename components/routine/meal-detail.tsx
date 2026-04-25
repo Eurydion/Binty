@@ -102,7 +102,7 @@ export function MealDetail({ meal, onChangeMeal }: Props) {
             <View
               key={tag}
               style={{
-                backgroundColor: scheme === 'light' ? '#F0F0F0' : '#333',
+                backgroundColor: c.background,
                 borderRadius: Radii.pill,
                 paddingHorizontal: 10,
                 paddingVertical: 4,

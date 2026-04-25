@@ -1,7 +1,6 @@
-import { Ionicons } from '@expo/vector-icons';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 
-import { Borders, Colors, Palette, Radii } from '@/constants/theme';
+import { Colors, Palette, Radii } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export type RoutineCategory = 'All' | 'Fitness' | 'Consumption' | 'Work' | 'Mindfulness';
@@ -11,10 +10,9 @@ const CATEGORIES: RoutineCategory[] = ['All', 'Fitness', 'Consumption', 'Work', 
 interface Props {
   selected: RoutineCategory;
   onSelect: (category: RoutineCategory) => void;
-  onFilterPress?: () => void;
 }
 
-export function CategoryChips({ selected, onSelect, onFilterPress }: Props) {
+export function CategoryChips({ selected, onSelect }: Props) {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
 
@@ -23,7 +21,8 @@ export function CategoryChips({ selected, onSelect, onFilterPress }: Props) {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 8, paddingRight: 8 }}>
+        nestedScrollEnabled
+        contentContainerStyle={{ gap: 8 }}>
         {CATEGORIES.map((cat) => {
           const isActive = selected === cat;
           return (
@@ -35,7 +34,7 @@ export function CategoryChips({ selected, onSelect, onFilterPress }: Props) {
                 paddingVertical: 8,
                 borderRadius: Radii.pill,
                 backgroundColor: isActive
-                  ? (scheme === 'light' ? Palette.charcoal : Palette.cloud)
+                  ? Palette.kangkong
                   : 'transparent',
                 borderWidth: 1,
                 borderColor: isActive
@@ -48,7 +47,7 @@ export function CategoryChips({ selected, onSelect, onFilterPress }: Props) {
                   fontSize: 13,
                   fontWeight: '600',
                   color: isActive
-                    ? (scheme === 'light' ? Palette.cloud : Palette.charcoal)
+                    ? Palette.cloud
                     : c.text,
                 }}>
                 {cat}
@@ -57,22 +56,6 @@ export function CategoryChips({ selected, onSelect, onFilterPress }: Props) {
           );
         })}
       </ScrollView>
-
-      <Pressable
-        onPress={onFilterPress}
-        accessibilityLabel="Filter routines"
-        style={({ pressed }) => ({
-          width: 36,
-          height: 36,
-          borderRadius: Radii.pill,
-          backgroundColor: Palette.kangkong,
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginLeft: 8,
-          opacity: pressed ? 0.7 : 1,
-        })}>
-        <Ionicons name="options-outline" size={18} color="#FFFFFF" />
-      </Pressable>
     </View>
   );
 }

@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, Text, View } from 'react-native';
 
-import { Colors, Palette } from '@/constants/theme';
+import { Colors, Palette, Radii, Borders } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 const MONTH_NAMES = [
@@ -51,8 +51,10 @@ export function RoutineHeader({ selectedDate, onMonthPress }: Props) {
         style={({ pressed }) => ({
           width: 36,
           height: 36,
-          borderRadius: 10,
-          backgroundColor: scheme === 'light' ? '#E8E8E8' : '#3A3A3A',
+          borderRadius: Radii.sm,
+          backgroundColor: c.background,
+          borderWidth: 1,
+          borderColor: Borders.hairline[scheme],
           alignItems: 'center',
           justifyContent: 'center',
           opacity: pressed ? 0.7 : 1,

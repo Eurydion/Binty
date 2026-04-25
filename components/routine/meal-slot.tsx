@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import type { Meal } from '@/types/meals';
 import type { MealSlot as MealSlotType } from '@/types/routine';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -16,10 +17,13 @@ export function MealSlot({ slot, suggestion, onLog }: Props) {
     <View className="flex-row items-start gap-3 py-3">
       <Text className="text-xs text-gray-400 w-14 pt-0.5">{slot.time}</Text>
       <View className="flex-1">
-        <Text className="text-sm font-semibold text-gray-700">🍽 {label}</Text>
+        <View className="flex-row items-center gap-1">
+          <Ionicons name="restaurant-outline" size={14} color="#4F7942" />
+          <Text className="text-sm font-semibold text-gray-700">{label}</Text>
+        </View>
         {suggestion && (
           <Text className="text-xs text-gray-500 mt-0.5">
-            Suggested: {suggestion.name}
+            Suggestion: {suggestion.name}
             {suggestion.estimatedCostPhp != null
               ? ` · ~₱${Math.round(suggestion.estimatedCostPhp)}`
               : ''}

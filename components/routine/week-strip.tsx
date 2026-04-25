@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
+import { Ionicons } from '@expo/vector-icons';
 import { Borders, Colors, Palette, Radii } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
@@ -9,6 +10,7 @@ const DAY_LABELS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 interface Props {
   selectedDate: Date;
   onSelectDate: (date: Date) => void;
+  routineDates?: Set<string>;
 }
 
 function startOfWeek(date: Date): Date {
@@ -26,7 +28,11 @@ function isSameDay(a: Date, b: Date): boolean {
   );
 }
 
-export function WeekStrip({ selectedDate, onSelectDate }: Props) {
+function formatDateKey(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+export function WeekStrip({ selectedDate, onSelectDate, routineDates }: Props) {
   const scheme = useColorScheme() ?? 'light';
   const c = Colors[scheme];
   const today = useMemo(() => new Date(), []);
@@ -40,11 +46,34 @@ export function WeekStrip({ selectedDate, onSelectDate }: Props) {
     });
   }, [selectedDate]);
 
+  // Compute streak: consecutive days with routines ending at today (or yesterday)
+  const streakDates = useMemo(() => {
+    if (!routineDates || routineDates.size === 0) return new Set<string>();
+    const todayKey = formatDateKey(today);
+    const dates = new Set<string>();
+    const d = new Date(today);
+    if (!routineDates.has(todayKey)) {
+      d.setDate(d.getDate() - 1);
+    }
+    while (true) {
+      const key = formatDateKey(d);
+      if (routineDates.has(key)) {
+        dates.add(key);
+        d.setDate(d.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+    return dates;
+  }, [routineDates, today]);
+
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 16 }}>
       {weekDays.map((day, i) => {
         const isSelected = isSameDay(day, selectedDate);
         const isToday = isSameDay(day, today);
+        const dayKey = formatDateKey(day);
+        const isStreak = streakDates.has(dayKey);
 
         return (
           <Pressable
@@ -57,7 +86,7 @@ export function WeekStrip({ selectedDate, onSelectDate }: Props) {
               paddingHorizontal: 6,
               borderRadius: Radii.md,
               backgroundColor: isSelected
-                ? scheme === 'light' ? Palette.charcoal : Palette.cloud
+                ? Palette.kangkong
                 : 'transparent',
               opacity: pressed ? 0.7 : 1,
               minWidth: 40,
@@ -67,7 +96,7 @@ export function WeekStrip({ selectedDate, onSelectDate }: Props) {
                 fontSize: 11,
                 fontWeight: '600',
                 color: isSelected
-                  ? (scheme === 'light' ? Palette.cloud : Palette.charcoal)
+                  ? Palette.cloud
                   : c.iconMuted,
                 marginBottom: 6,
               }}>
@@ -78,11 +107,14 @@ export function WeekStrip({ selectedDate, onSelectDate }: Props) {
                 fontSize: 16,
                 fontWeight: '700',
                 color: isSelected
-                  ? (scheme === 'light' ? Palette.cloud : Palette.charcoal)
+                  ? Palette.cloud
                   : c.text,
               }}>
               {day.getDate()}
             </Text>
+            {isStreak && (
+              <Ionicons name="flame" size={12} color={Palette.kamote} style={{ marginTop: 2 }} />
+            )}
           </Pressable>
         );
       })}
