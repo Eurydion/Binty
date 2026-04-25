@@ -1,98 +1,78 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { ScrollView, View, Text } from 'react-native';
+import { useSmartwatch } from '@/hooks/use-smartwatch';
+import { useRoutineStore } from '@/store/use-routine-store';
+import { useUserStore } from '@/store/use-user-store';
+import { useInterventions } from '@/hooks/use-interventions';
+import { InterventionBanner } from '@/components/alerts/intervention-banner';
+import { WaterIntakeCard } from '@/components/cards/water-intake-card';
+import { MealSuggestionCard } from '@/components/cards/meal-suggestion-card';
+import { useRouter } from 'expo-router';
+import { useMealSuggestions } from '@/hooks/use-meal-suggestions';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const snapshot = useSmartwatch();
+  const profile = useUserStore((s) => s.profile);
+  const { waterLoggedMl } = useRoutineStore();
+  const { current, dismiss, markDone } = useInterventions();
+  const router = useRouter();
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const hour = new Date().getHours();
+  const mealType = hour < 11 ? 'breakfast' : hour < 15 ? 'lunch' : 'dinner';
+  const suggestions = useMealSuggestions(mealType, 1);
+  const topMeal = suggestions[0] ?? null;
+
+  return (
+    <ScrollView className="flex-1 bg-gray-50" contentContainerClassName="pb-8">
+      {/* Header */}
+      <View className="px-5 pt-14 pb-4">
+        <Text className="text-2xl font-bold text-gray-900">Binty</Text>
+        <Text className="text-lg text-gray-600 mt-1">
+          How are you, {profile.name}?
+        </Text>
+      </View>
+
+      {/* Intervention alert */}
+      {current && (
+        <View className="mb-4">
+          <InterventionBanner
+            intervention={current}
+            onDismiss={dismiss}
+            onDone={markDone}
+          />
+        </View>
+      )}
+
+      {/* Wellness ring */}
+      <View className="items-center my-6">
+        <View className="w-36 h-36 rounded-full border-8 border-blue-200 items-center justify-center bg-white">
+          <Text className="text-2xl font-bold text-blue-500">
+            {100 - snapshot.latest.stressLevel}
+          </Text>
+          <Text className="text-xs text-gray-400">Wellness</Text>
+        </View>
+      </View>
+
+      {/* Quick stats row */}
+      <View className="flex-row gap-3 px-5 mb-4">
+        <MealSuggestionCard
+          meal={topMeal}
+          onPress={() => router.push('/(tabs)/routine')}
+        />
+        <WaterIntakeCard
+          loggedMl={waterLoggedMl}
+          goalMl={profile.dailyWaterGoalMl}
+        />
+      </View>
+
+      {/* Stress chart placeholder */}
+      <View className="mx-5 rounded-2xl bg-white p-4">
+        <Text className="text-sm font-semibold text-gray-700 mb-2">Stress Analytics</Text>
+        <View className="h-24 bg-gray-50 rounded-xl items-center justify-center">
+          <Text className="text-xs text-gray-400">
+            Stress: {snapshot.latest.stressLevel} · HR: {snapshot.latest.heartRate} bpm
+          </Text>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
