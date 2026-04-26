@@ -1,7 +1,11 @@
 import type { MarketPrice } from '@/types/meals';
+import { resolveNearestMarket } from './market-locator';
+import { fetchAIPriceFallback } from './ai-price-fallback';
 
 const CACHE_TTL_MS = 1000 * 60 * 60; // 1 hour
 const BLUMENTRITT_API = 'https://api.anomura.today/api/markets/500/dashboard';
+const ANOMURA_DASHBOARD = (id: number) =>
+  `https://api.anomura.today/api/markets/${id}/dashboard`;
 
 let _cache: { prices: MarketPrice[]; fetchedAt: number } | null = null;
 
@@ -13,7 +17,7 @@ const API_NAME_TO_ID: Record<string, { id: string; name: string; unit: string }>
   'COMMERCIAL (LOCAL) Premium (Yellow tagged)': { id: 'rice', name: 'Rice', unit: 'kg' },
   'Pork Belly (Liempo)': { id: 'pork-belly', name: 'Pork Belly', unit: 'kg' },
   'Pork Ham (Kasim)': { id: 'pork-ground', name: 'Ground Pork', unit: 'kg' },
-  'Garlic(Imported)': { id: 'bawang', name: 'Bawang (Garlic)', unit: 'kg' },
+  'Garlic(Imported)': { id: 'bawang', name: 'Bawang (Garlic)', unit: 'cloves' },
   'Ginger': { id: 'ginger', name: 'Ginger', unit: 'kg' },
   'Red Onion': { id: 'sibuyas', name: 'Sibuyas (Onion)', unit: 'kg' },
   'Tomato': { id: 'kamatis', name: 'Kamatis (Tomato)', unit: 'kg' },
@@ -49,9 +53,18 @@ const OFFLINE_PRICES: MarketPrice[] = [
   { ingredientId: 'longganisa', name: 'Longganisa', pricePerUnit: 120, unit: 'pack', market: 'Estimate', updatedAt: Date.now() },
   { ingredientId: 'tuyo', name: 'Tuyo (Dried Fish)', pricePerUnit: 80, unit: 'pack', market: 'Estimate', updatedAt: Date.now() },
   { ingredientId: 'tofu', name: 'Tofu', pricePerUnit: 25, unit: 'block', market: 'Estimate', updatedAt: Date.now() },
+  { ingredientId: 'tablea', name: 'Tablea (Cacao Tablets)', pricePerUnit: 8, unit: 'piece', market: 'Estimate', updatedAt: Date.now() },
+  { ingredientId: 'saba', name: 'Saba Banana', pricePerUnit: 5, unit: 'piece', market: 'Estimate', updatedAt: Date.now() },
+  { ingredientId: 'langka', name: 'Jackfruit (Langka)', pricePerUnit: 80, unit: 'kg', market: 'Estimate', updatedAt: Date.now() },
+  { ingredientId: 'lumpia-wrapper', name: 'Lumpia Wrapper', pricePerUnit: 30, unit: 'pack', market: 'Estimate', updatedAt: Date.now() },
+  { ingredientId: 'potato', name: 'Potato', pricePerUnit: 80, unit: 'kg', market: 'Estimate', updatedAt: Date.now() },
+  { ingredientId: 'corn', name: 'Corn on the Cob', pricePerUnit: 15, unit: 'piece', market: 'Estimate', updatedAt: Date.now() },
+  { ingredientId: 'evap-milk', name: 'Evaporated Milk', pricePerUnit: 22, unit: 'can', market: 'Estimate', updatedAt: Date.now() },
+  { ingredientId: 'cooking-oil', name: 'Cooking Oil', pricePerUnit: 85, unit: 'L', market: 'Estimate', updatedAt: Date.now() },
+  { ingredientId: 'sugar', name: 'Brown Sugar', pricePerUnit: 65, unit: 'kg', market: 'Estimate', updatedAt: Date.now() },
 ];
 
-interface BlumentrittDashboard {
+interface MarketDashboard {
   market: { id: number; name: string };
   latestDate: string;
   periods: {
@@ -62,9 +75,9 @@ interface BlumentrittDashboard {
 }
 
 /**
- * Converts the Blumentritt Market API response into our MarketPrice[] format.
+ * Converts a market dashboard API response into our MarketPrice[] format.
  */
-function parseBlumentrittResponse(data: BlumentrittDashboard): MarketPrice[] {
+function parseDashboardResponse(data: MarketDashboard): MarketPrice[] {
   const marketName = data.market.name;
   const now = Date.now();
   const livePrices: MarketPrice[] = [];
@@ -74,24 +87,21 @@ function parseBlumentrittResponse(data: BlumentrittDashboard): MarketPrice[] {
     const mapping = API_NAME_TO_ID[item.name];
     if (!mapping || seenIds.has(mapping.id)) continue;
     seenIds.add(mapping.id);
+
+    // API returns PHP/kg — convert to per-clove for garlic (~200 cloves/kg)
+    const price = mapping.unit === 'cloves' ? item.price / 200 : item.price;
+
     livePrices.push({
       ingredientId: mapping.id,
       name: mapping.name,
-      pricePerUnit: item.price,
+      pricePerUnit: price,
       unit: mapping.unit,
       market: marketName,
       updatedAt: now,
     });
   }
 
-  // Merge: live prices take priority, then offline fallbacks for missing IDs
-  const liveIds = new Set(livePrices.map((p) => p.ingredientId));
-  const merged = [
-    ...livePrices,
-    ...OFFLINE_PRICES.filter((p) => !liveIds.has(p.ingredientId)),
-  ];
-
-  return merged;
+  return livePrices;
 }
 
 /**
@@ -104,7 +114,7 @@ function getStubPricesInternal(): MarketPrice[] {
     { ingredientId: 'rice', name: 'Rice', pricePerUnit: 55, unit: 'kg', market: 'Blumentritt (stub)', updatedAt: now },
     { ingredientId: 'pork-belly', name: 'Pork Belly', pricePerUnit: 420, unit: 'kg', market: 'Blumentritt (stub)', updatedAt: now },
     { ingredientId: 'pork-ground', name: 'Ground Pork', pricePerUnit: 320, unit: 'kg', market: 'Blumentritt (stub)', updatedAt: now },
-    { ingredientId: 'bawang', name: 'Bawang (Garlic)', pricePerUnit: 120, unit: 'kg', market: 'Blumentritt (stub)', updatedAt: now },
+    { ingredientId: 'bawang', name: 'Bawang (Garlic)', pricePerUnit: 0.6, unit: 'cloves', market: 'Blumentritt (stub)', updatedAt: now },
     { ingredientId: 'ginger', name: 'Ginger', pricePerUnit: 160, unit: 'kg', market: 'Blumentritt (stub)', updatedAt: now },
     { ingredientId: 'sibuyas', name: 'Sibuyas (Onion)', pricePerUnit: 120, unit: 'kg', market: 'Blumentritt (stub)', updatedAt: now },
     { ingredientId: 'kamatis', name: 'Kamatis (Tomato)', pricePerUnit: 60, unit: 'kg', market: 'Blumentritt (stub)', updatedAt: now },
@@ -123,12 +133,13 @@ function getStubPricesInternal(): MarketPrice[] {
   return [...blumentrittStubs, ...OFFLINE_PRICES.filter((p) => !stubIds.has(p.ingredientId))];
 }
 
-const getMarketApiUrl = () =>
-  process.env.EXPO_PUBLIC_MARKET_API_URL || BLUMENTRITT_API;
+const getMarketApiUrl = (marketId?: number) =>
+  process.env.EXPO_PUBLIC_MARKET_API_URL ||
+  (marketId ? ANOMURA_DASHBOARD(marketId) : BLUMENTRITT_API);
 
 /**
- * Fetches current market prices from the Blumentritt Market API.
- * Falls back to stub prices on failure.
+ * Fetches current market prices from the nearest wet market via Anomura API.
+ * Falls back to AI-estimated prices for uncovered ingredients, then to stub prices.
  * Results are cached for 1 hour.
  */
 export async function fetchMarketPrices(): Promise<MarketPrice[]> {
@@ -136,13 +147,44 @@ export async function fetchMarketPrices(): Promise<MarketPrice[]> {
     return _cache.prices;
   }
 
-  const apiUrl = getMarketApiUrl();
-
   try {
+    // Resolve nearest market dynamically
+    const market = await resolveNearestMarket();
+    const apiUrl = getMarketApiUrl(market.id);
+
     const response = await fetch(apiUrl);
     if (!response.ok) throw new Error(`Market API error: ${response.status}`);
-    const data: BlumentrittDashboard = await response.json();
-    const prices = parseBlumentrittResponse(data);
+    const data: MarketDashboard = await response.json();
+    const prices = parseDashboardResponse(data);
+
+    // Identify offline-only ingredients that weren't covered by live API
+    const liveIds = new Set(prices.map((p) => p.ingredientId));
+    const missingOffline = OFFLINE_PRICES.filter((p) => !liveIds.has(p.ingredientId));
+
+    // Try AI fallback for the missing ingredients (non-blocking — offline stubs fill gaps on failure)
+    if (missingOffline.length > 0) {
+      let aiPrices: MarketPrice[] = [];
+      try {
+        aiPrices = await fetchAIPriceFallback(
+          missingOffline.map((p) => ({ id: p.ingredientId, name: p.name, unit: p.unit })),
+          market.name,
+        );
+      } catch {
+        // AI unavailable — offline stubs will cover
+      }
+
+      const aiIds = new Set(aiPrices.map((p) => p.ingredientId));
+      // Merge: live > AI > offline stubs
+      const merged = [
+        ...prices,
+        ...aiPrices,
+        ...missingOffline.filter((p) => !aiIds.has(p.ingredientId)),
+      ];
+
+      _cache = { prices: merged, fetchedAt: Date.now() };
+      return merged;
+    }
+
     _cache = { prices, fetchedAt: Date.now() };
     return prices;
   } catch {

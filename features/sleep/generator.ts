@@ -1,7 +1,7 @@
-import type { SleepNight, SleepSegment, SleepStage } from './types';
+﻿import type { SleepNight, SleepSegment, SleepStage } from './types';
 
 /**
- * Deterministic mock night generator. Builds 4–5 realistic NREM→REM cycles
+ * Deterministic mock night generator. Builds 4ΓÇô5 realistic NREMΓåÆREM cycles
  * with brief Awake interruptions. Same `date` always returns the same shape
  * so the UI doesn't flicker across renders.
  */
@@ -20,7 +20,7 @@ function dayOfYear(d: Date): number {
 
 export function generateMockNight(date = new Date()): SleepNight {
   const rand = seededRand(dayOfYear(date) + 1);
-  // bedtime ≈ 22:30 the previous evening (use today 22:30 for display purposes)
+  // bedtime Γëê 22:30 the previous evening (use today 22:30 for display purposes)
   const bedHour = 22 + Math.floor(rand() * 2); // 22 or 23
   const bedMin = Math.floor(rand() * 60);
   const start = new Date(date);
@@ -79,7 +79,7 @@ function computeSummary(startMs: number, endMs: number, segments: SleepSegment[]
   const deepPct = asleep > 0 ? totals.deep / asleep : 0;
   const remPct = asleep > 0 ? totals.rem / asleep : 0;
   const efficiency = durationMinutes > 0 ? asleep / durationMinutes : 0;
-  // weighted quality — favors enough total + deep + rem proportions
+  // weighted quality ΓÇö favors enough total + deep + rem proportions
   const qualityScore = Math.round(
     Math.min(
       100,

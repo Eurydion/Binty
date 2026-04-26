@@ -1,10 +1,22 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import Animated, {
+    Easing,
+    FadeIn,
+    FadeInDown,
+    useAnimatedStyle,
+    useSharedValue,
+    withRepeat,
+    withSequence,
+    withTiming,
+} from 'react-native-reanimated';
+
 import { Borders, Colors, Palette, Radii, Spacing } from '@/constants/theme';
+import { getMascotComponent } from '@/features/mascot/mascot-map';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useUserStore } from '@/store/use-user-store';
 import type { Gender, IntensityPreference, WellnessGoal } from '@/types/user';
@@ -109,21 +121,7 @@ export default function OnboardingScreen() {
         contentContainerStyle={{ padding: Spacing.xl, paddingBottom: 40 }}
         keyboardShouldPersistTaps="handled"
       >
-        {step === 'welcome' && (
-          <View style={{ marginTop: 60, alignItems: 'center' }}>
-            <Text style={{ fontSize: 64 }}>🌱</Text>
-            <Text style={{ color: c.text, fontSize: 30, fontWeight: '800', marginTop: 16, textAlign: 'center' }}>
-              Welcome to Binty
-            </Text>
-            <Text style={{ color: c.text, opacity: 0.7, fontSize: 15, marginTop: 12, textAlign: 'center', lineHeight: 22 }}>
-              Your everyday wellness companion. Tiny habits, gentle nudges, and a calmer day —
-              built for the realities of Filipino life.
-            </Text>
-            <Text style={{ color: c.iconMuted, fontSize: 13, marginTop: 32, textAlign: 'center' }}>
-              We&apos;ll ask a few quick questions to personalize your experience.
-            </Text>
-          </View>
-        )}
+        {step === 'welcome' && <WelcomeStep c={c} scheme={scheme} />}
 
         {step === 'name' && (
           <View style={{ marginTop: 24 }}>
@@ -346,6 +344,111 @@ export default function OnboardingScreen() {
         </Pressable>
       </View>
     </SafeAreaView>
+  );
+}
+
+function WelcomeStep({ c, scheme }: { c: any; scheme: 'light' | 'dark' }) {
+  const MascotSvg = getMascotComponent('energized');
+  const float = useSharedValue(0);
+
+  useEffect(() => {
+    float.value = withRepeat(
+      withSequence(
+        withTiming(-8, { duration: 1800, easing: Easing.inOut(Easing.quad) }),
+        withTiming(0, { duration: 1800, easing: Easing.inOut(Easing.quad) }),
+      ),
+      -1,
+      true,
+    );
+  }, [float]);
+
+  const floatStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: float.value }],
+  }));
+
+  return (
+    <View style={{ marginTop: 40, alignItems: 'center' }}>
+      {/* Mascot with glow ring */}
+      <Animated.View entering={FadeIn.duration(600)} style={floatStyle}>
+        <View
+          style={{
+            width: 160,
+            height: 160,
+            borderRadius: 9999,
+            backgroundColor: Palette.kangkong + '12',
+            borderWidth: 2,
+            borderColor: Palette.kangkong + '28',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <MascotSvg width={120} height={120} />
+        </View>
+      </Animated.View>
+
+      {/* Title */}
+      <Animated.View entering={FadeInDown.delay(200).duration(500)} style={{ alignItems: 'center', marginTop: 28 }}>
+        <Text
+          style={{
+            color: c.text,
+            fontSize: 32,
+            fontWeight: '800',
+            textAlign: 'center',
+            letterSpacing: -0.5,
+          }}
+        >
+          Binty
+        </Text>
+        <Text
+          style={{
+            color: Palette.kangkong,
+            fontSize: 13,
+            fontWeight: '700',
+            letterSpacing: 1.5,
+            marginTop: 6,
+            textAlign: 'center',
+          }}
+        >
+          LESS GUESSING, MORE LIVING
+        </Text>
+      </Animated.View>
+
+      {/* Divider dot */}
+      <Animated.View entering={FadeInDown.delay(350).duration(400)}>
+        <View
+          style={{
+            width: 6,
+            height: 6,
+            borderRadius: 3,
+            backgroundColor: Palette.kangkong + '40',
+            marginVertical: 20,
+          }}
+        />
+      </Animated.View>
+
+      {/* Description */}
+      <Animated.View entering={FadeInDown.delay(450).duration(500)} style={{ paddingHorizontal: 8 }}>
+        <Text
+          style={{
+            color: c.text,
+            opacity: 0.7,
+            fontSize: 15,
+            textAlign: 'center',
+            lineHeight: 24,
+          }}
+        >
+          Your everyday wellness companion.{'\n'}Tiny habits, gentle nudges, and a calmer day —{'\n'}
+          built for the realities of Filipino life.
+        </Text>
+      </Animated.View>
+
+      {/* Subtle hint */}
+      <Animated.View entering={FadeInDown.delay(600).duration(500)}>
+        <Text style={{ color: c.iconMuted, fontSize: 12, marginTop: 36, textAlign: 'center' }}>
+          We&apos;ll ask a few quick questions to personalize your experience.
+        </Text>
+      </Animated.View>
+    </View>
   );
 }
 

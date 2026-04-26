@@ -38,6 +38,13 @@ export default function RootLayout() {
   usePhonePedometer();
 
   useEffect(() => {
+    // DEV ONLY: clear cached routines so recipe changes take effect — remove after confirming
+    if (__DEV__) {
+      import('@/services/storage').then(({ removeByPrefix, ROUTINE_PREFIX }) =>
+        removeByPrefix(ROUTINE_PREFIX),
+      );
+    }
+
     hydrate();
     hydrateTips();
     hydrateHabits();
@@ -73,7 +80,7 @@ export default function RootLayout() {
         <Stack.Screen name="habits" options={{ title: 'Habits' }} />
         <Stack.Screen name="modals/intervention" options={{ presentation: 'modal', title: 'Alert' }} />
         <Stack.Screen name="modals/log-meal" options={{ presentation: 'modal', title: 'Log Meal' }} />
-        <Stack.Screen name="modals/log-water" options={{ presentation: 'modal', title: 'Log Water' }} />
+        <Stack.Screen name="modals/log-water" options={{ presentation: 'modal', title: 'Log your water intake' }} />
         <Stack.Screen name="modals/insights" options={{ presentation: 'modal', title: 'Insights' }} />
         <Stack.Screen name="modals/tip-detail" options={{ presentation: 'modal', title: 'Daily Tip' }} />
         <Stack.Screen name="modals/scenario-picker" options={{ presentation: 'modal', title: 'Trigger Simulation' }} />

@@ -1,5 +1,4 @@
 import { enrichMealWithPrices } from '@/features/meals/ingredient-calculator';
-import { fetchMarketPrices } from '@/features/meals/market-api';
 import { FILIPINO_MEALS } from '@/features/meals/recipes';
 import type { HealthSnapshot } from '@/types/health';
 import type { Meal } from '@/types/meals';
@@ -15,6 +14,12 @@ import type {
 } from '@/types/routine';
 import type { UserProfile, WellnessGoal } from '@/types/user';
 import { generateRoutineWithAI } from './ai-generator';
+import {
+  JSON_LIGHT_MOVEMENT,
+  JSON_MEDIUM_MOVEMENT,
+  JSON_MINDFULNESS,
+  JSON_STRENGTH,
+} from './json-routines';
 
 // ─── Seeded PRNG (mulberry32) ───────────────────────────────────
 
@@ -221,6 +226,43 @@ const EVENING_WIND_DOWN: ActivityDef = {
   type: "mindfulness",
   description: "Dim lights, no screens, gentle stretching and breathing to prepare for sleep.",
 };
+
+// ─── Merge JSON-defined exercises into hardcoded pools ──────────
+
+(() => {
+  const seen = new Set<string>();
+
+  const collect = (pool: ActivityDef[]) => {
+    for (const a of pool) seen.add(a.title.toLowerCase());
+  };
+  collect(FITNESS_MORNING);
+  collect(FITNESS_AFTERNOON);
+  collect(FITNESS_EVENING);
+  collect(MINDFULNESS_POOL);
+  collect(RECOVERY_POOL);
+  collect(ENERGIZING_POOL);
+  collect(STRENGTH_POOL);
+
+  const pushUnique = (pool: ActivityDef[], items: ActivityDef[]) => {
+    for (const it of items) {
+      const key = it.title.toLowerCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      pool.push(it);
+    }
+  };
+
+  // Breathing + stationary → mindfulness
+  pushUnique(MINDFULNESS_POOL, JSON_MINDFULNESS);
+  // Light movement → recovery + evening fitness (both are light-intensity buckets)
+  pushUnique(RECOVERY_POOL, JSON_LIGHT_MOVEMENT);
+  pushUnique(FITNESS_EVENING, JSON_LIGHT_MOVEMENT);
+  // Medium cardio → morning + afternoon fitness pools
+  pushUnique(FITNESS_MORNING, JSON_MEDIUM_MOVEMENT);
+  pushUnique(FITNESS_AFTERNOON, JSON_MEDIUM_MOVEMENT);
+  // Heavy weightlifting → strength pool
+  pushUnique(STRENGTH_POOL, JSON_STRENGTH);
+})();
 
 // ─── Health analysis helpers ────────────────────────────────────
 
@@ -495,13 +537,9 @@ export async function generateLocalRoutine(
   const sleep = parseTime(user.sleepTime);
   const hp = analyzeHealth(user, health);
 
-  // Fetch live prices to enrich meals
-  let prices: Awaited<ReturnType<typeof fetchMarketPrices>>;
-  try {
-    prices = await fetchMarketPrices();
-  } catch {
-    prices = [];
-  }
+  // Use stub prices for instant generation — live prices are fetched separately by the UI
+  const { getStubPrices } = await import('@/features/meals/market-api');
+  const prices = getStubPrices();
 
   const enrich = (meal: Meal) =>
     prices.length > 0 ? enrichMealWithPrices(meal, prices) : meal;

@@ -32,29 +32,34 @@ export function ConnectionCard() {
           borderWidth: 1,
           borderColor: Borders.hairline[scheme],
           backgroundColor: c.surface,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
           gap: Spacing.md,
         }}
       >
-        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, flexShrink: 1 }}>
+        {/* Top row: icon + title + connection indicator */}
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
           <Ionicons name="watch-outline" size={20} color={c.icon} />
-          <View style={{ flexShrink: 1 }}>
-            <Text style={{ fontSize: 14, fontWeight: '700', color: c.text }}>Smartwatch</Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 2 }}>
-              <View
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: 9999,
-                  backgroundColor: dotColor,
-                }}
-              />
-              <Text style={{ fontSize: 12, color: c.iconMuted }}>{label}</Text>
-            </View>
+          <Text style={{ fontSize: 14, fontWeight: '700', color: c.text }}>Smartwatch</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: 6,
+              marginLeft: 'auto',
+            }}
+          >
+            <View
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: 9999,
+                backgroundColor: dotColor,
+              }}
+            />
+            <Text style={{ fontSize: 12, color: c.iconMuted }}>{label}</Text>
           </View>
         </View>
+
+        {/* Bottom row: action buttons */}
         <View style={{ flexDirection: 'row', gap: 8 }}>
           {connection === 'disconnected' ? (
             <PrimaryBtn label="Connect" onPress={connect} scheme={scheme} />

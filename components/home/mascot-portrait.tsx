@@ -1,58 +1,67 @@
-import { Ionicons } from '@expo/vector-icons';
-import { Image, Text, View } from 'react-native';
+import { useEffect, useRef } from 'react';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withSequence,
+  withTiming,
+} from 'react-native-reanimated';
 
-import { getMascotSource } from '@/features/mascot/mascot-map';
+import { getMascotComponent } from '@/features/mascot/mascot-map';
+import { Motion } from '@/constants/theme';
 import type { EmotionalState } from '@/types/health';
-
-type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
 
 interface Props {
   state: EmotionalState;
   size?: number;
-  accent: string;
-  fallbackIcon?: IoniconName;
 }
 
-export function MascotPortrait({ state, size = 96, accent, fallbackIcon = 'happy-outline' }: Props) {
-  const source = getMascotSource(state);
+export function MascotPortrait({ state, size = 96 }: Props) {
+  const SvgComponent = getMascotComponent(state);
+  const prevState = useRef(state);
+
+  const opacity = useSharedValue(1);
+  const scale = useSharedValue(1);
+
+  useEffect(() => {
+    if (prevState.current !== state) {
+      prevState.current = state;
+      const dur = Motion.timing.base;
+      const ease = Easing.out(Easing.quad);
+
+      // fade out → swap → fade in + gentle bounce
+      opacity.value = withSequence(
+        withTiming(0, { duration: dur, easing: ease }),
+        withTiming(1, { duration: dur, easing: ease }),
+      );
+      scale.value = withSequence(
+        withTiming(0.85, { duration: dur, easing: ease }),
+        withTiming(1.05, { duration: dur * 0.6, easing: ease }),
+        withTiming(1, { duration: dur * 0.4, easing: ease }),
+      );
+    }
+  }, [state, opacity, scale]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+    transform: [{ scale: scale.value }],
+  }));
 
   return (
-    <View
-      style={{
-        width: size,
-        height: size,
-        borderRadius: size / 2,
-        backgroundColor: accent + '22',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-      }}
+    <Animated.View
+      style={[
+        {
+          width: size,
+          height: size,
+          alignItems: 'center',
+          justifyContent: 'center',
+        },
+        animatedStyle,
+      ]}
       accessibilityRole="image"
       accessibilityLabel={`Binty mascot — ${state}`}
     >
-      {source ? (
-        <Image
-          source={source}
-          style={{ width: size, height: size }}
-          resizeMode="cover"
-        />
-      ) : (
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Ionicons name={fallbackIcon} size={size * 0.5} color={accent} />
-          <Text
-            style={{
-              position: 'absolute',
-              bottom: -size * 0.02,
-              fontSize: size * 0.18,
-              fontWeight: '700',
-              color: accent,
-              opacity: 0.6,
-            }}
-          >
-            B
-          </Text>
-        </View>
-      )}
-    </View>
+      <SvgComponent width={size} height={size} />
+    </Animated.View>
   );
 }

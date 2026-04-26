@@ -1,4 +1,3 @@
-import { Ionicons } from '@expo/vector-icons';
 import { Text, View } from 'react-native';
 
 import { MascotPortrait } from '@/components/home/mascot-portrait';
@@ -8,14 +7,12 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useUserStore } from '@/store/use-user-store';
 import type { EmotionalState } from '@/types/health';
 
-type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
-
-const STATE_META: Record<EmotionalState, { icon: IoniconName; accent: string; label: string }> = {
-  calm: { icon: 'happy-outline', accent: Palette.kangkong, label: 'Calm' },
-  energized: { icon: 'sunny-outline', accent: Palette.kamote, label: 'Energized' },
-  anxious: { icon: 'alert-circle-outline', accent: Palette.teal, label: 'Anxious' },
-  stressed: { icon: 'sad-outline', accent: Palette.kamote, label: 'Stressed' },
-  sad: { icon: 'rainy-outline', accent: Palette.silverBlue, label: 'Low' },
+const STATE_META: Record<EmotionalState, { accent: string; label: string }> = {
+  calm: { accent: Palette.kangkong, label: 'Calm' },
+  energized: { accent: Palette.kamote, label: 'Energized' },
+  anxious: { accent: Palette.teal, label: 'Anxious' },
+  stressed: { accent: Palette.kamote, label: 'Stressed' },
+  sad: { accent: Palette.silverBlue, label: 'Low' },
 };
 
 interface Props {
@@ -46,8 +43,6 @@ export function BintyInsight({ state }: Props) {
         <MascotPortrait
           state={state}
           size={104}
-          accent={meta.accent}
-          fallbackIcon={meta.icon}
         />
 
         <View style={{ flex: 1, marginLeft: 18 }}>

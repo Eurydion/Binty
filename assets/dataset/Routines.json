@@ -1,4 +1,4 @@
-{
+﻿{
   "categories": [
     {
       "id": "breathing",
@@ -40,7 +40,7 @@
             "Inhale deeply through nose.",
             "Take a second short inhale on top.",
             "Long slow exhale through mouth.",
-            "Repeat 3–6 times."
+            "Repeat 3ΓÇô6 times."
           ]
         },
         {
@@ -53,7 +53,7 @@
             "Inhale through nose, 5 sec.",
             "Exhale through nose, 5 sec.",
             "Keep smooth, no pauses.",
-            "Continue for 5–10 minutes."
+            "Continue for 5ΓÇô10 minutes."
           ]
         },
         {
@@ -76,10 +76,10 @@
           "summary": "Deep belly breathing to lower baseline stress.",
           "steps": [
             "Lie down, hand on belly.",
-            "Inhale through nose — belly rises.",
+            "Inhale through nose ΓÇö belly rises.",
             "Pause briefly at top.",
-            "Exhale through pursed lips — belly falls.",
-            "Continue 5–10 minutes."
+            "Exhale through pursed lips ΓÇö belly falls.",
+            "Continue 5ΓÇô10 minutes."
           ]
         },
         {
@@ -92,7 +92,7 @@
             "Inhale through nose, 2 sec.",
             "Pucker lips like blowing a candle.",
             "Exhale slowly, 4 sec.",
-            "Repeat for 2–5 minutes."
+            "Repeat for 2ΓÇô5 minutes."
           ]
         },
         {
@@ -105,7 +105,7 @@
             "Inhale deeply through nose.",
             "Open mouth, stick tongue out.",
             "Exhale loudly with 'haaa'.",
-            "Repeat 4–6 times."
+            "Repeat 4ΓÇô6 times."
           ]
         },
         {
@@ -125,11 +125,11 @@
           "id": "three-part-breath",
           "title": "Three-Part Breath",
           "duration_minutes": 5,
-          "summary": "Fill belly, ribs, chest — then reverse.",
+          "summary": "Fill belly, ribs, chest ΓÇö then reverse.",
           "steps": [
             "Sit or lie comfortably.",
-            "Inhale: belly → ribs → chest.",
-            "Exhale: chest → ribs → belly.",
+            "Inhale: belly ΓåÆ ribs ΓåÆ chest.",
+            "Exhale: chest ΓåÆ ribs ΓåÆ belly.",
             "Keep one continuous breath.",
             "Repeat 10 rounds."
           ]
@@ -144,7 +144,7 @@
             "Curl the tongue into a tube (or purse lips).",
             "Inhale slowly through the curled tongue, 4 sec.",
             "Close mouth, exhale through nose, 6 sec.",
-            "Repeat for 3–5 minutes."
+            "Repeat for 3ΓÇô5 minutes."
           ]
         },
         {
@@ -157,7 +157,7 @@
             "Forceful inhale + exhale through nose (1 sec each).",
             "Do 20 rounds at moderate pace.",
             "Pause 30 sec, breathe normally.",
-            "Repeat for 2–3 sets."
+            "Repeat for 2ΓÇô3 sets."
           ]
         },
         {
@@ -170,7 +170,7 @@
             "Inhale through nose, 5.5 sec.",
             "Exhale through nose, 5.5 sec.",
             "Continue smoothly without holds.",
-            "Aim for 5–10 minutes."
+            "Aim for 5ΓÇô10 minutes."
           ]
         },
         {
@@ -183,7 +183,7 @@
             "Inhale slowly through the nose.",
             "Exhale humming a low 'mmm' sound.",
             "Feel the vibration in your face and chest.",
-            "Repeat 8–12 rounds."
+            "Repeat 8ΓÇô12 rounds."
           ]
         },
         {
@@ -196,7 +196,7 @@
             "Slightly constrict the back of the throat.",
             "Inhale through nose with a soft ocean-like sound.",
             "Exhale the same way, equal length.",
-            "Continue for 5–8 minutes."
+            "Continue for 5ΓÇô8 minutes."
           ]
         }
       ]
@@ -228,8 +228,8 @@
             "Lie down comfortably.",
             "Tense each muscle 5 sec.",
             "Release for 10 sec.",
-            "Move feet → calves → thighs → up to face.",
-            "Rest 1–2 min after."
+            "Move feet ΓåÆ calves ΓåÆ thighs ΓåÆ up to face.",
+            "Rest 1ΓÇô2 min after."
           ]
         },
         {
@@ -495,7 +495,7 @@
             "Shift weight side to side.",
             "Trace slow circles with hands.",
             "Move continuously, breathe through nose.",
-            "Continue 5–10 minutes."
+            "Continue 5ΓÇô10 minutes."
           ]
         },
         {
@@ -508,7 +508,7 @@
             "Imagine roots from your feet.",
             "Arms in front, hugging a tree shape.",
             "Soften shoulders, breathe slowly.",
-            "Hold 3–8 minutes."
+            "Hold 3ΓÇô8 minutes."
           ]
         },
         {
@@ -530,9 +530,9 @@
           "duration_minutes": 8,
           "summary": "Roll out tight muscles to release tension.",
           "steps": [
-            "Calves: 30–60 sec/leg.",
-            "Hamstrings: 30–60 sec/leg.",
-            "Glutes: 30–60 sec/side.",
+            "Calves: 30ΓÇô60 sec/leg.",
+            "Hamstrings: 30ΓÇô60 sec/leg.",
+            "Glutes: 30ΓÇô60 sec/side.",
             "Upper back: 60 sec.",
             "Feet (tennis ball): 30 sec/foot."
           ]
@@ -568,10 +568,10 @@
           "duration_minutes": 6,
           "summary": "Beginner-friendly yoga flow.",
           "steps": [
-            "Mountain → reach overhead → fold.",
-            "Half lift → step back to plank.",
-            "Lower → cobra → down dog.",
-            "Step forward → fold → mountain.",
+            "Mountain ΓåÆ reach overhead ΓåÆ fold.",
+            "Half lift ΓåÆ step back to plank.",
+            "Lower ΓåÆ cobra ΓåÆ down dog.",
+            "Step forward ΓåÆ fold ΓåÆ mountain.",
             "Repeat 3 rounds."
           ]
         },
@@ -607,9 +607,9 @@
           "duration_minutes": 12,
           "summary": "Slow indoor lap focused on every step.",
           "steps": [
-            "Pick a 5–10 step path.",
+            "Pick a 5ΓÇô10 step path.",
             "Walk at half-pace, hands clasped.",
-            "Notice heel → ball → toe of each step.",
+            "Notice heel ΓåÆ ball ΓåÆ toe of each step.",
             "Pause and turn at each end.",
             "Continue 10 minutes."
           ]
@@ -635,7 +635,7 @@
           "steps": [
             "Ankle circles + calf raises, 1 min.",
             "World's greatest stretch, 1 min/side.",
-            "Down dog → cobra, 5 rounds.",
+            "Down dog ΓåÆ cobra, 5 rounds.",
             "T-spine rotations, 1 min/side.",
             "Shoulder pass-throughs with towel, 1 min."
           ]
@@ -655,8 +655,8 @@
           "steps": [
             "Walk easy 3 min to warm up.",
             "Increase pace, talk-but-not-sing effort.",
-            "Maintain 15–25 min, posture tall.",
-            "Cool down 2–3 min easy.",
+            "Maintain 15ΓÇô25 min, posture tall.",
+            "Cool down 2ΓÇô3 min easy.",
             "Stretch low back, 30 sec."
           ]
         },
@@ -668,7 +668,7 @@
           "steps": [
             "Walk 3 min, dynamic stretches.",
             "Jog at conversational pace.",
-            "Continue 10–18 min.",
+            "Continue 10ΓÇô18 min.",
             "Walk 3 min cool down.",
             "Stretch quads, hamstrings, calves."
           ]
@@ -680,7 +680,7 @@
           "summary": "Yoga flow at one breath per pose.",
           "steps": [
             "Start in mountain pose.",
-            "5–8 rounds of Sun Salutation A.",
+            "5ΓÇô8 rounds of Sun Salutation A.",
             "Add Sun Salutation B for variety.",
             "Child's pose, 1 min.",
             "Savasana, 2 min."
@@ -693,10 +693,10 @@
           "summary": "Strength + cardio with no equipment.",
           "steps": [
             "Warm up 3 min.",
-            "Squats × 15.",
-            "Push-ups × 10.",
-            "Reverse lunges × 10/leg.",
-            "Plank 30 sec + glute bridges × 15. (3 rounds)"
+            "Squats ├ù 15.",
+            "Push-ups ├ù 10.",
+            "Reverse lunges ├ù 10/leg.",
+            "Plank 30 sec + glute bridges ├ù 15. (3 rounds)"
           ]
         },
         {
@@ -705,9 +705,9 @@
           "duration_minutes": 25,
           "summary": "Steady cycling at moderate effort.",
           "steps": [
-            "Adjust seat — slight knee bend at bottom.",
+            "Adjust seat ΓÇö slight knee bend at bottom.",
             "Warm up 3 min easy.",
-            "20 min steady at 5–6/10 effort.",
+            "20 min steady at 5ΓÇô6/10 effort.",
             "Cool down 3 min light.",
             "Stretch quads and hip flexors."
           ]
@@ -718,7 +718,7 @@
           "duration_minutes": 20,
           "summary": "Upbeat playlist, free movement.",
           "steps": [
-            "Queue 4–6 upbeat songs.",
+            "Queue 4ΓÇô6 upbeat songs.",
             "Warm up first song.",
             "Move freely middle songs.",
             "Cool down on final song.",
@@ -747,7 +747,7 @@
             "Choose trail with mild elevation.",
             "Tell someone your plan.",
             "Steady conversational pace.",
-            "Pause every 15–20 min for water.",
+            "Pause every 15ΓÇô20 min for water.",
             "Stretch calves, hamstrings, hip flexors."
           ]
         },
@@ -758,7 +758,7 @@
           "summary": "Quick, effective interval cardio.",
           "steps": [
             "Warm up 1 min light jumping.",
-            "30 sec on / 15 sec rest × 10 rounds.",
+            "30 sec on / 15 sec rest ├ù 10 rounds.",
             "Land soft on balls of feet.",
             "Cool down 1 min walking.",
             "Stretch calves and shoulders."
@@ -771,8 +771,8 @@
           "summary": "Yoga flow with warriors and triangle.",
           "steps": [
             "Warm up: 3 sun salutations.",
-            "Warrior 1 → 2 → reverse → triangle (each side).",
-            "Repeat flow 2–3 rounds.",
+            "Warrior 1 ΓåÆ 2 ΓåÆ reverse ΓåÆ triangle (each side).",
+            "Repeat flow 2ΓÇô3 rounds.",
             "Seated stretches 1 min each.",
             "Savasana 3 min."
           ]
@@ -781,12 +781,12 @@
           "id": "stair-climbing",
           "title": "Stair Climbing",
           "duration_minutes": 15,
-          "summary": "Climb up, walk down — repeat.",
+          "summary": "Climb up, walk down ΓÇö repeat.",
           "steps": [
             "Warm up 2 min walking.",
             "Climb steady 5 min.",
             "Walk down to recover.",
-            "Repeat 2–4 cycles.",
+            "Repeat 2ΓÇô4 cycles.",
             "Stretch calves and quads."
           ]
         },
@@ -796,9 +796,9 @@
           "duration_minutes": 20,
           "summary": "Steady rowing for full-body cardio.",
           "steps": [
-            "Strap feet, damper 4–6.",
+            "Strap feet, damper 4ΓÇô6.",
             "Warm up 3 min easy.",
-            "12–20 min at 24–28 strokes/min.",
+            "12ΓÇô20 min at 24ΓÇô28 strokes/min.",
             "Cool down 2 min easy.",
             "Stretch low back and hamstrings."
           ]
@@ -810,7 +810,7 @@
           "summary": "20s on / 10s off intervals across 4 moves.",
           "steps": [
             "Warm up 3 min: jog in place + arm circles.",
-            "Round 1 (4 min): squats — 20s on / 10s off × 8.",
+            "Round 1 (4 min): squats ΓÇö 20s on / 10s off ├ù 8.",
             "Round 2 (4 min): push-ups same pattern.",
             "Round 3 (4 min): mountain climbers same pattern.",
             "Cool down 2 min walking + stretch."
@@ -824,7 +824,7 @@
           "steps": [
             "Warm up 2 min: shoulder rolls, light bouncing.",
             "Stance: hands up, chin tucked, feet split.",
-            "3 min jab-cross combos × 3 rounds.",
+            "3 min jab-cross combos ├ù 3 rounds.",
             "30 sec rest between rounds.",
             "Cool down: arm + back stretches, 2 min."
           ]
@@ -849,7 +849,7 @@
           "summary": "Low-impact steady cardio at conversational pace.",
           "steps": [
             "Warm up 3 min easy resistance.",
-            "Steady at 5–6/10 effort for 22 min.",
+            "Steady at 5ΓÇô6/10 effort for 22 min.",
             "Light pole pull engages upper body.",
             "Cool down 3 min easy.",
             "Stretch quads and calves."
@@ -859,10 +859,10 @@
           "id": "incline-walk",
           "title": "Incline Treadmill Walk",
           "duration_minutes": 25,
-          "summary": "Brisk walk on an incline — easy on joints.",
+          "summary": "Brisk walk on an incline ΓÇö easy on joints.",
           "steps": [
             "Warm up 3 min flat at easy pace.",
-            "Set incline 6–10%, brisk walk pace.",
+            "Set incline 6ΓÇô10%, brisk walk pace.",
             "Hold posture tall, no hand-railing.",
             "Walk 18 min, cool down 3 min flat.",
             "Stretch calves and hip flexors."
@@ -878,20 +878,20 @@
         {
           "id": "back-squat",
           "title": "Barbell Back Squat",
-          "sets_reps": "4 × 5–8",
+          "sets_reps": "4 ├ù 5ΓÇô8",
           "summary": "Heavy squat for full-body strength.",
           "steps": [
             "Bar across upper back, feet shoulder-width.",
             "Brace core, big breath in.",
             "Sit hips back and down to parallel.",
             "Drive through heels to stand.",
-            "Rest 2–3 min, repeat."
+            "Rest 2ΓÇô3 min, repeat."
           ]
         },
         {
           "id": "deadlift",
           "title": "Conventional Deadlift",
-          "sets_reps": "3 × 5",
+          "sets_reps": "3 ├ù 5",
           "summary": "Lift the bar from the floor with strong hinge.",
           "steps": [
             "Bar over mid-foot, grip outside shins.",
@@ -904,12 +904,12 @@
         {
           "id": "bench-press",
           "title": "Bench Press",
-          "sets_reps": "4 × 6–10",
+          "sets_reps": "4 ├ù 6ΓÇô10",
           "summary": "Press the bar from chest to overhead.",
           "steps": [
             "Lie flat, eyes under the bar.",
             "Shoulder blades pinched back and down.",
-            "Lower bar to mid-chest, elbows ~45°.",
+            "Lower bar to mid-chest, elbows ~45┬░.",
             "Press up over shoulders.",
             "Re-rack with control."
           ]
@@ -917,7 +917,7 @@
         {
           "id": "overhead-press",
           "title": "Overhead Press",
-          "sets_reps": "4 × 6–8",
+          "sets_reps": "4 ├ù 6ΓÇô8",
           "summary": "Press the bar from shoulders overhead.",
           "steps": [
             "Bar at shoulders, grip just outside.",
@@ -930,7 +930,7 @@
         {
           "id": "pull-ups",
           "title": "Pull-Ups",
-          "sets_reps": "4 × max",
+          "sets_reps": "4 ├ù max",
           "summary": "Pull yourself up to the bar.",
           "steps": [
             "Hang, hands shoulder-width.",
@@ -943,7 +943,7 @@
         {
           "id": "rdl",
           "title": "Romanian Deadlift",
-          "sets_reps": "3 × 8–10",
+          "sets_reps": "3 ├ù 8ΓÇô10",
           "summary": "Hip hinge to target hamstrings and glutes.",
           "steps": [
             "Stand tall, bar in front of thighs.",
@@ -956,10 +956,10 @@
         {
           "id": "barbell-row",
           "title": "Bent-Over Row",
-          "sets_reps": "4 × 8",
+          "sets_reps": "4 ├ù 8",
           "summary": "Row the bar to your lower ribs.",
           "steps": [
-            "Hinge to ~45°, back flat.",
+            "Hinge to ~45┬░, back flat.",
             "Grip bar just outside knees.",
             "Pull bar to lower ribs.",
             "Squeeze shoulder blades.",
@@ -969,25 +969,25 @@
         {
           "id": "goblet-squat",
           "title": "Goblet Squat",
-          "sets_reps": "3 × 10–12",
+          "sets_reps": "3 ├ù 10ΓÇô12",
           "summary": "Beginner-friendly squat with a weight at chest.",
           "steps": [
             "Hold dumbbell at chest.",
             "Feet slightly wider than shoulders.",
             "Sit hips down between feet.",
             "Drive through whole foot to stand.",
-            "Rest 60–90 sec."
+            "Rest 60ΓÇô90 sec."
           ]
         },
         {
           "id": "db-lunges",
           "title": "Dumbbell Lunges",
-          "sets_reps": "3 × 10/leg",
+          "sets_reps": "3 ├ù 10/leg",
           "summary": "Single-leg strength with dumbbells.",
           "steps": [
             "Dumbbell in each hand at sides.",
             "Step right foot forward.",
-            "Lower until both knees ~90°.",
+            "Lower until both knees ~90┬░.",
             "Push through front heel to stand.",
             "Alternate legs."
           ]
@@ -995,7 +995,7 @@
         {
           "id": "kb-swing",
           "title": "Kettlebell Swing",
-          "sets_reps": "5 × 15–20",
+          "sets_reps": "5 ├ù 15ΓÇô20",
           "summary": "Explosive hip-hinge swing.",
           "steps": [
             "Hinge, grab kettlebell with both hands.",
@@ -1008,20 +1008,20 @@
         {
           "id": "farmers-carry",
           "title": "Farmer's Carry",
-          "sets_reps": "4 × 30–40m",
+          "sets_reps": "4 ├ù 30ΓÇô40m",
           "summary": "Walk holding heavy dumbbells.",
           "steps": [
             "Pick up a heavy DB in each hand.",
             "Stand tall, core braced.",
-            "Walk slow and steady, 30–40 m.",
+            "Walk slow and steady, 30ΓÇô40 m.",
             "Set down with control.",
-            "Rest 60–90 sec."
+            "Rest 60ΓÇô90 sec."
           ]
         },
         {
           "id": "ppl-week",
           "title": "Push / Pull / Legs Plan",
-          "frequency": "3–6 days/week",
+          "frequency": "3ΓÇô6 days/week",
           "summary": "Structured weekly program for full-body strength.",
           "steps": [
             "Push day: bench, OHP, incline DB, raises, triceps.",
@@ -1034,25 +1034,25 @@
         {
           "id": "front-squat",
           "title": "Front Squat",
-          "sets_reps": "4 × 5–8",
+          "sets_reps": "4 ├ù 5ΓÇô8",
           "summary": "Front-loaded squat that hammers quads and core.",
           "steps": [
             "Bar across front delts, elbows high.",
             "Brace core, take a big breath.",
             "Sit straight down, knees track toes.",
             "Drive up through whole foot.",
-            "Rest 2–3 min, repeat."
+            "Rest 2ΓÇô3 min, repeat."
           ]
         },
         {
           "id": "incline-bench",
           "title": "Incline Bench Press",
-          "sets_reps": "4 × 6–10",
+          "sets_reps": "4 ├ù 6ΓÇô10",
           "summary": "Targets upper chest and front shoulders.",
           "steps": [
-            "Bench at 30–45°, feet planted.",
+            "Bench at 30ΓÇô45┬░, feet planted.",
             "Pinch shoulder blades back and down.",
-            "Lower bar to upper chest, elbows ~45°.",
+            "Lower bar to upper chest, elbows ~45┬░.",
             "Press up over shoulders.",
             "Re-rack with control."
           ]
@@ -1060,10 +1060,10 @@
         {
           "id": "bulgarian-split-squat",
           "title": "Bulgarian Split Squat",
-          "sets_reps": "3 × 8–10/leg",
+          "sets_reps": "3 ├ù 8ΓÇô10/leg",
           "summary": "Single-leg squat with rear foot elevated.",
           "steps": [
-            "Rear foot on bench, front foot 2–3 ft ahead.",
+            "Rear foot on bench, front foot 2ΓÇô3 ft ahead.",
             "Hold dumbbells at sides.",
             "Lower until front thigh is parallel.",
             "Drive through front heel to stand.",
@@ -1073,11 +1073,11 @@
         {
           "id": "hip-thrust",
           "title": "Barbell Hip Thrust",
-          "sets_reps": "3 × 8–12",
+          "sets_reps": "3 ├ù 8ΓÇô12",
           "summary": "Heavy glute lift from a bench-supported bridge.",
           "steps": [
             "Upper back on bench, bar across hips (use pad).",
-            "Feet flat, knees bent ~90° at top.",
+            "Feet flat, knees bent ~90┬░ at top.",
             "Drive hips up, squeeze glutes hard.",
             "Pause 1 sec at top.",
             "Lower with control, repeat."
@@ -1086,7 +1086,7 @@
         {
           "id": "lat-pulldown",
           "title": "Lat Pulldown",
-          "sets_reps": "4 × 8–12",
+          "sets_reps": "4 ├ù 8ΓÇô12",
           "summary": "Vertical pull for lats and upper back.",
           "steps": [
             "Sit, thighs locked under pad.",
@@ -1099,7 +1099,7 @@
         {
           "id": "db-shoulder-press",
           "title": "Seated Dumbbell Shoulder Press",
-          "sets_reps": "4 × 8–10",
+          "sets_reps": "4 ├ù 8ΓÇô10",
           "summary": "Strict overhead press without lower-back strain.",
           "steps": [
             "Sit upright on bench with back support.",
