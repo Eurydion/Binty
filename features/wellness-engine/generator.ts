@@ -231,7 +231,6 @@ const EVENING_WIND_DOWN: ActivityDef = {
 
 (() => {
   const seen = new Set<string>();
-
   const collect = (pool: ActivityDef[]) => {
     for (const a of pool) seen.add(a.title.toLowerCase());
   };
