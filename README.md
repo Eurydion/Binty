@@ -31,7 +31,7 @@ Binty is an intelligent, culturally-aware wellness companion that:
 - **Smartwatch bridge** — Stubbed integration layer for BLE / Health Connect / HealthKit for future wearable support
 
 ### Intelligent Routine Engine
-- **AI-powered routine generation** — Creates personalized daily plans using OpenAI (configurable provider) based on health snapshot, goals, and intensity preference
+- **AI-powered routine generation** — Creates personalized daily plans using Gemini (configurable provider) based on health snapshot, goals, and intensity preference
 - **Local fallback generator** — Offline routine generation from curated exercise and meal pools when AI is unavailable
 - **JSON-defined exercise library** — Extensible dataset of categorized exercises (mindfulness, light/medium movement, strength) loaded from `assets/dataset/Routines.json`
 - **Slot swapping** — Users can swap meals or activities within their daily plan via a bottom sheet UI

@@ -3,22 +3,21 @@ import { FILIPINO_MEALS } from '@/features/meals/recipes';
 import type { HealthSnapshot } from '@/types/health';
 import type { Meal } from '@/types/meals';
 import type {
-  ActivitySlot,
-  DailyRoutine,
-  HydrationSlot,
-  IntensityLevel,
-  MealSlot,
-  RoutineBlock,
-  RoutineCategoryTag,
-  SlotAlternative,
+    ActivitySlot,
+    DailyRoutine,
+    HydrationSlot,
+    IntensityLevel,
+    MealSlot,
+    RoutineBlock,
+    RoutineCategoryTag,
+    SlotAlternative,
 } from '@/types/routine';
 import type { UserProfile, WellnessGoal } from '@/types/user';
-import { generateRoutineWithAI } from './ai-generator';
 import {
-  JSON_LIGHT_MOVEMENT,
-  JSON_MEDIUM_MOVEMENT,
-  JSON_MINDFULNESS,
-  JSON_STRENGTH,
+    JSON_LIGHT_MOVEMENT,
+    JSON_MEDIUM_MOVEMENT,
+    JSON_MINDFULNESS,
+    JSON_STRENGTH,
 } from './json-routines';
 
 // ─── Seeded PRNG (mulberry32) ───────────────────────────────────
